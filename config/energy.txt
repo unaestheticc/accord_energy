@@ -26,7 +26,7 @@
         "Binding Radius": 1.025e-6,
         "Is Energy Enabled?": true,
         "Energy Cost Type": "detection",
-        "Energy Cost Value": 4e-5,
+        "Energy Cost Value": 4e-10,
         "Energy Cost Unit": "per_reaction"
       },
       {
@@ -41,7 +41,22 @@
         "Binding Radius": 4e-6,
         "Is Energy Enabled?": true,
         "Energy Cost Type": "communication",
-        "Energy Cost Value": 0.5e-4,
+        "Energy Cost Value": 4e-5,
+        "Energy Cost Unit": "per_reaction"
+      },
+            {
+        "Label": "Nanosensor Double detection (BM + NM_detected → NM_detected )",
+        "Is Reaction Reversible?": false,
+        "Surface Reaction?": false,
+        "Default Everywhere?": true,
+        "Exception Regions": [],
+        "Reactants": [1, 1, 0, 0],
+        "Products": [0, 0, 1, 0],
+        "Reaction Rate": 1e9999,
+        "Binding Radius": 1.025e-6,
+        "Is Energy Enabled?": true,
+        "Energy Cost Type": "detection",
+        "Energy Cost Value": 4e-10,
         "Energy Cost Unit": "per_reaction"
       },
       {
@@ -56,7 +71,7 @@
         "Binding Radius": 4e-6,
         "Is Energy Enabled?": true,
         "Energy Cost Type": "communication",
-        "Energy Cost Value": 0.5e-4,
+        "Energy Cost Value": 1e-10,
         "Energy Cost Unit": "per_reaction"
       },
       {
@@ -235,6 +250,26 @@
         "Number of Molecules": 1,
         "Is Molecule Type Released?": [true, false, false, false]
       },
+            {
+        "Notes": "Biomarker source 1.1 (passive emitter, no energy)",
+        "Is Location Defined by Regions?": false,
+        "Shape": "Rectangular Box",
+        "Outer Boundary": [0e-6, 0.00012e-6, 16e-6, 23e-6, 1e-6, 8e-6],
+        "Is Actor Active?": true,
+        "Start Time": 0,
+        "Is There Max Number of Actions?": false,
+        "Is Actor Independent?": true,
+        "Action Interval": 1e9999,
+        "Is Actor Activity Recorded?": true,
+        "Random Number of Molecules?": false,
+        "Random Molecule Release Times?": false,
+        "Release Interval": 0,
+        "Slot Interval": 0,
+        "Modulation Scheme": "Burst",
+        "Modulation Strength": 1,
+        "Number of Molecules": 1,
+        "Is Molecule Type Released?": [true, false, false, false]
+      },
       {
         "Notes": "Biomarker source 2 (passive emitter, no energy)",
         "Is Location Defined by Regions?": false,
@@ -276,6 +311,66 @@
         "Is Molecule Type Released?": [true, false, false, false]
       },
       {
+        "Notes": "Biomarker source 4 (passive emitter, no energy)",
+        "Is Location Defined by Regions?": false,
+        "Shape": "Rectangular Box",
+        "Outer Boundary": [0e-6, 3.5001e-6, 16e-6, 23e-6, 1e-6, 8e-6],
+        "Is Actor Active?": true,
+        "Start Time": 0,
+        "Is There Max Number of Actions?": false,
+        "Is Actor Independent?": true,
+        "Action Interval": 1e9999,
+        "Is Actor Activity Recorded?": true,
+        "Random Number of Molecules?": false,
+        "Random Molecule Release Times?": false,
+        "Release Interval": 0,
+        "Slot Interval": 0,
+        "Modulation Scheme": "Burst",
+        "Modulation Strength": 1,
+        "Number of Molecules": 1,
+        "Is Molecule Type Released?": [true, false, false, false]
+      },
+           {
+        "Notes": "Biomarker source 5 (passive emitter, no energy)",
+        "Is Location Defined by Regions?": false,
+        "Shape": "Rectangular Box",
+        "Outer Boundary": [0e-6, 1.5001e-6, 16e-6, 23e-6, 1e-6, 8e-6],
+        "Is Actor Active?": true,
+        "Start Time": 0,
+        "Is There Max Number of Actions?": false,
+        "Is Actor Independent?": true,
+        "Action Interval": 1e9999,
+        "Is Actor Activity Recorded?": true,
+        "Random Number of Molecules?": false,
+        "Random Molecule Release Times?": false,
+        "Release Interval": 0,
+        "Slot Interval": 0,
+        "Modulation Scheme": "Burst",
+        "Modulation Strength": 1,
+        "Number of Molecules": 1,
+        "Is Molecule Type Released?": [true, false, false, false]
+      },
+           {
+        "Notes": "Biomarker source 4 (passive emitter, no energy)",
+        "Is Location Defined by Regions?": false,
+        "Shape": "Rectangular Box",
+        "Outer Boundary": [3.5e-6, 3.5001e-6, 16e-6, 23e-6, 1e-6, 8e-6],
+        "Is Actor Active?": true,
+        "Start Time": 0,
+        "Is There Max Number of Actions?": false,
+        "Is Actor Independent?": true,
+        "Action Interval": 1e9999,
+        "Is Actor Activity Recorded?": true,
+        "Random Number of Molecules?": false,
+        "Random Molecule Release Times?": false,
+        "Release Interval": 0,
+        "Slot Interval": 0,
+        "Modulation Scheme": "Burst",
+        "Modulation Strength": 1,
+        "Number of Molecules": 1,
+        "Is Molecule Type Released?": [true, false, false, false]
+      },
+      {
         "Notes": "Nanosensor network transmitter 1 (energy enabled)",
         "Is Location Defined by Regions?": false,
         "Shape": "Rectangular Box",
@@ -297,7 +392,7 @@
         "Is Energy Enabled?": true,
         "Energy Initial": 3e-4,
         "Energy Max": 3e-4,
-        "Energy Drain Passive": 2e-8,
+        "Energy Drain Passive": 4e-8,
         "Energy Harvest Passive": 0
       },
       {
@@ -322,7 +417,7 @@
         "Is Energy Enabled?": true,
         "Energy Initial": 3e-4,
         "Energy Max": 3e-4,
-        "Energy Drain Passive": 2e-8,
+        "Energy Drain Passive": 4e-8,
         "Energy Harvest Passive": 0
       },
       {
@@ -347,7 +442,7 @@
         "Is Energy Enabled?": true,
         "Energy Initial": 3e-4,
         "Energy Max": 3e-4,
-        "Energy Drain Passive": 2e-8,
+        "Energy Drain Passive": 4e-8,
         "Energy Harvest Passive": 0
       },
       {
@@ -372,7 +467,7 @@
         "Is Energy Enabled?": true,
      	"Energy Initial": 3e-4,
         "Energy Max": 3e-4,
-        "Energy Drain Passive": 2e-8,
+        "Energy Drain Passive": 4e-8,
         "Energy Harvest Passive": 0
       },
       {
