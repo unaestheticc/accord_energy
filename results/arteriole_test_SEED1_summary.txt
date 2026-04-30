@@ -2,10 +2,10 @@
 	"ConfigFile":	"config/energy.txt",
 	"SEED":	1,
 	"NumRepeat":	1,
-	"StartTime":	"2026-04-28 13:29:55"
+	"StartTime":	"2026-04-30 12:32:06"
 }
 {
-	"NumberActiveRecord":	11,
+	"NumberActiveRecord":	6,
 	"ActiveInfo":	[{
 			"ID":	0,
 			"MaxBitLength":	1
@@ -24,25 +24,10 @@
 		}, {
 			"ID":	5,
 			"MaxBitLength":	1
-		}, {
-			"ID":	6,
-			"MaxBitLength":	1
-		}, {
-			"ID":	7,
-			"MaxBitLength":	1
-		}, {
-			"ID":	8,
-			"MaxBitLength":	1
-		}, {
-			"ID":	9,
-			"MaxBitLength":	1
-		}, {
-			"ID":	10,
-			"MaxBitLength":	1
 		}],
 	"NumberPassiveRecord":	1,
 	"RecordInfo":	[{
-			"ID":	11,
+			"ID":	6,
 			"bRecordTime":	1,
 			"MaxCountLength":	250,
 			"NumMolTypeObs":	4,
@@ -50,21 +35,10 @@
 			"bRecordPos":	[1, 1, 1, 1]
 		}],
 	"NanomachineEnergySummary":	[{
-			"ActorID":	7,
+			"ActorID":	2,
 			"NumNanomachines":	25,
 			"Nanomachines":	[{
 					"NanomachineID":	0,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000214,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.002690]
-				}, {
-					"NanomachineID":	1,
 					"EnergyDepleted":	false,
 					"EnergyFinal":	0.000200,
 					"EnergyMin":	0.000200,
@@ -73,18 +47,310 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002690]
+					"GossipTimes":	[0.009170]
+				}, {
+					"NanomachineID":	1,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000160,
+					"EnergyMin":	0.000160,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000225,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009140]
 				}, {
 					"NanomachineID":	2,
 					"EnergyDepleted":	false,
 					"EnergyFinal":	0.000160,
 					"EnergyMin":	0.000160,
 					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000214,
+					"EnergyMean":	0.000225,
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002680]
+					"GossipTimes":	[0.009150]
+				}, {
+					"NanomachineID":	3,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009190]
+				}, {
+					"NanomachineID":	4,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009150]
+				}, {
+					"NanomachineID":	5,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000160,
+					"EnergyMin":	0.000160,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000225,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009160]
+				}, {
+					"NanomachineID":	6,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009160]
+				}, {
+					"NanomachineID":	7,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009160]
+				}, {
+					"NanomachineID":	8,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000160,
+					"EnergyMin":	0.000160,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000225,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009180]
+				}, {
+					"NanomachineID":	9,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009160]
+				}, {
+					"NanomachineID":	10,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009170]
+				}, {
+					"NanomachineID":	11,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009170]
+				}, {
+					"NanomachineID":	12,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009170]
+				}, {
+					"NanomachineID":	13,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000160,
+					"EnergyMin":	0.000160,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000225,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009170]
+				}, {
+					"NanomachineID":	14,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009180]
+				}, {
+					"NanomachineID":	15,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009170]
+				}, {
+					"NanomachineID":	16,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009180]
+				}, {
+					"NanomachineID":	17,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009170]
+				}, {
+					"NanomachineID":	18,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009180]
+				}, {
+					"NanomachineID":	19,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009180]
+				}, {
+					"NanomachineID":	20,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009180]
+				}, {
+					"NanomachineID":	21,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009170]
+				}, {
+					"NanomachineID":	22,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	1,
+					"GossipCount":	0,
+					"DetectionTimes":	[0.009130],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	23,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009180]
+				}, {
+					"NanomachineID":	24,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.009180]
+				}],
+			"DepletedUnits":	0,
+			"AllUnitsDepleted":	false
+		}, {
+			"ActorID":	3,
+			"NumNanomachines":	25,
+			"Nanomachines":	[{
+					"NanomachineID":	0,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	1,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	2,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	3,
 					"EnergyDepleted":	false,
@@ -99,14 +365,14 @@
 				}, {
 					"NanomachineID":	4,
 					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
 					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000214,
+					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002700]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	5,
 					"EnergyDepleted":	false,
@@ -115,9 +381,9 @@
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002700]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	6,
 					"EnergyDepleted":	false,
@@ -126,9 +392,9 @@
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002700]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	7,
 					"EnergyDepleted":	false,
@@ -137,9 +403,9 @@
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002700]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	8,
 					"EnergyDepleted":	false,
@@ -147,9 +413,9 @@
 					"EnergyMin":	0.000200,
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
-					"DetectionCount":	1,
+					"DetectionCount":	0,
 					"GossipCount":	0,
-					"DetectionTimes":	[0.002670],
+					"DetectionTimes":	[],
 					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	9,
@@ -159,31 +425,31 @@
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002720]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	10,
 					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
 					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000221,
-					"DetectionCount":	1,
-					"GossipCount":	1,
-					"DetectionTimes":	[0.007210],
-					"GossipTimes":	[0.002710]
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	11,
 					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
 					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000214,
+					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002710]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	12,
 					"EnergyDepleted":	false,
@@ -192,9 +458,9 @@
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002710]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	13,
 					"EnergyDepleted":	false,
@@ -203,9 +469,9 @@
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002710]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	14,
 					"EnergyDepleted":	false,
@@ -214,9 +480,9 @@
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002710]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	15,
 					"EnergyDepleted":	false,
@@ -225,9 +491,9 @@
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002720]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	16,
 					"EnergyDepleted":	false,
@@ -236,9 +502,9 @@
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002710]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	17,
 					"EnergyDepleted":	false,
@@ -247,9 +513,9 @@
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002710]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	18,
 					"EnergyDepleted":	false,
@@ -258,20 +524,20 @@
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002710]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	19,
 					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
 					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000214,
+					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002720]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	20,
 					"EnergyDepleted":	false,
@@ -280,20 +546,20 @@
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002720]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	21,
 					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
 					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000220,
-					"DetectionCount":	1,
-					"GossipCount":	1,
-					"DetectionTimes":	[0.006290],
-					"GossipTimes":	[0.002720]
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	22,
 					"EnergyDepleted":	false,
@@ -302,9 +568,9 @@
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002720]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	23,
 					"EnergyDepleted":	false,
@@ -313,70 +579,70 @@
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
-					"GossipCount":	1,
+					"GossipCount":	0,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.002720]
+					"GossipTimes":	[]
 				}, {
 					"NanomachineID":	24,
 					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
 					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000221,
-					"DetectionCount":	1,
-					"GossipCount":	1,
-					"DetectionTimes":	[0.007130],
-					"GossipTimes":	[0.002720]
+					"EnergyMean":	0.000250,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
 				}],
 			"DepletedUnits":	0,
 			"AllUnitsDepleted":	false
 		}, {
-			"ActorID":	8,
+			"ActorID":	4,
 			"NumNanomachines":	25,
 			"Nanomachines":	[{
 					"NanomachineID":	0,
 					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000160,
+					"EnergyMin":	0.000160,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000246,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.022770]
+				}, {
+					"NanomachineID":	1,
+					"EnergyDepleted":	false,
 					"EnergyFinal":	0.000200,
 					"EnergyMin":	0.000200,
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.012990]
+					"DetectionCount":	1,
+					"GossipCount":	0,
+					"DetectionTimes":	[0.022760],
+					"GossipTimes":	[]
 				}, {
-					"NanomachineID":	1,
+					"NanomachineID":	2,
 					"EnergyDepleted":	false,
 					"EnergyFinal":	0.000160,
 					"EnergyMin":	0.000160,
 					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000231,
+					"EnergyMean":	0.000246,
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.012970]
-				}, {
-					"NanomachineID":	2,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.013660]
+					"GossipTimes":	[0.022780]
 				}, {
 					"NanomachineID":	3,
 					"EnergyDepleted":	false,
 					"EnergyFinal":	0.000160,
 					"EnergyMin":	0.000160,
 					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000231,
+					"EnergyMean":	0.000246,
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.012980]
+					"GossipTimes":	[0.022800]
 				}, {
 					"NanomachineID":	4,
 					"EnergyDepleted":	false,
@@ -387,18 +653,18 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.013650]
+					"GossipTimes":	[0.022780]
 				}, {
 					"NanomachineID":	5,
 					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
+					"EnergyFinal":	0.000160,
+					"EnergyMin":	0.000160,
 					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
+					"EnergyMean":	0.000246,
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.013000]
+					"GossipTimes":	[0.022790]
 				}, {
 					"NanomachineID":	6,
 					"EnergyDepleted":	false,
@@ -409,7 +675,7 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.012990]
+					"GossipTimes":	[0.022790]
 				}, {
 					"NanomachineID":	7,
 					"EnergyDepleted":	false,
@@ -420,288 +686,7 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.012980]
-				}, {
-					"NanomachineID":	8,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000231,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.013000]
-				}, {
-					"NanomachineID":	9,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.013000]
-				}, {
-					"NanomachineID":	10,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.013000]
-				}, {
-					"NanomachineID":	11,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.013000]
-				}, {
-					"NanomachineID":	12,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.013000]
-				}, {
-					"NanomachineID":	13,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000231,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.013010]
-				}, {
-					"NanomachineID":	14,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.013000]
-				}, {
-					"NanomachineID":	15,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.013010]
-				}, {
-					"NanomachineID":	16,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000231,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.012990]
-				}, {
-					"NanomachineID":	17,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.013010]
-				}, {
-					"NanomachineID":	18,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000231,
-					"DetectionCount":	1,
-					"GossipCount":	1,
-					"DetectionTimes":	[0.013020],
-					"GossipTimes":	[0.013010]
-				}, {
-					"NanomachineID":	19,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.012990]
-				}, {
-					"NanomachineID":	20,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.013000]
-				}, {
-					"NanomachineID":	21,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	1,
-					"GossipCount":	0,
-					"DetectionTimes":	[0.012960],
-					"GossipTimes":	[]
-				}, {
-					"NanomachineID":	22,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.013010]
-				}, {
-					"NanomachineID":	23,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.013010]
-				}, {
-					"NanomachineID":	24,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.013010]
-				}],
-			"DepletedUnits":	0,
-			"AllUnitsDepleted":	false
-		}, {
-			"ActorID":	9,
-			"NumNanomachines":	25,
-			"Nanomachines":	[{
-					"NanomachineID":	0,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000247,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.023130]
-				}, {
-					"NanomachineID":	1,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000247,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.023100]
-				}, {
-					"NanomachineID":	2,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000247,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.023110]
-				}, {
-					"NanomachineID":	3,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.023110]
-				}, {
-					"NanomachineID":	4,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000247,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.023120]
-				}, {
-					"NanomachineID":	5,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.023120]
-				}, {
-					"NanomachineID":	6,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.023120]
-				}, {
-					"NanomachineID":	7,
-					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
-					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
-					"DetectionCount":	0,
-					"GossipCount":	1,
-					"DetectionTimes":	[],
-					"GossipTimes":	[0.023120]
+					"GossipTimes":	[0.022790]
 				}, {
 					"NanomachineID":	8,
 					"EnergyDepleted":	false,
@@ -712,7 +697,7 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023130]
+					"GossipTimes":	[0.022790]
 				}, {
 					"NanomachineID":	9,
 					"EnergyDepleted":	false,
@@ -723,7 +708,7 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023130]
+					"GossipTimes":	[0.022800]
 				}, {
 					"NanomachineID":	10,
 					"EnergyDepleted":	false,
@@ -734,7 +719,7 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023130]
+					"GossipTimes":	[0.022800]
 				}, {
 					"NanomachineID":	11,
 					"EnergyDepleted":	false,
@@ -745,7 +730,7 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023130]
+					"GossipTimes":	[0.022800]
 				}, {
 					"NanomachineID":	12,
 					"EnergyDepleted":	false,
@@ -756,18 +741,18 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023130]
+					"GossipTimes":	[0.022800]
 				}, {
 					"NanomachineID":	13,
 					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000200,
-					"EnergyMin":	0.000200,
+					"EnergyFinal":	0.000160,
+					"EnergyMin":	0.000160,
 					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000250,
+					"EnergyMean":	0.000246,
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023130]
+					"GossipTimes":	[0.022810]
 				}, {
 					"NanomachineID":	14,
 					"EnergyDepleted":	false,
@@ -778,18 +763,18 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023130]
+					"GossipTimes":	[0.022800]
 				}, {
 					"NanomachineID":	15,
 					"EnergyDepleted":	false,
-					"EnergyFinal":	0.000160,
-					"EnergyMin":	0.000160,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
 					"EnergyMax":	0.000300,
-					"EnergyMean":	0.000247,
+					"EnergyMean":	0.000250,
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023140]
+					"GossipTimes":	[0.022800]
 				}, {
 					"NanomachineID":	16,
 					"EnergyDepleted":	false,
@@ -800,7 +785,7 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023140]
+					"GossipTimes":	[0.022800]
 				}, {
 					"NanomachineID":	17,
 					"EnergyDepleted":	false,
@@ -811,7 +796,7 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023140]
+					"GossipTimes":	[0.022810]
 				}, {
 					"NanomachineID":	18,
 					"EnergyDepleted":	false,
@@ -822,7 +807,7 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023140]
+					"GossipTimes":	[0.022810]
 				}, {
 					"NanomachineID":	19,
 					"EnergyDepleted":	false,
@@ -833,7 +818,7 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023140]
+					"GossipTimes":	[0.022810]
 				}, {
 					"NanomachineID":	20,
 					"EnergyDepleted":	false,
@@ -844,7 +829,7 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023140]
+					"GossipTimes":	[0.022810]
 				}, {
 					"NanomachineID":	21,
 					"EnergyDepleted":	false,
@@ -855,7 +840,7 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023140]
+					"GossipTimes":	[0.022810]
 				}, {
 					"NanomachineID":	22,
 					"EnergyDepleted":	false,
@@ -863,10 +848,10 @@
 					"EnergyMin":	0.000200,
 					"EnergyMax":	0.000300,
 					"EnergyMean":	0.000250,
-					"DetectionCount":	1,
-					"GossipCount":	0,
-					"DetectionTimes":	[0.023090],
-					"GossipTimes":	[]
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[0.022810]
 				}, {
 					"NanomachineID":	23,
 					"EnergyDepleted":	false,
@@ -877,7 +862,7 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023140]
+					"GossipTimes":	[0.022810]
 				}, {
 					"NanomachineID":	24,
 					"EnergyDepleted":	false,
@@ -888,12 +873,12 @@
 					"DetectionCount":	0,
 					"GossipCount":	1,
 					"DetectionTimes":	[],
-					"GossipTimes":	[0.023140]
+					"GossipTimes":	[0.022810]
 				}],
 			"DepletedUnits":	0,
 			"AllUnitsDepleted":	false
 		}, {
-			"ActorID":	10,
+			"ActorID":	5,
 			"NumNanomachines":	25,
 			"Nanomachines":	[{
 					"NanomachineID":	0,
@@ -1174,6 +1159,6 @@
 			"DepletedUnits":	0,
 			"AllUnitsDepleted":	false
 		}],
-	"EndTime":	"2026-04-28 13:29:55",
-	"RunTime":	0.077297
+	"EndTime":	"2026-04-30 12:32:06",
+	"RunTime":	0.066205
 }
