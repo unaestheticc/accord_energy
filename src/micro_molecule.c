@@ -114,6 +114,89 @@
 
 static const double ENERGY_ZERO_EPS = 1e-12;
 
+/* Global biomarker ID counter — monotonically increasing, never wraps in
+ * any practical simulation (uint64_t overflows at ~1.8 × 10^19). */
+static uint64_t g_nextBMID = 1;
+
+uint64_t assignNewBMID(void)
+{
+    return g_nextBMID++;
+}
+
+BmIDSet bmIDSetEmpty(void)
+{
+    BmIDSet s;
+    s.n = 0;
+    return s;
+}
+
+BmIDSet bmIDSetFromID(uint64_t id)
+{
+    BmIDSet s;
+    s.n = 1;
+    s.id[0] = id;
+    return s;
+}
+
+bool bmIDSetOverlap(const BmIDSet *a, const BmIDSet *b)
+{
+    uint8_t i, j;
+    for(i = 0; i < a->n; i++)
+        for(j = 0; j < b->n; j++)
+            if(a->id[i] == b->id[j])
+                return true;
+    return false;
+}
+
+/* Returns true when a and b contain exactly the same IDs (order-independent). */
+bool bmIDSetEqual(const BmIDSet *a, const BmIDSet *b)
+{
+    uint8_t i, j;
+    bool found;
+    if(a->n != b->n) return false;
+    for(i = 0; i < a->n; i++)
+    {
+        found = false;
+        for(j = 0; j < b->n; j++)
+            if(a->id[i] == b->id[j]) { found = true; break; }
+        if(!found) return false;
+    }
+    return true;
+}
+
+/* Returns true when every ID in a is also in b (a ⊆ b). */
+bool bmIDSetIsSubset(const BmIDSet *a, const BmIDSet *b)
+{
+    uint8_t i, j;
+    bool found;
+    for(i = 0; i < a->n; i++)
+    {
+        found = false;
+        for(j = 0; j < b->n; j++)
+            if(a->id[i] == b->id[j]) { found = true; break; }
+        if(!found) return false;
+    }
+    return true;
+}
+
+BmIDSet bmIDSetUnion(const BmIDSet *a, const BmIDSet *b)
+{
+    BmIDSet u = *a;
+    uint8_t i, j;
+    bool found;
+    for(i = 0; i < b->n; i++)
+    {
+        if(u.n >= BM_ID_MAX_TRACK)
+            break;
+        found = false;
+        for(j = 0; j < u.n; j++)
+            if(u.id[j] == b->id[i]) { found = true; break; }
+        if(!found)
+            u.id[u.n++] = b->id[i];
+    }
+    return u;
+}
+
 // Local Function Prototypes
 
 static void traverse(const ListMol3D * p_list, void (* p_fun)(ItemMol3D item));
@@ -133,7 +216,9 @@ static bool canAndConsumeReactionEnergy(const struct chem_rxn_struct * rxn,
 	const unsigned short NUM_MOL_TYPES,
 	struct actorStruct3D actorCommonArray[],
 	const short NUM_ACTORS,
-	double tCur);
+	double tCur,
+	BmIDSet bmIDs,
+	uint8_t rxnDir);
 
 static bool actorInvolvedInReaction(const struct actorStruct3D * actor,
 	const uint32_t reactants[],
@@ -314,7 +399,9 @@ static bool canAndConsumeReactionEnergy(const struct chem_rxn_struct * rxn,
 	const unsigned short NUM_MOL_TYPES,
 	struct actorStruct3D actorCommonArray[],
 	const short NUM_ACTORS,
-	double tCur)
+	double tCur,
+	BmIDSet bmIDs,
+	uint8_t rxnDir)
 {
 	/* Legacy fallback: used only when no molecule owner is known (e.g. meso regime).
 	 * Charges all energy-enabled actors involved in the reaction.
@@ -356,7 +443,7 @@ static bool canAndConsumeReactionEnergy(const struct chem_rxn_struct * rxn,
 		short id = payerIDs[a];
 		if(!consumeActorEnergyCostOnUnit(&actorCommonArray[id], cost, payerUnits[a]))
 			return false;
-		logActorReactionEvent(&actorCommonArray[id], payerUnits[a], rxn, tCur);
+		logActorReactionEvent(&actorCommonArray[id], payerUnits[a], rxn, tCur, bmIDs, rxnDir);
 		if(actorCommonArray[id].bEnergyDepleted)
 		{
 			actorCommonArray[id].nextTime = INFINITY;
@@ -388,7 +475,9 @@ static bool canAndConsumeReactionEnergyForUnit(
 	const short NUM_ACTORS,
 	double tCur,
 	short ownerActorID,
-	uint32_t ownerUnitID)
+	uint32_t ownerUnitID,
+	BmIDSet bmIDs,
+	uint8_t rxnDir)
 {
 	double cost;
 
@@ -398,7 +487,7 @@ static bool canAndConsumeReactionEnergyForUnit(
 	/* No owner known: fall back to aggregate (legacy) charging */
 	if(ownerActorID < 0 || ownerActorID >= NUM_ACTORS)
 		return canAndConsumeReactionEnergy(rxn, NUM_MOL_TYPES,
-			actorCommonArray, NUM_ACTORS, tCur);
+			actorCommonArray, NUM_ACTORS, tCur, bmIDs, rxnDir);
 
 	if(!rxn->bEnergyEnabled)
 		return true;
@@ -437,7 +526,7 @@ static bool canAndConsumeReactionEnergyForUnit(
 	if(!consumeActorEnergyCostOnUnit(payer, cost, ownerUnitID))
 		return false;
 
-	logActorReactionEvent(payer, ownerUnitID, rxn, tCur);
+	logActorReactionEvent(payer, ownerUnitID, rxn, tCur, bmIDs, rxnDir);
 
 	if(payer->bEnergyDepleted)
 		payer->nextTime = INFINITY;
@@ -461,47 +550,49 @@ static void copyToNodeRecent(ItemMolRecent3D item, NodeMolRecent3D * p_node);
 bool addMolecule(ListMol3D * p_list, double x, double y, double z)
 {
 	/* ownerActorID = -1 means "no owner": molecule was not placed by an
-	 * energy-enabled actor, or is a reaction product with no tracked lineage. */
-	ItemMol3D new_molecule = {x, y, z, true, -1, 0};
+	 * energy-enabled actor, or is a reaction product with no tracked lineage.
+	 * bmIDs is zero-initialized (empty set) via designated initializer. */
+	ItemMol3D new_molecule = {.x=x, .y=y, .z=z, .bNeedUpdate=true,
+		.ownerActorID=-1, .ownerUnitID=0};
 	return addItem(new_molecule, p_list);
 }
 
 /* addMoleculeOwned – same as addMolecule but tags the molecule with the
- * actor index and per-unit ID of the nanosensor that physically emitted it.
- * Call this from actor placement code (placeMoleculesInRegion) so that each
- * nanosensor molecule carries its identity throughout the simulation. */
+ * actor index, per-unit ID, and biomarker ID set of the source molecule. */
 bool addMoleculeOwned(ListMol3D * p_list, double x, double y, double z,
-	short ownerActorID, uint32_t ownerUnitID)
+	short ownerActorID, uint32_t ownerUnitID, BmIDSet bmIDs)
 {
-	ItemMol3D new_molecule = {x, y, z, true, ownerActorID, ownerUnitID};
+	ItemMol3D new_molecule = {.x=x, .y=y, .z=z, .bNeedUpdate=true,
+		.ownerActorID=ownerActorID, .ownerUnitID=ownerUnitID, .bmIDs=bmIDs};
 	return addItem(new_molecule, p_list);
 }
 
 /* addMoleculeOwnedInherited – creates a product molecule that inherits the
- * ownership of one of its reactant molecules. bNeedUpdate = false so the
- * product cannot react again in the same time step. */
+ * ownership and biomarker ID set of its reactant(s). bNeedUpdate = false so
+ * the product cannot react again in the same time step. */
 bool addMoleculeOwnedInherited(ListMol3D * p_list, double x, double y, double z,
-	short ownerActorID, uint32_t ownerUnitID)
+	short ownerActorID, uint32_t ownerUnitID, BmIDSet bmIDs)
 {
-	ItemMol3D new_molecule = {x, y, z, false, ownerActorID, ownerUnitID};
+	ItemMol3D new_molecule = {.x=x, .y=y, .z=z, .bNeedUpdate=false,
+		.ownerActorID=ownerActorID, .ownerUnitID=ownerUnitID, .bmIDs=bmIDs};
 	return addItem(new_molecule, p_list);
 }
 
-// Create new molecule at specified coordinates
+// Create new molecule at specified coordinates (no owner, no BM info)
 bool addMoleculeRecent(ListMolRecent3D * p_list, double x, double y, double z, double dt_partial)
 {
-	/* ownerActorID = -1: no tracked owner */
-	ItemMolRecent3D new_molecule = {x, y, z, dt_partial, -1, 0};
+	/* ownerActorID = -1: no tracked owner; bmIDs empty via designated init */
+	ItemMolRecent3D new_molecule = {.x=x, .y=y, .z=z, .dt_partial=dt_partial,
+		.ownerActorID=-1, .ownerUnitID=0};
 	return addItemRecent(new_molecule, p_list);
 }
 
-/* addMoleculeRecentOwned – recent-list variant with ownership tagging.
- * Use when placing nanosensor molecules that were just emitted by an actor
- * during a time step (e.g. from placeMoleculesInRegion). */
+/* addMoleculeRecentOwned – recent-list variant with ownership and BM tracking. */
 bool addMoleculeRecentOwned(ListMolRecent3D * p_list, double x, double y, double z,
-	double dt_partial, short ownerActorID, uint32_t ownerUnitID)
+	double dt_partial, short ownerActorID, uint32_t ownerUnitID, BmIDSet bmIDs)
 {
-	ItemMolRecent3D new_molecule = {x, y, z, dt_partial, ownerActorID, ownerUnitID};
+	ItemMolRecent3D new_molecule = {.x=x, .y=y, .z=z, .dt_partial=dt_partial,
+		.ownerActorID=ownerActorID, .ownerUnitID=ownerUnitID, .bmIDs=bmIDs};
 	return addItemRecent(new_molecule, p_list);
 }
 
@@ -669,17 +760,18 @@ void diffuseMolecules(const short NUM_REGIONS,
 								if(!addMoleculeOwnedInherited(
 									&p_list[newRegion][regionArray[newRegion].productID[curRxn][curProd]],
 									newPoint[0], newPoint[1], newPoint[2],
-									curNode->item.ownerActorID, curNode->item.ownerUnitID))
+									curNode->item.ownerActorID, curNode->item.ownerUnitID,
+									curNode->item.bmIDs))
 								{ // Creation of molecule failed
 									fprintf(stderr, "ERROR: Memory allocation to create molecule of type %u from reaction %u.\n",
 									regionArray[newRegion].productID[curRxn][curProd], curRxn);
-									exit(EXIT_FAILURE);						
+									exit(EXIT_FAILURE);
 								}
 								// Indicate that product molecule doesn't need to be
 								// moved again
 								p_list[newRegion][regionArray[newRegion].productID[curRxn][curProd]]->item.bNeedUpdate = false;
 							}
-						}						
+						}
 					} else if(regionArray[newRegion].spec.bMicro)
 					{
 						// Check for entering meso region within time step, even though
@@ -720,11 +812,12 @@ void diffuseMolecules(const short NUM_REGIONS,
 										if(!addMoleculeOwnedInherited(
 											&p_list[newRegion][regionArray[newRegion].productID[curRxn][curProd]],
 											newPoint[0], newPoint[1], newPoint[2],
-											curNode->item.ownerActorID, curNode->item.ownerUnitID))
+											curNode->item.ownerActorID, curNode->item.ownerUnitID,
+											curNode->item.bmIDs))
 										{ // Creation of molecule failed
 											fprintf(stderr, "ERROR: Memory allocation to create molecule of type %u from reaction %u.\n",
 											regionArray[newRegion].productID[curRxn][curProd], curRxn);
-											exit(EXIT_FAILURE);						
+											exit(EXIT_FAILURE);
 										}
 										// Indicate that product molecule doesn't need to be
 										// moved again
@@ -733,7 +826,8 @@ void diffuseMolecules(const short NUM_REGIONS,
 								}									
 							} else if(!addMoleculeOwned(&p_list[newRegion][curType],
 								newPoint[0], newPoint[1], newPoint[2],
-								curNode->item.ownerActorID, curNode->item.ownerUnitID))
+								curNode->item.ownerActorID, curNode->item.ownerUnitID,
+								curNode->item.bmIDs))
 							{
 								fprintf(stderr, "ERROR: Memory allocation to move molecule between microscopic regions %u and %u.\n", curRegion, newRegion);
 								exit(EXIT_FAILURE);
@@ -873,14 +967,15 @@ void diffuseMolecules(const short NUM_REGIONS,
 							if(!addMoleculeOwnedInherited(
 								&p_list[newRegion][regionArray[newRegion].productID[curRxn][curProd]],
 								newPoint[0], newPoint[1], newPoint[2],
-								curNodeR->item.ownerActorID, curNodeR->item.ownerUnitID))
+								curNodeR->item.ownerActorID, curNodeR->item.ownerUnitID,
+								curNodeR->item.bmIDs))
 							{ // Creation of molecule failed
 								fprintf(stderr, "ERROR: Memory allocation to create molecule of type %u from reaction %u.\n",
 								regionArray[newRegion].productID[curRxn][curProd], curRxn);
-								exit(EXIT_FAILURE);						
+								exit(EXIT_FAILURE);
 							}
 						}
-					}						
+					}
 				} else if(regionArray[newRegion].spec.bMicro)
 				{ // Region is microscopic.
 					
@@ -906,11 +1001,12 @@ void diffuseMolecules(const short NUM_REGIONS,
 								if(!addMoleculeOwnedInherited(
 									&p_list[newRegion][regionArray[newRegion].productID[curRxn][curProd]],
 									newPoint[0], newPoint[1], newPoint[2],
-									curNodeR->item.ownerActorID, curNodeR->item.ownerUnitID))
+									curNodeR->item.ownerActorID, curNodeR->item.ownerUnitID,
+									curNodeR->item.bmIDs))
 								{ // Creation of molecule failed
 									fprintf(stderr, "ERROR: Memory allocation to create molecule of type %u from reaction %u.\n",
 									regionArray[newRegion].productID[curRxn][curProd], curRxn);
-									exit(EXIT_FAILURE);						
+									exit(EXIT_FAILURE);
 								}
 							}
 						}									
@@ -918,7 +1014,8 @@ void diffuseMolecules(const short NUM_REGIONS,
 					{
 						if(!addMoleculeOwned(&p_list[newRegion][curType],
 							newPoint[0], newPoint[1], newPoint[2],
-							curNodeR->item.ownerActorID, curNodeR->item.ownerUnitID))
+							curNodeR->item.ownerActorID, curNodeR->item.ownerUnitID,
+							curNodeR->item.bmIDs))
 						{
 							fprintf(stderr, "ERROR: Memory allocation to move molecule between recent molecule list of region %u and list of region %u.\n", curRegion, newRegion);
 							exit(EXIT_FAILURE);
@@ -1300,7 +1397,8 @@ void rxnFirstOrder(const unsigned short NUM_REGIONS,
 			{
 				if(!canAndConsumeReactionEnergyForUnit(&chem_rxn[globalRxn], NUM_MOL_TYPES,
 					actorCommonArray, NUM_ACTORS, tCur,
-					curNode->item.ownerActorID, curNode->item.ownerUnitID))
+					curNode->item.ownerActorID, curNode->item.ownerUnitID,
+						curNode->item.bmIDs, COMM_DIR_RECEIVE))
 				{
 					if(!bRemove)
 						prevNode = curNode;
@@ -1316,14 +1414,15 @@ void rxnFirstOrder(const unsigned short NUM_REGIONS,
 					rxnFirstOrderProductPlacement(curNode, curNodeRecent,
 						curRxn, NUM_REGIONS, NUM_MOL_TYPES, curRegion,
 						p_list, pRecentList, regionArray, curMolType, DIFF_COEF, false, NULL,
-						curNode->item.ownerActorID, curNode->item.ownerUnitID);
+						curNode->item.ownerActorID, curNode->item.ownerUnitID,
+						curNode->item.bmIDs);
 				}
-				
+
 				// Remove current molecule from list
 				removeItem(prevNode, curNode);
 				bRemove = true;
 			}
-		
+
 			if(prevNode == NULL && bRemove)
 			{	// prevNode does not change, but we removed first molecule in list.
 				// nextNode is now the start of the list
@@ -1362,12 +1461,13 @@ void rxnFirstOrder(const unsigned short NUM_REGIONS,
 					unsigned short globalRxn = regionArray[curRegion].globalRxnID[curRxn];
 					if(!canAndConsumeReactionEnergyForUnit(&chem_rxn[globalRxn], NUM_MOL_TYPES,
 						actorCommonArray, NUM_ACTORS, tCur,
-						curNode->item.ownerActorID, curNode->item.ownerUnitID))
+						curNode->item.ownerActorID, curNode->item.ownerUnitID,
+						curNode->item.bmIDs, COMM_DIR_RECEIVE))
 					{
 						continue;
 					}
 				}
-				
+
 				// Generate products (if necessary)
 				// TODO: May need to consider associating a separation distance with
 				// reactions that have more than one product.
@@ -1376,9 +1476,10 @@ void rxnFirstOrder(const unsigned short NUM_REGIONS,
 					rxnFirstOrderProductPlacement(curNode, curNodeRecent,
 						curRxn, NUM_REGIONS, NUM_MOL_TYPES, curRegion,
 						p_list, pRecentList, regionArray, curMolType, DIFF_COEF, false, NULL,
-						curNode->item.ownerActorID, curNode->item.ownerUnitID);
+						curNode->item.ownerActorID, curNode->item.ownerUnitID,
+						curNode->item.bmIDs);
 				}
-				
+
 				// Remove current molecule from list
 				removeItem(prevNode, curNode);
 				bRemove = true;
@@ -1467,7 +1568,8 @@ void rxnFirstOrderRecent(const unsigned short NUM_REGIONS,
 			{				
 				if(!canAndConsumeReactionEnergyForUnit(&chem_rxn[globalRxn], NUM_MOL_TYPES,
 					actorCommonArray, NUM_ACTORS, tCur,
-					curNode->item.ownerActorID, curNode->item.ownerUnitID))
+					curNode->item.ownerActorID, curNode->item.ownerUnitID,
+						curNode->item.bmIDs, COMM_DIR_RECEIVE))
 				{
 					if(!bRemove)
 						prevNode = curNode;
@@ -1483,10 +1585,11 @@ void rxnFirstOrderRecent(const unsigned short NUM_REGIONS,
 					rxnFirstOrderProductPlacement(curNodeOld, curNode,
 						curRxn, NUM_REGIONS, NUM_MOL_TYPES, curRegion,
 						p_list, pRecentList, regionArray, curMolType, DIFF_COEF, true, &bProductIsReactant,
-						curNode->item.ownerActorID, curNode->item.ownerUnitID);
+						curNode->item.ownerActorID, curNode->item.ownerUnitID,
+						curNode->item.bmIDs);
 				} else
 					bProductIsReactant = false;
-				
+
 				// Remove current molecule from list
 				numMolReCheck--; // One less molecule to check for regular reactions
 				removeItemRecent(prevNode, curNode);
@@ -1560,7 +1663,8 @@ void rxnFirstOrderRecent(const unsigned short NUM_REGIONS,
 				unsigned short globalRxn = regionArray[curRegion].globalRxnID[curRxn];
 				if(!canAndConsumeReactionEnergyForUnit(&chem_rxn[globalRxn], NUM_MOL_TYPES,
 					actorCommonArray, NUM_ACTORS, tCur,
-					curNode->item.ownerActorID, curNode->item.ownerUnitID))
+					curNode->item.ownerActorID, curNode->item.ownerUnitID,
+						curNode->item.bmIDs, COMM_DIR_RECEIVE))
 				{
 					continue;
 				}
@@ -1573,10 +1677,11 @@ void rxnFirstOrderRecent(const unsigned short NUM_REGIONS,
 					rxnFirstOrderProductPlacement(curNodeOld, curNode,
 						curRxn, NUM_REGIONS, NUM_MOL_TYPES, curRegion,
 						p_list, pRecentList, regionArray, curMolType, DIFF_COEF, true, &bProductIsReactant,
-						curNode->item.ownerActorID, curNode->item.ownerUnitID);
+						curNode->item.ownerActorID, curNode->item.ownerUnitID,
+						curNode->item.bmIDs);
 				} else
 					bProductIsReactant = false;
-				
+
 				// Remove current molecule from list
 				removeItemRecent(prevNode, curNode);
 				bRemove = true;
@@ -1623,12 +1728,13 @@ void rxnFirstOrderProductPlacement(const NodeMol3D * curMol,
 	ListMol3D p_list[NUM_REGIONS][NUM_MOL_TYPES],
 	ListMolRecent3D pRecentList[NUM_REGIONS][NUM_MOL_TYPES],
 	const struct region regionArray[],
-	unsigned short curMolType,	
+	unsigned short curMolType,
 	double DIFF_COEF[NUM_REGIONS][NUM_MOL_TYPES],
 	const bool bRecent,
 	bool * bProductIsReactant,
 	short ownerActorID,
-	uint32_t ownerUnitID)
+	uint32_t ownerUnitID,
+	BmIDSet bmIDs)
 {
 	double curTime, timeLeft; // Time of reaction and time remaining in time step
 	double curRand, dist;
@@ -1806,11 +1912,11 @@ void rxnFirstOrderProductPlacement(const NodeMol3D * curMol,
 		}
 		if(!addMoleculeRecentOwned(&pRecentList[destRegion][curProdID],
 			newPoint[0], newPoint[1], newPoint[2], timeLeft,
-			ownerActorID, ownerUnitID))
+			ownerActorID, ownerUnitID, bmIDs))
 		{ // Creation of molecule failed
 			fprintf(stderr, "ERROR: Memory allocation to create molecule of type %u from reaction %u.\n",
 				regionArray[curRegion].productID[curRxn][curProd], curRxn);
-			exit(EXIT_FAILURE);						
+			exit(EXIT_FAILURE);
 		}
 	}
 }
@@ -2055,6 +2161,21 @@ void rxnSecondOrder(const unsigned short NUM_REGIONS,
 									regionArray[curRegion].rBindSq[curRxnRegion]))
 								{ // Molecule separation is less than binding radius
 
+									/* --- Biomarker identity check ---
+									 * Skip only when both sets are identical (same info, order ignored).
+									 * If they differ by any ID, they have new information to share. */
+									if(bmIDSetEqual(&curNode->item.bmIDs,
+										&curNeighNode->item.bmIDs)
+										&& curNode->item.bmIDs.n > 0)
+									{
+										prevNeighNode = curNeighNode;
+										curNeighNode = nextNeighNode;
+										continue;
+									}
+									/* Products inherit the union of both reactants' BM sets. */
+									BmIDSet rxnBMIDs = bmIDSetUnion(&curNode->item.bmIDs,
+										&curNeighNode->item.bmIDs);
+
 									/* --- Per-nanosensor energy routing ---
 									 * Determine which reacting molecule carries an owner
 									 * (ownerActorID >= 0). Priority: first reactant, then second.
@@ -2073,9 +2194,19 @@ void rxnSecondOrder(const unsigned short NUM_REGIONS,
 										rxnOwnerUnitID  = curNeighNode->item.ownerUnitID;
 									}
 
+									/* Direction from the owner's perspective */
+									const BmIDSet *ownedBMIDs = (curNode->item.ownerActorID >= 0)
+										? &curNode->item.bmIDs : &curNeighNode->item.bmIDs;
+									const BmIDSet *otherBMIDs = (curNode->item.ownerActorID >= 0)
+										? &curNeighNode->item.bmIDs : &curNode->item.bmIDs;
+									bool rxnReceived = !bmIDSetIsSubset(otherBMIDs, ownedBMIDs);
+									bool rxnSent     = !bmIDSetIsSubset(ownedBMIDs, otherBMIDs);
+									uint8_t rxnDir   = (rxnSent && rxnReceived) ? COMM_DIR_BOTH
+										: rxnReceived ? COMM_DIR_RECEIVE : COMM_DIR_SEND;
+
 									if(!canAndConsumeReactionEnergyForUnit(&chem_rxn[curRxn],
 										NUM_MOL_TYPES, actorCommonArray, NUM_ACTORS, tCur,
-										rxnOwnerActorID, rxnOwnerUnitID))
+										rxnOwnerActorID, rxnOwnerUnitID, rxnBMIDs, rxnDir))
 									{
 										prevNeighNode = curNeighNode;
 										curNeighNode = nextNeighNode;
@@ -2207,7 +2338,7 @@ void rxnSecondOrder(const unsigned short NUM_REGIONS,
 															if(!addMoleculeOwnedInherited(
 																&p_list[destRegion][regionArray[destRegion].productID[diffRxn][curDiffRxnProd]],
 																rxnProdCoor[0], rxnProdCoor[1], rxnProdCoor[2],
-																rxnOwnerActorID, rxnOwnerUnitID))
+																rxnOwnerActorID, rxnOwnerUnitID, rxnBMIDs))
 															{ // Creation of molecule failed
 																fprintf(stderr, "ERROR: Memory allocation to create molecule of type %u from reaction %u.\n",
 																regionArray[destRegion].productID[diffRxn][curDiffRxnProd], diffRxn);
@@ -2274,7 +2405,7 @@ void rxnSecondOrder(const unsigned short NUM_REGIONS,
 												if(!addMoleculeOwnedInherited(
 													&p_list[destRegion][curProd],
 													rxnProdCoor[0], rxnProdCoor[1], rxnProdCoor[2],
-													rxnOwnerActorID, rxnOwnerUnitID))
+													rxnOwnerActorID, rxnOwnerUnitID, rxnBMIDs))
 												{ // Creation of molecule failed
 													fprintf(stderr, "ERROR: Memory allocation to create molecule of type %u from reaction %u.\n",
 													curProd, curRxn);
@@ -2388,13 +2519,14 @@ void transferMolecules(ListMolRecent3D * molListRecent, ListMol3D * molList)
 {
 	NodeMolRecent3D * p_node = *molListRecent;
 	
-	// Copy list of molecules to normal list, preserving ownership so that
-	// nanosensor identity is not lost when recent molecules become "old".
+	// Copy list of molecules to normal list, preserving ownership and bmIDs
+	// so that nanosensor/biomarker identity is not lost.
 	while(p_node != NULL)
 	{
 		if(!addMoleculeOwned(molList,
 			p_node->item.x, p_node->item.y, p_node->item.z,
-			p_node->item.ownerActorID, p_node->item.ownerUnitID))
+			p_node->item.ownerActorID, p_node->item.ownerUnitID,
+			p_node->item.bmIDs))
 		{
 			// Creation of molecule failed
 			fprintf(stderr, "ERROR: Memory allocation to create molecule when transferring from recent list to regular list.\n");
@@ -2956,7 +3088,8 @@ uint64_t recordMoleculesRecent(ListMolRecent3D * p_list,
 			curCount++;
 			if(bRecordPos && !addMoleculeOwned(recordList,
 				p_node->item.x, p_node->item.y, p_node->item.z,
-				p_node->item.ownerActorID, p_node->item.ownerUnitID))
+				p_node->item.ownerActorID, p_node->item.ownerUnitID,
+				bmIDSetEmpty()))
 			{
 				fprintf(stderr,"\nERROR: Memory allocation for recording molecule positions.\n");
 				exit(EXIT_FAILURE);

@@ -314,7 +314,8 @@ static bool canAndConsumeReactionEnergy(const struct chem_rxn_struct * rxn,
 		short id = payerIDs[a];
 		if(!consumeActorEnergyCostOnUnit(&actorCommonArray[id], cost, payerUnits[a]))
 			return false;
-		logActorReactionEvent(&actorCommonArray[id], payerUnits[a], rxn, tCur);
+		logActorReactionEvent(&actorCommonArray[id], payerUnits[a], rxn, tCur,
+			bmIDSetEmpty(), COMM_DIR_RECEIVE);
 		if(actorCommonArray[id].bEnergyDepleted)
 		{
 			actorCommonArray[id].nextTime = INFINITY;
@@ -590,10 +591,15 @@ int main(int argc, char *argv[])
 			actorCommonArray[eActor].energyLogTime  = NULL;
 			actorCommonArray[eActor].energyLogValue = NULL;
 			actorCommonArray[eActor].energyLogValuePerUnit = NULL;
-			actorCommonArray[eActor].detectionReactionLogTimePerUnit = NULL;
+			actorCommonArray[eActor].unitBmIDs = NULL;
+			actorCommonArray[eActor].detectionReactionLogTimePerUnit  = NULL;
+			actorCommonArray[eActor].detectionReactionLogBmIDsPerUnit = NULL;
+			actorCommonArray[eActor].detectionReactionLogDirPerUnit   = NULL;
 			actorCommonArray[eActor].detectionReactionLogCountPerUnit = NULL;
 			actorCommonArray[eActor].detectionReactionLogMax = 0;
-			actorCommonArray[eActor].gossipReactionLogTimePerUnit = NULL;
+			actorCommonArray[eActor].gossipReactionLogTimePerUnit  = NULL;
+			actorCommonArray[eActor].gossipReactionLogBmIDsPerUnit = NULL;
+			actorCommonArray[eActor].gossipReactionLogDirPerUnit   = NULL;
 			actorCommonArray[eActor].gossipReactionLogCountPerUnit = NULL;
 			actorCommonArray[eActor].gossipReactionLogMax = 0;
 			actorCommonArray[eActor].energyLogCount = 0;
@@ -609,16 +615,26 @@ int main(int argc, char *argv[])
 					malloc(unitCount * sizeof(double));
 				actorCommonArray[eActor].bEnergyDepletedPerUnit =
 					malloc(unitCount * sizeof(bool));
+				actorCommonArray[eActor].unitBmIDs =
+					malloc(unitCount * sizeof(BmIDSet));
 				actorCommonArray[eActor].energyLogTime  = malloc(logCap * sizeof(double));
 				actorCommonArray[eActor].energyLogValue = malloc(logCap * sizeof(double));
 				actorCommonArray[eActor].energyLogValuePerUnit =
 					malloc(unitCount * sizeof(double *));
 				actorCommonArray[eActor].detectionReactionLogTimePerUnit =
 					malloc(unitCount * sizeof(double *));
+				actorCommonArray[eActor].detectionReactionLogBmIDsPerUnit =
+					malloc(unitCount * sizeof(BmIDSet *));
+				actorCommonArray[eActor].detectionReactionLogDirPerUnit =
+					malloc(unitCount * sizeof(uint8_t *));
 				actorCommonArray[eActor].detectionReactionLogCountPerUnit =
 					malloc(unitCount * sizeof(uint32_t));
 				actorCommonArray[eActor].gossipReactionLogTimePerUnit =
 					malloc(unitCount * sizeof(double *));
+				actorCommonArray[eActor].gossipReactionLogBmIDsPerUnit =
+					malloc(unitCount * sizeof(BmIDSet *));
+				actorCommonArray[eActor].gossipReactionLogDirPerUnit =
+					malloc(unitCount * sizeof(uint8_t *));
 				actorCommonArray[eActor].gossipReactionLogCountPerUnit =
 					malloc(unitCount * sizeof(uint32_t));
 				if(!actorCommonArray[eActor].energyCurrentPerUnit
@@ -626,8 +642,12 @@ int main(int argc, char *argv[])
 					|| !actorCommonArray[eActor].energyLogTime
 					|| !actorCommonArray[eActor].energyLogValue
 					|| !actorCommonArray[eActor].detectionReactionLogTimePerUnit
+					|| !actorCommonArray[eActor].detectionReactionLogBmIDsPerUnit
+					|| !actorCommonArray[eActor].detectionReactionLogDirPerUnit
 					|| !actorCommonArray[eActor].detectionReactionLogCountPerUnit
 					|| !actorCommonArray[eActor].gossipReactionLogTimePerUnit
+					|| !actorCommonArray[eActor].gossipReactionLogBmIDsPerUnit
+					|| !actorCommonArray[eActor].gossipReactionLogDirPerUnit
 					|| !actorCommonArray[eActor].gossipReactionLogCountPerUnit)
 				{
 					fprintf(stderr,"ERROR: Cannot allocate energy log for actor %d.\n",eActor);
@@ -644,8 +664,16 @@ int main(int argc, char *argv[])
 						malloc(logCap * sizeof(double));
 					actorCommonArray[eActor].detectionReactionLogTimePerUnit[eUnit] =
 						malloc(logCap * sizeof(double));
+					actorCommonArray[eActor].detectionReactionLogBmIDsPerUnit[eUnit] =
+						malloc(logCap * sizeof(BmIDSet));
+					actorCommonArray[eActor].detectionReactionLogDirPerUnit[eUnit] =
+						malloc(logCap * sizeof(uint8_t));
 					actorCommonArray[eActor].gossipReactionLogTimePerUnit[eUnit] =
 						malloc(logCap * sizeof(double));
+					actorCommonArray[eActor].gossipReactionLogBmIDsPerUnit[eUnit] =
+						malloc(logCap * sizeof(BmIDSet));
+					actorCommonArray[eActor].gossipReactionLogDirPerUnit[eUnit] =
+						malloc(logCap * sizeof(uint8_t));
 					if(actorCommonArray[eActor].energyLogValuePerUnit[eUnit] == NULL)
 					{
 						fprintf(stderr,"ERROR: Cannot allocate per-unit energy log for actor %d unit %u.\n",
@@ -653,7 +681,11 @@ int main(int argc, char *argv[])
 						exit(EXIT_FAILURE);
 					}
 					if(actorCommonArray[eActor].detectionReactionLogTimePerUnit[eUnit] == NULL
-						|| actorCommonArray[eActor].gossipReactionLogTimePerUnit[eUnit] == NULL)
+						|| actorCommonArray[eActor].detectionReactionLogBmIDsPerUnit[eUnit] == NULL
+						|| actorCommonArray[eActor].detectionReactionLogDirPerUnit[eUnit] == NULL
+						|| actorCommonArray[eActor].gossipReactionLogTimePerUnit[eUnit] == NULL
+						|| actorCommonArray[eActor].gossipReactionLogBmIDsPerUnit[eUnit] == NULL
+						|| actorCommonArray[eActor].gossipReactionLogDirPerUnit[eUnit] == NULL)
 					{
 						fprintf(stderr,"ERROR: Cannot allocate per-unit reaction log for actor %d unit %u.\n",
 							eActor, eUnit);
@@ -661,6 +693,8 @@ int main(int argc, char *argv[])
 					}
 					actorCommonArray[eActor].detectionReactionLogCountPerUnit[eUnit] = 0;
 					actorCommonArray[eActor].gossipReactionLogCountPerUnit[eUnit] = 0;
+					if(actorCommonArray[eActor].unitBmIDs != NULL)
+						actorCommonArray[eActor].unitBmIDs[eUnit] = bmIDSetEmpty();
 				}
 				actorCommonArray[eActor].detectionReactionLogMax = logCap;
 				actorCommonArray[eActor].gossipReactionLogMax = logCap;
@@ -1517,6 +1551,8 @@ int main(int argc, char *argv[])
 		for(eActor = 0; eActor < spec.NUM_ACTORS; eActor++)
 		{
 			uint32_t u;
+			if(actorCommonArray[eActor].unitBmIDs != NULL)
+				free(actorCommonArray[eActor].unitBmIDs);
 			if(actorCommonArray[eActor].detectionReactionLogTimePerUnit != NULL)
 			{
 				for(u = 0; u < actorCommonArray[eActor].numEnergyUnits; u++)
@@ -1524,12 +1560,40 @@ int main(int argc, char *argv[])
 						free(actorCommonArray[eActor].detectionReactionLogTimePerUnit[u]);
 				free(actorCommonArray[eActor].detectionReactionLogTimePerUnit);
 			}
+			if(actorCommonArray[eActor].detectionReactionLogBmIDsPerUnit != NULL)
+			{
+				for(u = 0; u < actorCommonArray[eActor].numEnergyUnits; u++)
+					if(actorCommonArray[eActor].detectionReactionLogBmIDsPerUnit[u] != NULL)
+						free(actorCommonArray[eActor].detectionReactionLogBmIDsPerUnit[u]);
+				free(actorCommonArray[eActor].detectionReactionLogBmIDsPerUnit);
+			}
+			if(actorCommonArray[eActor].detectionReactionLogDirPerUnit != NULL)
+			{
+				for(u = 0; u < actorCommonArray[eActor].numEnergyUnits; u++)
+					if(actorCommonArray[eActor].detectionReactionLogDirPerUnit[u] != NULL)
+						free(actorCommonArray[eActor].detectionReactionLogDirPerUnit[u]);
+				free(actorCommonArray[eActor].detectionReactionLogDirPerUnit);
+			}
 			if(actorCommonArray[eActor].gossipReactionLogTimePerUnit != NULL)
 			{
 				for(u = 0; u < actorCommonArray[eActor].numEnergyUnits; u++)
 					if(actorCommonArray[eActor].gossipReactionLogTimePerUnit[u] != NULL)
 						free(actorCommonArray[eActor].gossipReactionLogTimePerUnit[u]);
 				free(actorCommonArray[eActor].gossipReactionLogTimePerUnit);
+			}
+			if(actorCommonArray[eActor].gossipReactionLogBmIDsPerUnit != NULL)
+			{
+				for(u = 0; u < actorCommonArray[eActor].numEnergyUnits; u++)
+					if(actorCommonArray[eActor].gossipReactionLogBmIDsPerUnit[u] != NULL)
+						free(actorCommonArray[eActor].gossipReactionLogBmIDsPerUnit[u]);
+				free(actorCommonArray[eActor].gossipReactionLogBmIDsPerUnit);
+			}
+			if(actorCommonArray[eActor].gossipReactionLogDirPerUnit != NULL)
+			{
+				for(u = 0; u < actorCommonArray[eActor].numEnergyUnits; u++)
+					if(actorCommonArray[eActor].gossipReactionLogDirPerUnit[u] != NULL)
+						free(actorCommonArray[eActor].gossipReactionLogDirPerUnit[u]);
+				free(actorCommonArray[eActor].gossipReactionLogDirPerUnit);
 			}
 			if(actorCommonArray[eActor].detectionReactionLogCountPerUnit)
 				free(actorCommonArray[eActor].detectionReactionLogCountPerUnit);

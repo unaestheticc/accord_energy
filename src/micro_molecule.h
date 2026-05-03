@@ -46,6 +46,22 @@ struct chem_rxn_struct;
  */
 
 /*
+ * BmIDSet – compact set of biomarker IDs carried by one molecule.
+ *
+ * n    : number of valid entries in id[] (0 = molecule carries no BM info)
+ * id[] : unique biomarker identities assigned at BM placement
+ *
+ * Two molecules may react only when their BmIDSets have NO overlap.
+ * Products inherit the union of both reactants' sets.
+ */
+#define BM_ID_MAX_TRACK 64
+
+typedef struct {
+    uint8_t  n;
+    uint64_t id[BM_ID_MAX_TRACK];
+} BmIDSet;
+
+/*
  * ItemMol3D – one molecule in the regular (non-recent) microscopic list.
  *
  * ownerActorID == -1  →  molecule has no energy-enabled owner (e.g. it is
@@ -54,6 +70,8 @@ struct chem_rxn_struct;
  * ownerActorID >= 0   →  index into actorCommonArray; the molecule was
  *                         emitted by that actor and its energy costs must
  *                         be charged to ownerUnitID of that actor.
+ * bmIDs              →  set of biomarker IDs whose information this
+ *                         molecule carries (empty set = no BM info).
  */
 typedef struct {
     double   x;
@@ -62,6 +80,7 @@ typedef struct {
     bool     bNeedUpdate;   /* false once molecule has reacted this step  */
     short    ownerActorID;  /* actor that emitted this molecule (-1: none) */
     uint32_t ownerUnitID;   /* energy unit within that actor               */
+    BmIDSet  bmIDs;         /* set of biomarker IDs carried by this molecule */
 } ItemMol3D;
 
 typedef struct node_Mol3D {
@@ -73,7 +92,7 @@ typedef NodeMol3D * ListMol3D;
 
 /*
  * ItemMolRecent3D – molecule created during the current micro time step.
- * Same owner fields as ItemMol3D.
+ * Same owner and bmIDs fields as ItemMol3D.
  */
 typedef struct {
     double   x;
@@ -82,6 +101,7 @@ typedef struct {
     double   dt_partial;    /* how far into the current dt this mol was born */
     short    ownerActorID;
     uint32_t ownerUnitID;
+    BmIDSet  bmIDs;         /* set of biomarker IDs carried by this molecule */
 } ItemMolRecent3D;
 
 typedef struct node_MolRecent3D {
@@ -97,17 +117,32 @@ typedef NodeMolRecent3D * ListMolRecent3D;
  * -----------------------------------------------------------------------
  */
 
+/* BmIDSet helpers */
+uint64_t assignNewBMID(void);
+BmIDSet  bmIDSetEmpty(void);
+BmIDSet  bmIDSetFromID(uint64_t id);
+bool     bmIDSetOverlap(const BmIDSet *a, const BmIDSet *b);
+bool     bmIDSetEqual(const BmIDSet *a, const BmIDSet *b);
+bool     bmIDSetIsSubset(const BmIDSet *a, const BmIDSet *b); /* a ⊆ b ? */
+BmIDSet  bmIDSetUnion(const BmIDSet *a, const BmIDSet *b);
+
+/* Communication direction from the logged unit's molecule perspective.
+ * 0=send  1=receive  2=send & receive */
+#define COMM_DIR_SEND    0
+#define COMM_DIR_RECEIVE 1
+#define COMM_DIR_BOTH    2
+
 /* Basic molecule operations */
 bool addMolecule(ListMol3D * p_list, double x, double y, double z);
 bool addMoleculeOwned(ListMol3D * p_list, double x, double y, double z,
-    short ownerActorID, uint32_t ownerUnitID);
+    short ownerActorID, uint32_t ownerUnitID, BmIDSet bmIDs);
 bool addMoleculeOwnedInherited(ListMol3D * p_list, double x, double y, double z,
-    short ownerActorID, uint32_t ownerUnitID);
+    short ownerActorID, uint32_t ownerUnitID, BmIDSet bmIDs);
 
 bool addMoleculeRecent(ListMolRecent3D * p_list, double x, double y, double z,
     double dt_partial);
 bool addMoleculeRecentOwned(ListMolRecent3D * p_list, double x, double y, double z,
-    double dt_partial, short ownerActorID, uint32_t ownerUnitID);
+    double dt_partial, short ownerActorID, uint32_t ownerUnitID, BmIDSet bmIDs);
 
 void moveMolecule(ItemMol3D * molecule, double x, double y, double z);
 void moveMoleculeRecent(ItemMolRecent3D * molecule, double x, double y, double z);
@@ -202,7 +237,8 @@ void rxnFirstOrderProductPlacement(const NodeMol3D * curMol,
     bool bRecent,
     bool * bProductIsReactant,
     short ownerActorID,
-    uint32_t ownerUnitID);
+    uint32_t ownerUnitID,
+    BmIDSet bmIDs);
 
 void rxnSecondOrder(const unsigned short NUM_REGIONS,
     const unsigned short NUM_MOL_TYPES,

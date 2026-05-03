@@ -3222,10 +3222,31 @@ void printOneTextRealization(FILE * out,
 				{
 					for(eIdx = 0; eIdx < actorCommonArray[curActor].detectionReactionLogCountPerUnit[eUnit]; eIdx++)
 					{
-						if(eIdx > 0)
-							fprintf(out, " ");
-						fprintf(out, "%.4e",
+						uint8_t k;
+						if(eIdx > 0) fprintf(out, "\n\t\t\t\t ");
+						fprintf(out, "(%.4e,[",
 							actorCommonArray[curActor].detectionReactionLogTimePerUnit[eUnit][eIdx]);
+						if(actorCommonArray[curActor].detectionReactionLogBmIDsPerUnit != NULL
+							&& actorCommonArray[curActor].detectionReactionLogBmIDsPerUnit[eUnit] != NULL)
+						{
+							const BmIDSet * bms =
+								&actorCommonArray[curActor].detectionReactionLogBmIDsPerUnit[eUnit][eIdx];
+							for(k = 0; k < bms->n; k++)
+							{
+								if(k > 0) fprintf(out, ",");
+								fprintf(out, "%" PRIu64, bms->id[k]);
+							}
+						}
+						if(actorCommonArray[curActor].detectionReactionLogDirPerUnit != NULL
+							&& actorCommonArray[curActor].detectionReactionLogDirPerUnit[eUnit] != NULL)
+						{
+							uint8_t dir = actorCommonArray[curActor].detectionReactionLogDirPerUnit[eUnit][eIdx];
+							const char * dirStr = (dir == COMM_DIR_BOTH) ? "send & receive"
+								: (dir == COMM_DIR_SEND) ? "send" : "receive";
+							fprintf(out, "],%s)", dirStr);
+						}
+						else
+							fprintf(out, "])");
 					}
 				}
 				fprintf(out, "]\n");
@@ -3239,10 +3260,31 @@ void printOneTextRealization(FILE * out,
 				{
 					for(eIdx = 0; eIdx < actorCommonArray[curActor].gossipReactionLogCountPerUnit[eUnit]; eIdx++)
 					{
-						if(eIdx > 0)
-							fprintf(out, " ");
-						fprintf(out, "%.4e",
+						uint8_t k;
+						if(eIdx > 0) fprintf(out, "\n\t\t\t\t ");
+						fprintf(out, "(%.4e,[",
 							actorCommonArray[curActor].gossipReactionLogTimePerUnit[eUnit][eIdx]);
+						if(actorCommonArray[curActor].gossipReactionLogBmIDsPerUnit != NULL
+							&& actorCommonArray[curActor].gossipReactionLogBmIDsPerUnit[eUnit] != NULL)
+						{
+							const BmIDSet * bms =
+								&actorCommonArray[curActor].gossipReactionLogBmIDsPerUnit[eUnit][eIdx];
+							for(k = 0; k < bms->n; k++)
+							{
+								if(k > 0) fprintf(out, ",");
+								fprintf(out, "%" PRIu64, bms->id[k]);
+							}
+						}
+						if(actorCommonArray[curActor].gossipReactionLogDirPerUnit != NULL
+							&& actorCommonArray[curActor].gossipReactionLogDirPerUnit[eUnit] != NULL)
+						{
+							uint8_t dir = actorCommonArray[curActor].gossipReactionLogDirPerUnit[eUnit][eIdx];
+							const char * dirStr = (dir == COMM_DIR_BOTH) ? "send & receive"
+								: (dir == COMM_DIR_SEND) ? "send" : "receive";
+							fprintf(out, "],%s)", dirStr);
+						}
+						else
+							fprintf(out, "])");
 					}
 				}
 				fprintf(out, "]\n");
@@ -3414,35 +3456,81 @@ void printTextEnd(FILE * out,
 				cJSON_AddNumberToObject(unitObj, "GossipCount",
 					actorCommonArray[curActor].gossipReactionLogCountPerUnit[eUnit]);
 
-			/* --- DetectionTimes array --- */
+			/* --- DetectionTimes array ---
+			 * Each entry: {"time": t, "bmIDs": [...], "dir": "..."} */
 			if(actorCommonArray[curActor].detectionReactionLogTimePerUnit != NULL
 				&& actorCommonArray[curActor].detectionReactionLogCountPerUnit != NULL)
 			{
+				cJSON * evtObj, * bmIDArr;
+				uint8_t k;
 				cJSON_AddItemToObject(unitObj, "DetectionTimes",
 					unitTimes=cJSON_CreateArray());
 				for(eIdx = 0;
 					eIdx < actorCommonArray[curActor].detectionReactionLogCountPerUnit[eUnit];
 					eIdx++)
 				{
-					cJSON_AddItemToArray(unitTimes,
-						cJSON_CreateNumber(
-						actorCommonArray[curActor].detectionReactionLogTimePerUnit[eUnit][eIdx]));
+					evtObj = cJSON_CreateObject();
+					cJSON_AddNumberToObject(evtObj, "time",
+						actorCommonArray[curActor].detectionReactionLogTimePerUnit[eUnit][eIdx]);
+					bmIDArr = cJSON_CreateArray();
+					if(actorCommonArray[curActor].detectionReactionLogBmIDsPerUnit != NULL
+						&& actorCommonArray[curActor].detectionReactionLogBmIDsPerUnit[eUnit] != NULL)
+					{
+						const BmIDSet * bms =
+							&actorCommonArray[curActor].detectionReactionLogBmIDsPerUnit[eUnit][eIdx];
+						for(k = 0; k < bms->n; k++)
+							cJSON_AddItemToArray(bmIDArr,
+								cJSON_CreateNumber((double)bms->id[k]));
+					}
+					cJSON_AddItemToObject(evtObj, "bmIDs", bmIDArr);
+					if(actorCommonArray[curActor].detectionReactionLogDirPerUnit != NULL
+						&& actorCommonArray[curActor].detectionReactionLogDirPerUnit[eUnit] != NULL)
+					{
+						uint8_t dir = actorCommonArray[curActor].detectionReactionLogDirPerUnit[eUnit][eIdx];
+						const char * dirStr = (dir == COMM_DIR_BOTH) ? "send & receive"
+							: (dir == COMM_DIR_SEND) ? "send" : "receive";
+						cJSON_AddStringToObject(evtObj, "dir", dirStr);
+					}
+					cJSON_AddItemToArray(unitTimes, evtObj);
 				}
 			}
 
-			/* --- GossipTimes array --- */
+			/* --- GossipTimes array ---
+			 * Each entry: {"time": t, "bmIDs": [...], "dir": "..."} */
 			if(actorCommonArray[curActor].gossipReactionLogTimePerUnit != NULL
 				&& actorCommonArray[curActor].gossipReactionLogCountPerUnit != NULL)
 			{
+				cJSON * evtObj, * bmIDArr;
+				uint8_t k;
 				cJSON_AddItemToObject(unitObj, "GossipTimes",
 					unitTimes=cJSON_CreateArray());
 				for(eIdx = 0;
 					eIdx < actorCommonArray[curActor].gossipReactionLogCountPerUnit[eUnit];
 					eIdx++)
 				{
-					cJSON_AddItemToArray(unitTimes,
-						cJSON_CreateNumber(
-						actorCommonArray[curActor].gossipReactionLogTimePerUnit[eUnit][eIdx]));
+					evtObj = cJSON_CreateObject();
+					cJSON_AddNumberToObject(evtObj, "time",
+						actorCommonArray[curActor].gossipReactionLogTimePerUnit[eUnit][eIdx]);
+					bmIDArr = cJSON_CreateArray();
+					if(actorCommonArray[curActor].gossipReactionLogBmIDsPerUnit != NULL
+						&& actorCommonArray[curActor].gossipReactionLogBmIDsPerUnit[eUnit] != NULL)
+					{
+						const BmIDSet * bms =
+							&actorCommonArray[curActor].gossipReactionLogBmIDsPerUnit[eUnit][eIdx];
+						for(k = 0; k < bms->n; k++)
+							cJSON_AddItemToArray(bmIDArr,
+								cJSON_CreateNumber((double)bms->id[k]));
+					}
+					cJSON_AddItemToObject(evtObj, "bmIDs", bmIDArr);
+					if(actorCommonArray[curActor].gossipReactionLogDirPerUnit != NULL
+						&& actorCommonArray[curActor].gossipReactionLogDirPerUnit[eUnit] != NULL)
+					{
+						uint8_t dir = actorCommonArray[curActor].gossipReactionLogDirPerUnit[eUnit][eIdx];
+						const char * dirStr = (dir == COMM_DIR_BOTH) ? "send & receive"
+							: (dir == COMM_DIR_SEND) ? "send" : "receive";
+						cJSON_AddStringToObject(evtObj, "dir", dirStr);
+					}
+					cJSON_AddItemToArray(unitTimes, evtObj);
 				}
 			}
 

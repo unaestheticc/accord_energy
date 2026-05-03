@@ -346,15 +346,22 @@ struct actorStruct3D { // Common actor parameters
 	uint32_t energyLogCount;   // Current number of entries
 	uint32_t energyLogMax;     // Allocated capacity
 
-	// Per-unit detection reaction times [unit][log index]
-	double ** detectionReactionLogTimePerUnit;
-	uint32_t * detectionReactionLogCountPerUnit;
-	uint32_t detectionReactionLogMax;
+	// Accumulated BM knowledge per unit (union across all physical molecules of this unit)
+	BmIDSet * unitBmIDs;
 
-	// Per-unit gossip reaction times [unit][log index]
-	double ** gossipReactionLogTimePerUnit;
-	uint32_t * gossipReactionLogCountPerUnit;
-	uint32_t gossipReactionLogMax;
+	// Per-unit detection reaction log [unit][log index]
+	double   ** detectionReactionLogTimePerUnit;
+	BmIDSet  ** detectionReactionLogBmIDsPerUnit;
+	uint8_t  ** detectionReactionLogDirPerUnit;
+	uint32_t  * detectionReactionLogCountPerUnit;
+	uint32_t    detectionReactionLogMax;
+
+	// Per-unit gossip reaction log [unit][log index]
+	double   ** gossipReactionLogTimePerUnit;
+	BmIDSet  ** gossipReactionLogBmIDsPerUnit;
+	uint8_t  ** gossipReactionLogDirPerUnit;
+	uint32_t  * gossipReactionLogCountPerUnit;
+	uint32_t    gossipReactionLogMax;
 
 	// FUTURE MEMBERS (POTENTIAL)
 	// Indicator for how next time is determined
@@ -522,7 +529,9 @@ void resetActors(const short NUM_ACTORS,
 void logActorReactionEvent(struct actorStruct3D * actor,
 	uint32_t unitID,
 	const struct chem_rxn_struct * rxn,
-	double tCur);
+	double tCur,
+	BmIDSet bmIDs,
+	uint8_t rxnDir);
 
 void deleteActor(const short NUM_ACTORS,
 	struct actorStruct3D actorCommonArray[],

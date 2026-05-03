@@ -57,12 +57,16 @@
 void logActorReactionEvent(struct actorStruct3D * actor,
 	uint32_t unitID,
 	const struct chem_rxn_struct * rxn,
-	double tCur)
+	double tCur,
+	BmIDSet bmIDs,
+	uint8_t rxnDir)
 {
 	uint32_t logIndex;
-	double ** logTimePerUnit;
-	uint32_t * logCountPerUnit;
-	uint32_t logMax;
+	double   ** logTimePerUnit;
+	BmIDSet  ** logBmIDsPerUnit;
+	uint8_t  ** logDirPerUnit;
+	uint32_t  * logCountPerUnit;
+	uint32_t    logMax;
 
 	if(actor == NULL || rxn == NULL || rxn->energyCostType == NULL)
 		return;
@@ -73,15 +77,19 @@ void logActorReactionEvent(struct actorStruct3D * actor,
 
 	if(strcmp(rxn->energyCostType, "detection") == 0)
 	{
-		logTimePerUnit = actor->detectionReactionLogTimePerUnit;
+		logTimePerUnit  = actor->detectionReactionLogTimePerUnit;
+		logBmIDsPerUnit = actor->detectionReactionLogBmIDsPerUnit;
+		logDirPerUnit   = actor->detectionReactionLogDirPerUnit;
 		logCountPerUnit = actor->detectionReactionLogCountPerUnit;
-		logMax = actor->detectionReactionLogMax;
+		logMax          = actor->detectionReactionLogMax;
 	}
 	else if(strcmp(rxn->energyCostType, "communication") == 0)
 	{
-		logTimePerUnit = actor->gossipReactionLogTimePerUnit;
+		logTimePerUnit  = actor->gossipReactionLogTimePerUnit;
+		logBmIDsPerUnit = actor->gossipReactionLogBmIDsPerUnit;
+		logDirPerUnit   = actor->gossipReactionLogDirPerUnit;
 		logCountPerUnit = actor->gossipReactionLogCountPerUnit;
-		logMax = actor->gossipReactionLogMax;
+		logMax          = actor->gossipReactionLogMax;
 	}
 	else
 		return;
@@ -93,7 +101,18 @@ void logActorReactionEvent(struct actorStruct3D * actor,
 	if(logIndex >= logMax)
 		return;
 
+	/* Accumulate BM knowledge at unit level: union of everything seen so far
+	 * by any physical molecule of this unit.  This makes the logged set
+	 * monotonically growing and independent of which physical molecule fires. */
+	if(actor->unitBmIDs != NULL)
+		actor->unitBmIDs[unitID] = bmIDSetUnion(&actor->unitBmIDs[unitID], &bmIDs);
+
 	logTimePerUnit[unitID][logIndex] = tCur;
+	if(logBmIDsPerUnit != NULL && logBmIDsPerUnit[unitID] != NULL)
+		logBmIDsPerUnit[unitID][logIndex] =
+			(actor->unitBmIDs != NULL) ? actor->unitBmIDs[unitID] : bmIDs;
+	if(logDirPerUnit != NULL && logDirPerUnit[unitID] != NULL)
+		logDirPerUnit[unitID][logIndex] = rxnDir;
 	logCountPerUnit[unitID] = logIndex + 1;
 }
 
@@ -1008,6 +1027,11 @@ void resetActors(const short NUM_ACTORS,
 			for(eUnit = 0; eUnit < actorCommonArray[curActor].numEnergyUnits; eUnit++)
 				actorCommonArray[curActor].gossipReactionLogCountPerUnit[eUnit] = 0;
 		}
+		if(actorCommonArray[curActor].unitBmIDs != NULL)
+		{
+			for(eUnit = 0; eUnit < actorCommonArray[curActor].numEnergyUnits; eUnit++)
+				actorCommonArray[curActor].unitBmIDs[eUnit] = bmIDSetEmpty();
+		}
 	}
 	
 	for(curActor = 0; curActor < NUM_ACTORS_ACTIVE; curActor++)
@@ -1514,9 +1538,12 @@ void placeMoleculesInRegion(const struct actorStruct3D * actorCommon,
 					 * If the actor is energy-enabled, each emitted molecule
 					 * represents one independent nanosensor unit.  Assign
 					 * unit IDs round-robin so that N molecules map onto
-					 * energyUnitCount units: molecule i → unit (i % unitCount). */
+					 * energyUnitCount units: molecule i → unit (i % unitCount).
+					 * Non-energy-enabled actors emit biomarkers: each molecule
+					 * gets a unique bmID so reactions can track BM identity. */
 					short   ownerActorID = -1;
 					uint32_t ownerUnitID = 0;
+					BmIDSet  molBMIDs = bmIDSetEmpty();
 					if(actorCommon->spec.bEnergyEnabled
 						&& actorCommon->spec.energyUnitCount > 0)
 					{
@@ -1525,9 +1552,14 @@ void placeMoleculesInRegion(const struct actorStruct3D * actorCommon,
 						ownerUnitID  = (uint32_t)(curMolecule
 							% actorCommon->spec.energyUnitCount);
 					}
+					else
+					{
+						/* Biomarker molecule — assign a globally unique ID */
+						molBMIDs = bmIDSetFromID(assignNewBMID());
+					}
 
 					if(!addMoleculeRecentOwned(microMolListRecent, point[0], point[1],
-						point[2], tMicro - tCur, ownerActorID, ownerUnitID))
+						point[2], tMicro - tCur, ownerActorID, ownerUnitID, molBMIDs))
 					{ // Creation of molecule failed
 						fprintf(stderr, "ERROR: Memory allocation for new molecule to be placed in region %u.\n", curRegion);
 						exit(EXIT_FAILURE);
