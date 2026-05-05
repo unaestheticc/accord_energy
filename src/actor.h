@@ -350,18 +350,22 @@ struct actorStruct3D { // Common actor parameters
 	BmIDSet * unitBmIDs;
 
 	// Per-unit detection reaction log [unit][log index]
-	double   ** detectionReactionLogTimePerUnit;
-	BmIDSet  ** detectionReactionLogBmIDsPerUnit;
-	uint8_t  ** detectionReactionLogDirPerUnit;
-	uint32_t  * detectionReactionLogCountPerUnit;
-	uint32_t    detectionReactionLogMax;
+	double    ** detectionReactionLogTimePerUnit;
+	BmIDSet   ** detectionReactionLogBmIDsPerUnit;
+	uint8_t   ** detectionReactionLogDirPerUnit;
+	short     ** detectionReactionLogPartnerActorPerUnit;
+	uint32_t  ** detectionReactionLogPartnerUnitPerUnit;
+	uint32_t   * detectionReactionLogCountPerUnit;
+	uint32_t     detectionReactionLogMax;
 
 	// Per-unit gossip reaction log [unit][log index]
-	double   ** gossipReactionLogTimePerUnit;
-	BmIDSet  ** gossipReactionLogBmIDsPerUnit;
-	uint8_t  ** gossipReactionLogDirPerUnit;
-	uint32_t  * gossipReactionLogCountPerUnit;
-	uint32_t    gossipReactionLogMax;
+	double    ** gossipReactionLogTimePerUnit;
+	BmIDSet   ** gossipReactionLogBmIDsPerUnit;
+	uint8_t   ** gossipReactionLogDirPerUnit;
+	short     ** gossipReactionLogPartnerActorPerUnit;
+	uint32_t  ** gossipReactionLogPartnerUnitPerUnit;
+	uint32_t   * gossipReactionLogCountPerUnit;
+	uint32_t     gossipReactionLogMax;
 
 	// FUTURE MEMBERS (POTENTIAL)
 	// Indicator for how next time is determined
@@ -531,7 +535,9 @@ void logActorReactionEvent(struct actorStruct3D * actor,
 	const struct chem_rxn_struct * rxn,
 	double tCur,
 	BmIDSet bmIDs,
-	uint8_t rxnDir);
+	uint8_t rxnDir,
+	short partnerActorID,
+	uint32_t partnerUnitID);
 
 void deleteActor(const short NUM_ACTORS,
 	struct actorStruct3D actorCommonArray[],

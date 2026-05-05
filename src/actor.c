@@ -59,14 +59,18 @@ void logActorReactionEvent(struct actorStruct3D * actor,
 	const struct chem_rxn_struct * rxn,
 	double tCur,
 	BmIDSet bmIDs,
-	uint8_t rxnDir)
+	uint8_t rxnDir,
+	short partnerActorID,
+	uint32_t partnerUnitID)
 {
 	uint32_t logIndex;
-	double   ** logTimePerUnit;
-	BmIDSet  ** logBmIDsPerUnit;
-	uint8_t  ** logDirPerUnit;
-	uint32_t  * logCountPerUnit;
-	uint32_t    logMax;
+	double    ** logTimePerUnit;
+	BmIDSet   ** logBmIDsPerUnit;
+	uint8_t   ** logDirPerUnit;
+	short     ** logPartnerActorPerUnit;
+	uint32_t  ** logPartnerUnitPerUnit;
+	uint32_t   * logCountPerUnit;
+	uint32_t     logMax;
 
 	if(actor == NULL || rxn == NULL || rxn->energyCostType == NULL)
 		return;
@@ -77,19 +81,23 @@ void logActorReactionEvent(struct actorStruct3D * actor,
 
 	if(strcmp(rxn->energyCostType, "detection") == 0)
 	{
-		logTimePerUnit  = actor->detectionReactionLogTimePerUnit;
-		logBmIDsPerUnit = actor->detectionReactionLogBmIDsPerUnit;
-		logDirPerUnit   = actor->detectionReactionLogDirPerUnit;
-		logCountPerUnit = actor->detectionReactionLogCountPerUnit;
-		logMax          = actor->detectionReactionLogMax;
+		logTimePerUnit        = actor->detectionReactionLogTimePerUnit;
+		logBmIDsPerUnit       = actor->detectionReactionLogBmIDsPerUnit;
+		logDirPerUnit         = actor->detectionReactionLogDirPerUnit;
+		logPartnerActorPerUnit= actor->detectionReactionLogPartnerActorPerUnit;
+		logPartnerUnitPerUnit = actor->detectionReactionLogPartnerUnitPerUnit;
+		logCountPerUnit       = actor->detectionReactionLogCountPerUnit;
+		logMax                = actor->detectionReactionLogMax;
 	}
 	else if(strcmp(rxn->energyCostType, "communication") == 0)
 	{
-		logTimePerUnit  = actor->gossipReactionLogTimePerUnit;
-		logBmIDsPerUnit = actor->gossipReactionLogBmIDsPerUnit;
-		logDirPerUnit   = actor->gossipReactionLogDirPerUnit;
-		logCountPerUnit = actor->gossipReactionLogCountPerUnit;
-		logMax          = actor->gossipReactionLogMax;
+		logTimePerUnit        = actor->gossipReactionLogTimePerUnit;
+		logBmIDsPerUnit       = actor->gossipReactionLogBmIDsPerUnit;
+		logDirPerUnit         = actor->gossipReactionLogDirPerUnit;
+		logPartnerActorPerUnit= actor->gossipReactionLogPartnerActorPerUnit;
+		logPartnerUnitPerUnit = actor->gossipReactionLogPartnerUnitPerUnit;
+		logCountPerUnit       = actor->gossipReactionLogCountPerUnit;
+		logMax                = actor->gossipReactionLogMax;
 	}
 	else
 		return;
@@ -103,9 +111,27 @@ void logActorReactionEvent(struct actorStruct3D * actor,
 
 	/* Accumulate BM knowledge at unit level: union of everything seen so far
 	 * by any physical molecule of this unit.  This makes the logged set
-	 * monotonically growing and independent of which physical molecule fires. */
+	 * monotonically growing and independent of which physical molecule fires.
+	 * Done BEFORE dedup so that info from duplicate reactions is still captured. */
 	if(actor->unitBmIDs != NULL)
 		actor->unitBmIDs[unitID] = bmIDSetUnion(&actor->unitBmIDs[unitID], &bmIDs);
+
+	/* Dedup: if the same (tCur, partnerActor, partnerUnit) pair was already logged
+	 * for this unit in the current timestep, skip writing another entry.
+	 * Multiple physical molecules of the same unit can react with multiple physical
+	 * molecules of the same partner unit in one step — one log entry is enough. */
+	if(logIndex > 0
+		&& logPartnerActorPerUnit != NULL && logPartnerActorPerUnit[unitID] != NULL
+		&& logPartnerUnitPerUnit  != NULL && logPartnerUnitPerUnit[unitID]  != NULL)
+	{
+		uint32_t i = logIndex;
+		while(i-- > 0 && logTimePerUnit[unitID][i] == tCur)
+		{
+			if(logPartnerActorPerUnit[unitID][i] == partnerActorID
+				&& logPartnerUnitPerUnit[unitID][i] == partnerUnitID)
+				return; /* duplicate — bmIDs already updated above */
+		}
+	}
 
 	logTimePerUnit[unitID][logIndex] = tCur;
 	if(logBmIDsPerUnit != NULL && logBmIDsPerUnit[unitID] != NULL)
@@ -113,6 +139,10 @@ void logActorReactionEvent(struct actorStruct3D * actor,
 			(actor->unitBmIDs != NULL) ? actor->unitBmIDs[unitID] : bmIDs;
 	if(logDirPerUnit != NULL && logDirPerUnit[unitID] != NULL)
 		logDirPerUnit[unitID][logIndex] = rxnDir;
+	if(logPartnerActorPerUnit != NULL && logPartnerActorPerUnit[unitID] != NULL)
+		logPartnerActorPerUnit[unitID][logIndex] = partnerActorID;
+	if(logPartnerUnitPerUnit != NULL && logPartnerUnitPerUnit[unitID] != NULL)
+		logPartnerUnitPerUnit[unitID][logIndex] = partnerUnitID;
 	logCountPerUnit[unitID] = logIndex + 1;
 }
 

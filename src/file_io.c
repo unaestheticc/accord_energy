@@ -3491,6 +3491,16 @@ void printTextEnd(FILE * out,
 							: (dir == COMM_DIR_SEND) ? "send" : "receive";
 						cJSON_AddStringToObject(evtObj, "dir", dirStr);
 					}
+					if(actorCommonArray[curActor].detectionReactionLogPartnerActorPerUnit != NULL
+						&& actorCommonArray[curActor].detectionReactionLogPartnerActorPerUnit[eUnit] != NULL)
+					{
+						cJSON_AddNumberToObject(evtObj, "partner_actor",
+							actorCommonArray[curActor].detectionReactionLogPartnerActorPerUnit[eUnit][eIdx]);
+						if(actorCommonArray[curActor].detectionReactionLogPartnerUnitPerUnit != NULL
+							&& actorCommonArray[curActor].detectionReactionLogPartnerUnitPerUnit[eUnit] != NULL)
+							cJSON_AddNumberToObject(evtObj, "partner_nm",
+								actorCommonArray[curActor].detectionReactionLogPartnerUnitPerUnit[eUnit][eIdx]);
+					}
 					cJSON_AddItemToArray(unitTimes, evtObj);
 				}
 			}
@@ -3529,6 +3539,16 @@ void printTextEnd(FILE * out,
 						const char * dirStr = (dir == COMM_DIR_BOTH) ? "send & receive"
 							: (dir == COMM_DIR_SEND) ? "send" : "receive";
 						cJSON_AddStringToObject(evtObj, "dir", dirStr);
+					}
+					if(actorCommonArray[curActor].gossipReactionLogPartnerActorPerUnit != NULL
+						&& actorCommonArray[curActor].gossipReactionLogPartnerActorPerUnit[eUnit] != NULL)
+					{
+						cJSON_AddNumberToObject(evtObj, "partner_actor",
+							actorCommonArray[curActor].gossipReactionLogPartnerActorPerUnit[eUnit][eIdx]);
+						if(actorCommonArray[curActor].gossipReactionLogPartnerUnitPerUnit != NULL
+							&& actorCommonArray[curActor].gossipReactionLogPartnerUnitPerUnit[eUnit] != NULL)
+							cJSON_AddNumberToObject(evtObj, "partner_nm",
+								actorCommonArray[curActor].gossipReactionLogPartnerUnitPerUnit[eUnit][eIdx]);
 					}
 					cJSON_AddItemToArray(unitTimes, evtObj);
 				}

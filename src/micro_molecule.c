@@ -218,7 +218,9 @@ static bool canAndConsumeReactionEnergy(const struct chem_rxn_struct * rxn,
 	const short NUM_ACTORS,
 	double tCur,
 	BmIDSet bmIDs,
-	uint8_t rxnDir);
+	uint8_t rxnDir,
+	short partnerActorID,
+	uint32_t partnerUnitID);
 
 static bool actorInvolvedInReaction(const struct actorStruct3D * actor,
 	const uint32_t reactants[],
@@ -401,7 +403,9 @@ static bool canAndConsumeReactionEnergy(const struct chem_rxn_struct * rxn,
 	const short NUM_ACTORS,
 	double tCur,
 	BmIDSet bmIDs,
-	uint8_t rxnDir)
+	uint8_t rxnDir,
+	short partnerActorID,
+	uint32_t partnerUnitID)
 {
 	/* Legacy fallback: used only when no molecule owner is known (e.g. meso regime).
 	 * Charges all energy-enabled actors involved in the reaction.
@@ -443,7 +447,7 @@ static bool canAndConsumeReactionEnergy(const struct chem_rxn_struct * rxn,
 		short id = payerIDs[a];
 		if(!consumeActorEnergyCostOnUnit(&actorCommonArray[id], cost, payerUnits[a]))
 			return false;
-		logActorReactionEvent(&actorCommonArray[id], payerUnits[a], rxn, tCur, bmIDs, rxnDir);
+		logActorReactionEvent(&actorCommonArray[id], payerUnits[a], rxn, tCur, bmIDs, rxnDir, partnerActorID, partnerUnitID);
 		if(actorCommonArray[id].bEnergyDepleted)
 		{
 			actorCommonArray[id].nextTime = INFINITY;
@@ -477,7 +481,9 @@ static bool canAndConsumeReactionEnergyForUnit(
 	short ownerActorID,
 	uint32_t ownerUnitID,
 	BmIDSet bmIDs,
-	uint8_t rxnDir)
+	uint8_t rxnDir,
+	short partnerActorID,
+	uint32_t partnerUnitID)
 {
 	double cost;
 
@@ -487,7 +493,7 @@ static bool canAndConsumeReactionEnergyForUnit(
 	/* No owner known: fall back to aggregate (legacy) charging */
 	if(ownerActorID < 0 || ownerActorID >= NUM_ACTORS)
 		return canAndConsumeReactionEnergy(rxn, NUM_MOL_TYPES,
-			actorCommonArray, NUM_ACTORS, tCur, bmIDs, rxnDir);
+			actorCommonArray, NUM_ACTORS, tCur, bmIDs, rxnDir, partnerActorID, partnerUnitID);
 
 	if(!rxn->bEnergyEnabled)
 		return true;
@@ -526,7 +532,7 @@ static bool canAndConsumeReactionEnergyForUnit(
 	if(!consumeActorEnergyCostOnUnit(payer, cost, ownerUnitID))
 		return false;
 
-	logActorReactionEvent(payer, ownerUnitID, rxn, tCur, bmIDs, rxnDir);
+	logActorReactionEvent(payer, ownerUnitID, rxn, tCur, bmIDs, rxnDir, partnerActorID, partnerUnitID);
 
 	if(payer->bEnergyDepleted)
 		payer->nextTime = INFINITY;
@@ -1398,7 +1404,7 @@ void rxnFirstOrder(const unsigned short NUM_REGIONS,
 				if(!canAndConsumeReactionEnergyForUnit(&chem_rxn[globalRxn], NUM_MOL_TYPES,
 					actorCommonArray, NUM_ACTORS, tCur,
 					curNode->item.ownerActorID, curNode->item.ownerUnitID,
-						curNode->item.bmIDs, COMM_DIR_RECEIVE))
+						curNode->item.bmIDs, COMM_DIR_RECEIVE, -1, 0))
 				{
 					if(!bRemove)
 						prevNode = curNode;
@@ -1462,7 +1468,7 @@ void rxnFirstOrder(const unsigned short NUM_REGIONS,
 					if(!canAndConsumeReactionEnergyForUnit(&chem_rxn[globalRxn], NUM_MOL_TYPES,
 						actorCommonArray, NUM_ACTORS, tCur,
 						curNode->item.ownerActorID, curNode->item.ownerUnitID,
-						curNode->item.bmIDs, COMM_DIR_RECEIVE))
+						curNode->item.bmIDs, COMM_DIR_RECEIVE, -1, 0))
 					{
 						continue;
 					}
@@ -1569,7 +1575,7 @@ void rxnFirstOrderRecent(const unsigned short NUM_REGIONS,
 				if(!canAndConsumeReactionEnergyForUnit(&chem_rxn[globalRxn], NUM_MOL_TYPES,
 					actorCommonArray, NUM_ACTORS, tCur,
 					curNode->item.ownerActorID, curNode->item.ownerUnitID,
-						curNode->item.bmIDs, COMM_DIR_RECEIVE))
+						curNode->item.bmIDs, COMM_DIR_RECEIVE, -1, 0))
 				{
 					if(!bRemove)
 						prevNode = curNode;
@@ -1664,7 +1670,7 @@ void rxnFirstOrderRecent(const unsigned short NUM_REGIONS,
 				if(!canAndConsumeReactionEnergyForUnit(&chem_rxn[globalRxn], NUM_MOL_TYPES,
 					actorCommonArray, NUM_ACTORS, tCur,
 					curNode->item.ownerActorID, curNode->item.ownerUnitID,
-						curNode->item.bmIDs, COMM_DIR_RECEIVE))
+						curNode->item.bmIDs, COMM_DIR_RECEIVE, -1, 0))
 				{
 					continue;
 				}
@@ -2194,19 +2200,47 @@ void rxnSecondOrder(const unsigned short NUM_REGIONS,
 										rxnOwnerUnitID  = curNeighNode->item.ownerUnitID;
 									}
 
-									/* Direction from the owner's perspective */
-									const BmIDSet *ownedBMIDs = (curNode->item.ownerActorID >= 0)
-										? &curNode->item.bmIDs : &curNeighNode->item.bmIDs;
-									const BmIDSet *otherBMIDs = (curNode->item.ownerActorID >= 0)
-										? &curNeighNode->item.bmIDs : &curNode->item.bmIDs;
-									bool rxnReceived = !bmIDSetIsSubset(otherBMIDs, ownedBMIDs);
-									bool rxnSent     = !bmIDSetIsSubset(ownedBMIDs, otherBMIDs);
-									uint8_t rxnDir   = (rxnSent && rxnReceived) ? COMM_DIR_BOTH
-										: rxnReceived ? COMM_DIR_RECEIVE : COMM_DIR_SEND;
+									/* Partner = the non-owner molecule */
+									short rxnPartnerActorID = (curNode->item.ownerActorID >= 0)
+										? curNeighNode->item.ownerActorID
+										: curNode->item.ownerActorID;
+									uint32_t rxnPartnerUnitID = (curNode->item.ownerActorID >= 0)
+										? curNeighNode->item.ownerUnitID
+										: curNode->item.ownerUnitID;
+
+									/* Direction from the owner's perspective.
+									 * If the partner has no owner (e.g. BM), it cannot
+									 * "receive" information, so the direction is always
+									 * RECEIVE regardless of bmID overlap. */
+									uint8_t rxnDir;
+									if(rxnPartnerActorID < 0) {
+										rxnDir = COMM_DIR_RECEIVE;
+									} else {
+										const BmIDSet *ownedBMIDs = (curNode->item.ownerActorID >= 0)
+											? &curNode->item.bmIDs : &curNeighNode->item.bmIDs;
+										const BmIDSet *otherBMIDs = (curNode->item.ownerActorID >= 0)
+											? &curNeighNode->item.bmIDs : &curNode->item.bmIDs;
+										bool rxnReceived = !bmIDSetIsSubset(otherBMIDs, ownedBMIDs);
+										bool rxnSent     = !bmIDSetIsSubset(ownedBMIDs, otherBMIDs);
+										rxnDir = (rxnSent && rxnReceived) ? COMM_DIR_BOTH
+											: rxnReceived ? COMM_DIR_RECEIVE : COMM_DIR_SEND;
+									}
+
+									/* Skip self-reaction: two physical molecules from the same
+									 * unit cannot gossip with each other. */
+									if(rxnOwnerActorID >= 0
+										&& rxnOwnerActorID == rxnPartnerActorID
+										&& rxnOwnerUnitID  == rxnPartnerUnitID)
+									{
+										prevNeighNode = curNeighNode;
+										curNeighNode = nextNeighNode;
+										continue;
+									}
 
 									if(!canAndConsumeReactionEnergyForUnit(&chem_rxn[curRxn],
 										NUM_MOL_TYPES, actorCommonArray, NUM_ACTORS, tCur,
-										rxnOwnerActorID, rxnOwnerUnitID, rxnBMIDs, rxnDir))
+										rxnOwnerActorID, rxnOwnerUnitID, rxnBMIDs, rxnDir,
+										rxnPartnerActorID, rxnPartnerUnitID))
 									{
 										prevNeighNode = curNeighNode;
 										curNeighNode = nextNeighNode;
@@ -2264,13 +2298,44 @@ void rxnSecondOrder(const unsigned short NUM_REGIONS,
 									}
 									
 									if(regionArray[curRegion].numRxnProducts[curRxnRegion] > 0)
-									{										
+									{
+										/* Track which reactant has been "claimed" for ownership
+										 * so each product inherits from its matching reactant. */
+										bool bReactant1Claimed = false;
+										bool bReactant2Claimed = false;
 										for(curProdRxn = 0;
 										curProdRxn < regionArray[curRegion].numRxnProducts[curRxnRegion];
 										curProdRxn++)
 										{
 											curProd = regionArray[curRegion].productID[curRxnRegion][curProdRxn];
-											
+
+											/* Per-product owner: match product type to reactant type.
+											 * This keeps NM_detected's ID when it is both a reactant
+											 * and a product, and gives the "new" product the other
+											 * reactant's ID. */
+											short prodOwnerActorID;
+											uint32_t prodOwnerUnitID;
+											if(!bReactant1Claimed && curProd == curMolType) {
+												prodOwnerActorID = curNode->item.ownerActorID;
+												prodOwnerUnitID  = curNode->item.ownerUnitID;
+												bReactant1Claimed = true;
+											} else if(!bReactant2Claimed && curProd == secondMolType) {
+												prodOwnerActorID = curNeighNode->item.ownerActorID;
+												prodOwnerUnitID  = curNeighNode->item.ownerUnitID;
+												bReactant2Claimed = true;
+											} else if(!bReactant1Claimed && curNode->item.ownerActorID >= 0) {
+												prodOwnerActorID = curNode->item.ownerActorID;
+												prodOwnerUnitID  = curNode->item.ownerUnitID;
+												bReactant1Claimed = true;
+											} else if(!bReactant2Claimed && curNeighNode->item.ownerActorID >= 0) {
+												prodOwnerActorID = curNeighNode->item.ownerActorID;
+												prodOwnerUnitID  = curNeighNode->item.ownerUnitID;
+												bReactant2Claimed = true;
+											} else {
+												prodOwnerActorID = rxnOwnerActorID;
+												prodOwnerUnitID  = rxnOwnerUnitID;
+											}
+
 											// Determine location of product molecule
 											if(bNeedUnbind)
 											{ // We must determine directions of unbinding
@@ -2338,7 +2403,7 @@ void rxnSecondOrder(const unsigned short NUM_REGIONS,
 															if(!addMoleculeOwnedInherited(
 																&p_list[destRegion][regionArray[destRegion].productID[diffRxn][curDiffRxnProd]],
 																rxnProdCoor[0], rxnProdCoor[1], rxnProdCoor[2],
-																rxnOwnerActorID, rxnOwnerUnitID, rxnBMIDs))
+																prodOwnerActorID, prodOwnerUnitID, rxnBMIDs))
 															{ // Creation of molecule failed
 																fprintf(stderr, "ERROR: Memory allocation to create molecule of type %u from reaction %u.\n",
 																regionArray[destRegion].productID[diffRxn][curDiffRxnProd], diffRxn);
@@ -2405,11 +2470,11 @@ void rxnSecondOrder(const unsigned short NUM_REGIONS,
 												if(!addMoleculeOwnedInherited(
 													&p_list[destRegion][curProd],
 													rxnProdCoor[0], rxnProdCoor[1], rxnProdCoor[2],
-													rxnOwnerActorID, rxnOwnerUnitID, rxnBMIDs))
+													prodOwnerActorID, prodOwnerUnitID, rxnBMIDs))
 												{ // Creation of molecule failed
 													fprintf(stderr, "ERROR: Memory allocation to create molecule of type %u from reaction %u.\n",
 													curProd, curRxn);
-													exit(EXIT_FAILURE);						
+													exit(EXIT_FAILURE);
 												}
 												/* bNeedUpdate already set to false in
 												 * addMoleculeOwnedInherited */
