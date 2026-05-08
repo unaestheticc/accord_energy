@@ -1,9 +1,0 @@
-1. il faut changer les récoltes et dépenses actives d'énergie, l'énergie sera dépensée/récoltée tous les     "Global Microscopic Time Step": 1e-5,
-
-2. la gestion de l'énergie n'est pas bonne, quand on définit un nanosensor network, il y a pleins de nanomachines  c'est défini dans le config file : (*"Modulation Strength": 25,
-        "Number of Molecules": 25,)
-qui doivent chacune d'entre elle avoir une energie propre, il faut donc changer cela
-
-3. Ensuite tu me fera un suivi pour chaque nanomachine de leur energy à chaqeu step (qu'on pourra voir dans le fichier de sortie )     "Global Microscopic Time Step": 1e-5, c'est définit dans le fichier de de configuration.
-
-

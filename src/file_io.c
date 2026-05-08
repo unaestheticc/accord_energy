@@ -3243,10 +3243,21 @@ void printOneTextRealization(FILE * out,
 							uint8_t dir = actorCommonArray[curActor].detectionReactionLogDirPerUnit[eUnit][eIdx];
 							const char * dirStr = (dir == COMM_DIR_BOTH) ? "send & receive"
 								: (dir == COMM_DIR_SEND) ? "send" : "receive";
-							fprintf(out, "],%s)", dirStr);
+							fprintf(out, "],%s", dirStr);
 						}
 						else
-							fprintf(out, "])");
+							fprintf(out, "]");
+						if(actorCommonArray[curActor].detectionReactionLogPartnerActorPerUnit != NULL
+							&& actorCommonArray[curActor].detectionReactionLogPartnerActorPerUnit[eUnit] != NULL)
+						{
+							fprintf(out, ",%hd",
+								actorCommonArray[curActor].detectionReactionLogPartnerActorPerUnit[eUnit][eIdx]);
+							if(actorCommonArray[curActor].detectionReactionLogPartnerUnitPerUnit != NULL
+								&& actorCommonArray[curActor].detectionReactionLogPartnerUnitPerUnit[eUnit] != NULL)
+								fprintf(out, ",%" PRIu32,
+									actorCommonArray[curActor].detectionReactionLogPartnerUnitPerUnit[eUnit][eIdx]);
+						}
+						fprintf(out, ")");
 					}
 				}
 				fprintf(out, "]\n");
@@ -3281,10 +3292,21 @@ void printOneTextRealization(FILE * out,
 							uint8_t dir = actorCommonArray[curActor].gossipReactionLogDirPerUnit[eUnit][eIdx];
 							const char * dirStr = (dir == COMM_DIR_BOTH) ? "send & receive"
 								: (dir == COMM_DIR_SEND) ? "send" : "receive";
-							fprintf(out, "],%s)", dirStr);
+							fprintf(out, "],%s", dirStr);
 						}
 						else
-							fprintf(out, "])");
+							fprintf(out, "]");
+						if(actorCommonArray[curActor].gossipReactionLogPartnerActorPerUnit != NULL
+							&& actorCommonArray[curActor].gossipReactionLogPartnerActorPerUnit[eUnit] != NULL)
+						{
+							fprintf(out, ",%hd",
+								actorCommonArray[curActor].gossipReactionLogPartnerActorPerUnit[eUnit][eIdx]);
+							if(actorCommonArray[curActor].gossipReactionLogPartnerUnitPerUnit != NULL
+								&& actorCommonArray[curActor].gossipReactionLogPartnerUnitPerUnit[eUnit] != NULL)
+								fprintf(out, ",%" PRIu32,
+									actorCommonArray[curActor].gossipReactionLogPartnerUnitPerUnit[eUnit][eIdx]);
+						}
+						fprintf(out, ")");
 					}
 				}
 				fprintf(out, "]\n");
