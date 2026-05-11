@@ -448,6 +448,14 @@ Pour lancer :
 ./bin/accord_energy_linux config/energy.txt
 ```
 
+Pour visualiser l'évolution de l'energie via le script matlab, il faut se placer à la racine du projet et executer dans matlab (ici arteriole_test_SEED1.txt est le nom du fichier de sortie, il faut le changer par le votre)
+
+```
+plotNanomachineEnergy('results/arteriole_test_SEED1.txt')
+```
+
+
+
 ---
 
 ## 7. Conseils pratiques
