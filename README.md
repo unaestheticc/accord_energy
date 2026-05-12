@@ -1,32 +1,72 @@
-# AcCoRD_energy — Guide de configuration
+# AcCoRD_energy — Configuration Guide
 
-AcCoRD_energy simule la communication moléculaire dans un environnement biologique (artériole, tissu, etc.) avec un système de gestion de l'énergie pour les nanocapteurs. Ce guide explique comment écrire un fichier de configuration JSON et comment lancer une simulation.
+AcCoRD_energy simulates molecular communication in a biological environment (arteriole, tissue, etc.) with an energy management system for nanosensors. This guide explains how to write a JSON configuration file and how to run a simulation.
 
 ---
 
-## Lancer une simulation
+## Running a simulation
+
+### Linux
 
 ```bash
-# Compiler
+# Compile
 cd src && bash build_accord_opt_dub
 cp ../bin/accord_dub.out ../bin/accord_energy_linux
 
-# Exécuter
-./bin/accord_energy_linux config/mon_fichier.txt
+# Run
+./bin/accord_energy_linux config/my_config.txt
 ```
 
-Les fichiers de résultats sont écrits dans `results/`.
+Result files are written to `results/`.
 
 ---
 
-## Structure générale du fichier de configuration
+### Windows
 
-Le fichier est au format **JSON**. Il contient quatre sections principales :
+#### Prerequisites
+
+Install [MinGW-w64](https://www.mingw-w64.org/) to get `gcc` on Windows. The recommended method is via [MSYS2](https://www.msys2.org/):
+
+1. Download and install MSYS2 from [msys2.org](https://www.msys2.org/).
+2. Open the **MSYS2 MinGW 64-bit** terminal and run:
+
+```bash
+pacman -S mingw-w64-x86_64-gcc
+```
+
+1. Add `C:\msys64\mingw64\bin` to your Windows `PATH` environment variable so that `gcc` is accessible from the Command Prompt.
+
+#### Compile
+
+Open a **Command Prompt** (cmd) in the project root and run:
+
+```bat
+cd src
+build_accord_opt_win.bat
+```
+
+This produces `bin\accord_win.exe`.
+
+#### Run
+
+From the project root in Command Prompt:
+
+```bat
+bin\accord_win.exe config\my_config.txt
+```
+
+Result files are written to `results\`.
+
+---
+
+## General structure of the configuration file
+
+The file uses **JSON** format with four main sections:
 
 ```json
 {
   "Description": "...",
-  "Output Filename": "nom_sortie",
+  "Output Filename": "output_name",
   "Warning Override": false,
   "Simulation Control": { ... },
   "Chemical Properties": { ... },
@@ -34,11 +74,11 @@ Le fichier est au format **JSON**. Il contient quatre sections principales :
 }
 ```
 
-| Champ | Description |
+| Field | Description |
 |-------|-------------|
-| `"Description"` | Texte libre décrivant la simulation |
-| `"Output Filename"` | Préfixe des fichiers de sortie (ex. `"arteriole_test"` → `results/arteriole_test_SEED1.txt`) |
-| `"Warning Override"` | `true` pour ignorer les avertissements non-bloquants |
+| `"Description"` | Free text describing the simulation |
+| `"Output Filename"` | Prefix for output files (e.g. `"arteriole_test"` → `results/arteriole_test_SEED1.txt`) |
+| `"Warning Override"` | `true` to suppress non-blocking warnings |
 
 ---
 
@@ -54,19 +94,19 @@ Le fichier est au format **JSON**. Il contient quatre sections principales :
 }
 ```
 
-| Paramètre | Description |
+| Parameter | Description |
 |-----------|-------------|
-| `"Number of Repeats"` | Nombre de réalisations indépendantes |
-| `"Final Simulation Time"` | Durée totale de la simulation (secondes) |
-| `"Global Microscopic Time Step"` | Pas de temps microscopique (secondes). Doit être suffisamment petit par rapport aux temps de réaction |
-| `"Random Number Seed"` | Graine du générateur aléatoire (reproductibilité) |
-| `"Max Number of Progress Updates"` | Fréquence d'affichage de la progression |
+| `"Number of Repeats"` | Number of independent realizations |
+| `"Final Simulation Time"` | Total simulation duration (seconds) |
+| `"Global Microscopic Time Step"` | Microscopic time step (seconds). Must be small enough relative to reaction timescales |
+| `"Random Number Seed"` | Random number generator seed (reproducibility) |
+| `"Max Number of Progress Updates"` | How often progress is printed to console |
 
 ---
 
 ## 2. Chemical Properties
 
-### 2.1 Types de molécules
+### 2.1 Molecule types
 
 ```json
 "Chemical Properties": {
@@ -77,24 +117,24 @@ Le fichier est au format **JSON**. Il contient quatre sections principales :
 }
 ```
 
-Les molécules sont indexées de `0` à `N-1`. Dans `energy.txt` :
+Molecules are indexed from `0` to `N-1`. In `energy.txt`:
 
-| Index | Nom | Coefficient de diffusion (m²/s) |
-|-------|-----|--------------------------------|
-| 0 | Biomarqueur (BM) | 2.2644e-12 |
-| 1 | Nanocapteur inactif (NM) | 5.6610e-14 |
-| 2 | Nanocapteur ayant détecté (NM_detected) | 5.6610e-14 |
-| 3 | Nanocapteur informé par gossip (NM_gossip) | 5.6610e-14 |
+| Index | Name | Diffusion coefficient (m^2/s) |
+| --- | --- | --- |
+| 0 | Biomarker (BM) | 2.2644e-12 |
+| 1 | Inactive nanosensor (NM) | 5.6610e-14 |
+| 2 | Detection-confirmed nanosensor (NM_detected) | 5.6610e-14 |
+| 3 | Gossip-informed nanosensor (NM_gossip) | 5.6610e-14 |
 
-`"Global Flow Type"` peut être `"None"` ou `"Uniform"` (un vecteur global est alors requis).
+`"Global Flow Type"` can be `"None"` or `"Uniform"` (a global flow vector is then required).
 
-### 2.2 Réactions chimiques
+### 2.2 Chemical reactions
 
-Chaque réaction est un objet dans `"Chemical Reaction Specification"` :
+Each reaction is an object inside `"Chemical Reaction Specification"`:
 
 ```json
 {
-  "Label": "Détection (BM + NM → NM_detected)",
+  "Label": "Detection (BM + NM -> NM_detected)",
   "Is Reaction Reversible?": false,
   "Surface Reaction?": false,
   "Default Everywhere?": true,
@@ -106,18 +146,18 @@ Chaque réaction est un objet dans `"Chemical Reaction Specification"` :
 }
 ```
 
-| Paramètre | Description |
+| Parameter | Description |
 |-----------|-------------|
-| `"Reactants"` | Stœchiométrie des réactifs (un entier par type de molécule) |
-| `"Products"` | Stœchiométrie des produits |
-| `"Reaction Rate"` | Constante de réaction (m³/s ou s⁻¹). `1e9999` = réaction instantanée |
-| `"Binding Radius"` | Distance de réaction bimolécylaire (mètres) |
-| `"Default Everywhere?"` | `true` = réaction active dans toutes les régions sauf exceptions |
-| `"Exception Regions"` | Liste de labels de régions à exclure |
+| `"Reactants"` | Reactant stoichiometry (one integer per molecule type) |
+| `"Products"` | Product stoichiometry |
+| `"Reaction Rate"` | Reaction rate constant (m^3/s or s^-1). `1e9999` = instantaneous reaction |
+| `"Binding Radius"` | Bimolecular reaction distance (metres) |
+| `"Default Everywhere?"` | `true` = reaction active in all regions except exceptions |
+| `"Exception Regions"` | List of region labels to exclude |
 
-### 2.3 Réactions avec coût énergétique
+### 2.3 Reactions with energy cost
 
-Pour activer la consommation d'énergie sur une réaction, ajouter dans l'objet réaction :
+To enable energy consumption on a reaction, add to the reaction object:
 
 ```json
 "Is Energy Enabled?": true,
@@ -126,22 +166,22 @@ Pour activer la consommation d'énergie sur une réaction, ajouter dans l'objet 
 "Energy Cost Unit": "per_reaction"
 ```
 
-| Paramètre | Valeurs possibles | Description |
-|-----------|-------------------|-------------|
-| `"Is Energy Enabled?"` | `true` / `false` | Active le coût énergétique |
-| `"Energy Cost Type"` | `"detection"` | Réaction de détection d'un biomarqueur par un nanocapteur |
-| | `"communication"` | Réaction de gossip (échange d'information entre nanocapteurs) |
-| `"Energy Cost Value"` | Nombre réel | Montant d'énergie consommé |
-| `"Energy Cost Unit"` | `"per_reaction"` | Coût par réaction élémentaire |
+| Parameter | Possible values | Description |
+| --- | --- | --- |
+| `"Is Energy Enabled?"` | `true` / `false` | Enables energy cost for this reaction |
+| `"Energy Cost Type"` | `"detection"` | Detection of a biomarker by a nanosensor |
+| | `"communication"` | Gossip reaction (information exchange between nanosensors) |
+| `"Energy Cost Value"` | Real number | Amount of energy consumed |
+| `"Energy Cost Unit"` | `"per_reaction"` | Cost per elementary reaction event |
 
-> **Important :** seules les réactions avec `"Energy Cost Type": "detection"` ou `"communication"` sont tracées dans les logs d'énergie. Les autres types sont ignorés.
+> **Important:** only reactions with `"Energy Cost Type": "detection"` or `"communication"` are tracked in the energy logs. Other types are ignored.
 
-**Exemple complet — `energy.txt`** (8 réactions) :
+**Full example — `energy.txt`** (8 reactions):
 
 ```json
 "Chemical Reaction Specification": [
   {
-    "Label": "Detection (BM + NM → NM_detected)",
+    "Label": "Detection (BM + NM -> NM_detected)",
     "Reactants": [1, 1, 0, 0],  "Products": [0, 0, 1, 0],
     "Reaction Rate": 1e9999,    "Binding Radius": 1.025e-6,
     "Is Energy Enabled?": true,
@@ -150,7 +190,7 @@ Pour activer la consommation d'énergie sur une réaction, ajouter dans l'objet 
     "Energy Cost Unit": "per_reaction"
   },
   {
-    "Label": "Gossip (NM + NM_detected → NM_detected + NM_gossip)",
+    "Label": "Gossip (NM + NM_detected -> NM_detected + NM_gossip)",
     "Reactants": [0, 1, 1, 0],  "Products": [0, 0, 1, 1],
     "Reaction Rate": 1e9999,    "Binding Radius": 2e-6,
     "Is Energy Enabled?": true,
@@ -165,7 +205,7 @@ Pour activer la consommation d'énergie sur une réaction, ajouter dans l'objet 
 
 ## 3. Environment
 
-### 3.1 Régions
+### 3.1 Regions
 
 ```json
 "Environment": {
@@ -174,13 +214,13 @@ Pour activer la consommation d'énergie sur une réaction, ajouter dans l'objet 
 }
 ```
 
-`"Subvolume Base Size"` : taille de base des sous-volumes mésoscopiques (mètres).
+`"Subvolume Base Size"`: base size of mesoscopic subvolumes (metres).
 
-Chaque région est un objet :
+Each region is an object:
 
 ```json
 {
-  "Notes": "Capillaire principal",
+  "Notes": "Main capillary",
   "Label": "Capillary1",
   "Parent Label": "",
   "Shape": "Rectangular Box",
@@ -199,21 +239,21 @@ Chaque région est un objet :
 }
 ```
 
-| Paramètre | Description |
+| Parameter | Description |
 |-----------|-------------|
-| `"Shape"` | `"Rectangular Box"` ou `"Sphere"` |
-| `"Type"` | `"Normal"` (région de simulation standard) |
-| `"Anchor Coordinate"` | Coin inférieur-gauche `[x, y, z]` (boîte) ou centre (sphère) |
-| `"Number of Subvolumes Per Dimension"` | Nombre de sous-volumes en x, y, z |
-| `"Is Region Microscopic?"` | `true` = simulation microscopique (diffusion individuelle), `false` = mésoscopique |
-| `"Local Flow"` | Vecteur de flux local par type de molécule |
-| `"Parent Label"` | Label de la région parente (pour les régions imbriquées), `""` si aucune |
+| `"Shape"` | `"Rectangular Box"` or `"Sphere"` |
+| `"Type"` | `"Normal"` (standard simulation region) |
+| `"Anchor Coordinate"` | Lower-left corner `[x, y, z]` (box) or centre (sphere) |
+| `"Number of Subvolumes Per Dimension"` | Number of subvolumes along x, y, z |
+| `"Is Region Microscopic?"` | `true` = microscopic simulation (individual diffusion), `false` = mesoscopic |
+| `"Local Flow"` | Local flow vector per molecule type |
+| `"Parent Label"` | Label of the parent region (for nested regions), `""` if none |
 
-### 3.2 Acteurs
+### 3.2 Actors
 
-Un acteur est une entité qui émet ou observe des molécules dans une zone géométrique.
+An actor is an entity that emits or observes molecules within a geometric zone.
 
-#### Acteur actif (émetteur de molécules)
+#### Active actor (molecule emitter)
 
 ```json
 {
@@ -238,15 +278,15 @@ Un acteur est une entité qui émet ou observe des molécules dans une zone géo
 }
 ```
 
-| Paramètre | Description |
+| Parameter | Description |
 |-----------|-------------|
-| `"Outer Boundary"` | Pour une boîte : `[xmin, xmax, ymin, ymax, zmin, zmax]` |
-| `"Action Interval"` | Intervalle entre deux émissions (s). `1e9999` = une seule émission |
-| `"Modulation Scheme"` | `"Burst"` = émet toutes les molécules d'un coup |
-| `"Number of Molecules"` | Nombre de molécules émises par action |
-| `"Is Molecule Type Released?"` | Tableau booléen : quel type est émis |
+| `"Outer Boundary"` | For a box: `[xmin, xmax, ymin, ymax, zmin, zmax]` |
+| `"Action Interval"` | Interval between emissions (s). `1e9999` = single emission |
+| `"Modulation Scheme"` | `"Burst"` = releases all molecules at once |
+| `"Number of Molecules"` | Number of molecules released per action |
+| `"Is Molecule Type Released?"` | Boolean array: which molecule type is emitted |
 
-#### Acteur passif (observateur)
+#### Passive actor (observer)
 
 ```json
 {
@@ -267,11 +307,11 @@ Un acteur est une entité qui émet ou observe des molécules dans une zone géo
 
 ---
 
-## 4. Système d'énergie — Nanocapteurs
+## 4. Energy system — Nanosensors
 
-Le système d'énergie s'applique aux **acteurs actifs** qui déploient des nanocapteurs. Chaque acteur peut représenter un **réseau de nanocapteurs** avec un bilan énergétique individuel.
+The energy system applies to **active actors** that deploy nanosensors. Each actor can represent a **nanosensor network** with individual energy budgets.
 
-### 4.1 Paramètres de l'acteur avec énergie
+### 4.1 Energy actor parameters
 
 ```json
 {
@@ -301,51 +341,52 @@ Le système d'énergie s'applique aux **acteurs actifs** qui déploient des nano
 }
 ```
 
-`"Number of Molecules"` et `"Modulation Strength"` doivent être **identiques** : ils définissent le nombre de nanocapteurs (unités) dans ce groupe. Chaque molécule émise correspond à un nanocapteur individuel suivi séparément.
+`"Number of Molecules"` and `"Modulation Strength"` must be **identical**: they define the number of nanosensors (units) in this group. Each emitted molecule corresponds to one individually tracked nanosensor.
 
-| Paramètre énergétique | Description |
-|-----------------------|-------------|
-| `"Is Energy Enabled?"` | Active le suivi énergétique pour cet acteur |
-| `"Energy Initial"` | Énergie de départ de chaque nanocapteur (Joules) |
-| `"Energy Max"` | Énergie maximale stockable (Joules, ≥ Energy Initial) |
-| `"Energy Drain Passive"` | Drain passif par pas de temps microscopique (Joules/pas). Modélise la consommation au repos |
-| `"Energy Harvest Passive"` | Récolte passive d'énergie par pas de temps (Joules/pas). Modélise la collecte d'énergie ambiante |
+| Energy parameter | Description |
+| --- | --- |
+| `"Is Energy Enabled?"` | Enables energy tracking for this actor |
+| `"Energy Initial"` | Starting energy of each nanosensor (Joules) |
+| `"Energy Max"` | Maximum storable energy (Joules, >= Energy Initial) |
+| `"Energy Drain Passive"` | Passive drain per microscopic time step (J/step). Models idle power consumption |
+| `"Energy Harvest Passive"` | Passive energy harvest per time step (J/step). Models ambient energy collection |
 
-### 4.2 Interactions entre énergie et réactions
+### 4.2 Energy and reaction interaction
 
-Quand un nanocapteur participe à une réaction avec coût énergétique :
+When a nanosensor participates in a reaction with an energy cost:
 
-1. Le simulateur vérifie si l'unité concernée a assez d'énergie.
-2. Si oui, l'énergie est déduite et la réaction a lieu.
-3. Si non, la réaction est **bloquée** (la molécule reste inchangée).
-4. Quand `energieCourante ≤ 0`, le nanocapteur est marqué **déplété** (`EnergyDepleted: YES`) et ne peut plus réagir.
+1. The simulator checks whether the unit has enough energy.
+2. If yes, energy is deducted and the reaction proceeds.
+3. If no, the reaction is **blocked** (the molecule remains unchanged).
+4. When `currentEnergy <= 0`, the nanosensor is marked **depleted** (`EnergyDepleted: YES`) and can no longer react.
 
-### 4.3 Résumé des coûts dans `energy.txt`
+### 4.3 Cost summary for `energy.txt`
 
-| Réaction | Type | Coût |
+| Reaction | Type | Cost |
 |----------|------|------|
-| BM + NM → NM_detected | `detection` | 9e-5 J |
-| BM + NM_detected → NM_detected | `detection` | 9e-5 J |
-| BM + NM_gossip → NM_detected | `detection` | 9e-5 J |
-| NM + NM_detected → NM_detected + NM_gossip | `communication` | 1e-5 J |
-| NM + NM_gossip → 2×NM_gossip | `communication` | 1e-5 J |
-| NM_gossip + NM_gossip → 2×NM_gossip | `communication` | 1e-5 J |
-| NM_detected + NM_detected → NM_detected + NM_gossip | `communication` | 1e-5 J |
-| NM_detected + NM_gossip → NM_detected + NM_gossip | `communication` | 1e-5 J |
+| BM + NM -> NM_detected | `detection` | 9e-5 J |
+| BM + NM_detected -> NM_detected | `detection` | 9e-5 J |
+| BM + NM_gossip -> NM_detected | `detection` | 9e-5 J |
+| NM + NM_detected -> NM_detected + NM_gossip | `communication` | 1e-5 J |
+| NM + NM_gossip -> 2xNM_gossip | `communication` | 1e-5 J |
+| NM_gossip + NM_gossip -> 2xNM_gossip | `communication` | 1e-5 J |
+| NM_detected + NM_detected -> NM_detected + NM_gossip | `communication` | 1e-5 J |
+| NM_detected + NM_gossip -> NM_detected + NM_gossip | `communication` | 1e-5 J |
 
-Avec `Energy Initial = 3e-4 J`, un nanocapteur peut effectuer environ **3 détections** (3 × 9e-5 = 2.7e-4 J) ou **30 gossips** (30 × 1e-5 = 3e-4 J) avant d'être déplété.
+With `Energy Initial = 3e-4 J`, a nanosensor can perform approximately **3 detections** (3 x 9e-5 = 2.7e-4 J) or **30 gossip exchanges** (30 x 1e-5 = 3e-4 J) before depletion.
 
 ---
 
-## 5. Fichiers de sortie
+## 5. Output files
 
-Pour un fichier `"Output Filename": "arteriole_test"` avec `"Random Number Seed": 1`, deux fichiers sont générés :
+For `"Output Filename": "arteriole_test"` with `"Random Number Seed": 1`, two files are generated:
 
 ### `results/arteriole_test_SEED1.txt`
 
-Fichier texte principal. Pour chaque réalisation :
-- Observations des acteurs passifs (comptage de molécules, positions)
-- **Section énergie** pour chaque acteur énergie-activé :
+Main text file. For each realization:
+
+- Passive actor observations (molecule counts, positions)
+- **Energy section** for each energy-enabled actor:
 
 ```
 EnergyActor 56:
@@ -377,19 +418,19 @@ EnergyActor 56:
     DepletedUnits: 0 / 25
 ```
 
-**Format des événements de réaction** : `(temps,[biomarkerIDs],direction,actor_partenaire,nm_partenaire)`
+**Reaction event format**: `(time,[biomarkerIDs],direction,partner_actor,partner_nm)`
 
-| Champ | Description |
+| Field | Description |
 |-------|-------------|
-| `temps` | Instant de la réaction (secondes) |
-| `[biomarkerIDs]` | IDs des biomarqueurs connus au moment de l'événement |
-| `direction` | `receive` (le NM reçoit), `send` (le NM envoie), `send & receive` (les deux) |
-| `actor_partenaire` | ID de l'acteur partenaire (`-1` pour une détection directe de BM) |
-| `nm_partenaire` | ID du nanocapteur partenaire (`0` pour une détection directe de BM) |
+| `time` | Reaction timestamp (seconds) |
+| `[biomarkerIDs]` | IDs of known biomarkers at the time of the event |
+| `direction` | `receive` (NM receives), `send` (NM sends), `send & receive` (both) |
+| `partner_actor` | Partner actor ID (`-1` for direct BM detection) |
+| `partner_nm` | Partner nanosensor ID (`0` for direct BM detection) |
 
 ### `results/arteriole_test_SEED1_summary.txt`
 
-Fichier JSON de synthèse. Contient `"NanomachineEnergySummary"` avec les statistiques par nanocapteur et les événements détaillés :
+JSON summary file. Contains `"NanomachineEnergySummary"` with per-nanosensor statistics and detailed events:
 
 ```json
 "NanomachineEnergySummary": [{
@@ -418,55 +459,54 @@ Fichier JSON de synthèse. Contient `"NanomachineEnergySummary"` avec les statis
 
 ---
 
-## 6. Exemple complet — `energy.txt`
+## 6. Full example — `energy.txt`
 
-**Scénario** : artériole en forme de L avec 5 sections de capillaire. Des biomarqueurs (BM) sont injectés à plusieurs points d'entrée et dérivent avec le flux sanguin. Quatre groupes de 25 nanocapteurs sont déployés le long du trajet. Les NM se détectent et se gossipent.
+**Scenario**: L-shaped arteriole with 5 capillary sections. Biomarkers (BM) are injected at multiple entry points and drift with the blood flow. Four groups of 25 nanosensors are deployed along the path. NMs detect biomarkers and share information via gossip.
 
 ```
-Structure :
-  BM sources (55 points)         → [type 0, 1 molécule chacun]
-  NM groups (4 × 25 = 100 NM)   → [type 1, énergie activée]
-  Observer (all regions)         → passif, enregistre tout
+Structure:
+  BM sources (55 points)         -> [type 0, 1 molecule each]
+  NM groups (4 x 25 = 100 NM)   -> [type 1, energy enabled]
+  Observer (all regions)         -> passive, records everything
 
-Régions (capillaires) :
-  Capillary1 : [0→22µm, 15→24µm, 0→9µm]  flux : (1.5e-3, 0, 0) m/s
-  Capillary2 : [22→30µm, 15→20µm, 0→9µm] flux : (1.5e-3, -1e-3, -1e-3) m/s
-  Capillary3 : [22→30µm, 0→15µm, 0→8µm]  flux : (0, -1.335e-3, 0) m/s
-  Capillary4 : [22→28µm, 20→24µm, 0→9µm] flux : (1.5e-3, 1e-3, -1e-3) m/s
-  Capillary5 : [22→28µm, 24→40µm, 0→6µm] flux : (0, 1e-3, 0) m/s
+Regions (capillaries):
+  Capillary1: [0->22um, 15->24um, 0->9um]  flow: (1.5e-3, 0, 0) m/s
+  Capillary2: [22->30um, 15->20um, 0->9um] flow: (1.5e-3, -1e-3, -1e-3) m/s
+  Capillary3: [22->30um, 0->15um, 0->8um]  flow: (0, -1.335e-3, 0) m/s
+  Capillary4: [22->28um, 20->24um, 0->9um] flow: (1.5e-3, 1e-3, -1e-3) m/s
+  Capillary5: [22->28um, 24->40um, 0->6um] flow: (0, 1e-3, 0) m/s
 
-Énergie par NM :
+Energy per NM:
   Initial = Max = 3e-4 J
-  Drain passif = 4e-8 J/pas (1e-5 s)  → 4e-3 J/s
-  Coût détection = 9e-5 J  (≈3 détections max)
-  Coût gossip    = 1e-5 J  (≈30 gossips max)
+  Passive drain = 4e-8 J/step (1e-5 s) -> 4e-3 J/s
+  Detection cost = 9e-5 J  (~3 detections max)
+  Gossip cost    = 1e-5 J  (~30 gossip exchanges max)
 ```
 
-Pour lancer :
+To run:
 
 ```bash
 ./bin/accord_energy_linux config/energy.txt
 ```
 
-Pour visualiser l'évolution de l'energie via le script matlab, il faut se placer à la racine du projet et executer dans matlab (ici arteriole_test_SEED1.txt est le nom du fichier de sortie, il faut le changer par le votre)
+To visualise nanomachine energy over time using the MATLAB script, run the following from the project root (replace `arteriole_test_SEED1.txt` with your output filename):
 
-```
+```matlab
+addpath('matlab')
 plotNanomachineEnergy('results/arteriole_test_SEED1.txt')
 ```
 
-
-
 ---
 
-## 7. Conseils pratiques
+## 7. Practical tips
 
-**Choisir le pas de temps** : `DT_MICRO` doit satisfaire `DT_MICRO < (r_binding)² / (6 × D_max)` pour que les molécules rapides ne "sautent" pas par-dessus les sites de liaison.
+**Choosing the time step**: `DT_MICRO` should satisfy `DT_MICRO < (r_binding)^2 / (6 * D_max)` so that fast molecules do not jump past binding sites.
 
-**Calibrer l'énergie** : avec `Energy Initial = E₀` et un coût de détection `c_det`, le nanocapteur peut effectuer au maximum `⌊E₀ / c_det⌋` détections en ignorant le drain passif. Tenir compte du drain : `E₀ - N_steps × drain_passif` donne l'énergie résiduelle après `N_steps` pas de temps.
+**Calibrating energy**: with `Energy Initial = E0` and a detection cost `c_det`, a nanosensor can perform at most `floor(E0 / c_det)` detections ignoring passive drain. Accounting for drain: `E0 - N_steps * passive_drain` gives the residual energy after `N_steps` time steps.
 
-**Identifier les acteurs dans la sortie** : les acteurs sont numérotés dans l'ordre de leur déclaration dans `"Actor Specification"`, en commençant à 0. L'acteur 56 dans `energy.txt` est le 57ème acteur déclaré (les 55 sources BM + le 1er groupe NM).
+**Identifying actors in the output**: actors are numbered in declaration order inside `"Actor Specification"`, starting from 0. Actor 56 in `energy.txt` is the 57th declared actor (55 BM sources + the 1st NM group).
 
-**Recompiler après modification du code** :
+**Recompile after modifying the source**:
 ```bash
 cd src && bash build_accord_opt_dub
 cp ../bin/accord_dub.out ../bin/accord_energy_linux

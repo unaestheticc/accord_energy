@@ -1,28 +1,27 @@
 function plotNanomachineEnergy(filename)
-% plotNanomachineEnergy  Visualise l'energie des nanomachines au cours du temps.
+% plotNanomachineEnergy  Plot nanomachine energy over time from an AcCoRD output file.
 %
-%   plotNanomachineEnergy(FILENAME)  lit le fichier de sortie AcCoRD indique.
-%   plotNanomachineEnergy()          ouvre une boite de dialogue de selection.
+%   plotNanomachineEnergy(FILENAME)  reads the specified AcCoRD output file.
+%   plotNanomachineEnergy()          opens a file selection dialog.
 %
-%   Le script detecte automatiquement le nombre d'acteurs energie et de
-%   nanomachines par acteur.
+%   The script automatically detects the number of energy actors and
+%   nanomachines per actor.
 %
-%   Figures produites :
-%     Figure 1 - Courbes individuelles (une sous-figure par acteur).
-%     Figure 2 - Energie moyenne +/-1 ecart-type par acteur.
+%   Output:
+%     Figure 1 - Individual NM energy curves, one subplot per actor.
 
 if nargin < 1 || isempty(filename)
-    [file, path] = uigetfile({'*.txt', 'Fichiers de sortie AcCoRD (*.txt)'}, ...
-                              'Selectionner le fichier de sortie AcCoRD');
+    [file, path] = uigetfile({'*.txt', 'AcCoRD output files (*.txt)'}, ...
+                              'Select AcCoRD output file');
     if isequal(file, 0), return; end
     filename = fullfile(path, file);
 end
 
-fprintf('Lecture : %s\n', filename);
+fprintf('Reading: %s\n', filename);
 actors = parseEnergyActors(filename);
 
 if isempty(actors)
-    error('Aucune section EnergyActor trouvee dans le fichier : %s', filename);
+    error('No EnergyActor section found in file: %s', filename);
 end
 
 nActors  = numel(actors);
@@ -36,16 +35,16 @@ for a = 1:nActors
     end
 end
 
-fprintf('  %d acteur(s), %d nanomachine(s) au total', nActors, totalNMs);
+fprintf('  %d actor(s), %d nanomachine(s) total', nActors, totalNMs);
 if nDepleted > 0
-    fprintf(', %d epuisee(s)', nDepleted);
+    fprintf(', %d depleted', nDepleted);
 end
 fprintf('\n');
 
 [~, shortname, ext] = fileparts(filename);
 shortname = [shortname, ext];
 
-% Echelle y commune basee sur le max reel par NM (pas la somme acteur)
+% Common y-axis scale based on per-NM max (not the actor sum)
 yMax_mJ = 0;
 for a = 1:nActors
     for k = 1:actors(a).numNMs
@@ -55,9 +54,9 @@ end
 yMax_mJ = yMax_mJ * 1.08;
 
 % ========================================================================
-%  Figure 1 - courbes individuelles par acteur (sous-figures)
+%  Figure 1 - individual NM curves per actor (subplots)
 % ========================================================================
-figure('Name', 'Energie NM - detail par acteur', 'NumberTitle', 'off');
+figure('Name', 'NM Energy - detail per actor', 'NumberTitle', 'off');
 
 nCols = ceil(sqrt(nActors));
 nRows = ceil(nActors / nCols);
@@ -81,24 +80,23 @@ for a = 1:nActors
         end
     end
 
-    xlabel('Temps (s)');
-    ylabel('Energie (mJ)');
+    xlabel('Time (s)');
+    ylabel('Energy (mJ)');
     ylim([0, yMax_mJ]);
 
     if nDepl > 0
-        titleStr = sprintf('Acteur %d - %d NM - \\color{red}%d epuisee(s)', ...
+        titleStr = sprintf('Actor %d - %d NM - \\color{red}%d depleted', ...
                             actors(a).id, nNM, nDepl);
     else
-        titleStr = sprintf('Acteur %d - %d NM', actors(a).id, nNM);
+        titleStr = sprintf('Actor %d - %d NM', actors(a).id, nNM);
     end
     title(titleStr);
 end
 
 try
-    sgtitle(sprintf('Energie des nanomachines - %s', shortname), ...
-            'Interpreter', 'none');
+    sgtitle(sprintf('Nanomachine energy - %s', shortname), 'Interpreter', 'none');
 catch
-    % sgtitle non disponible (MATLAB < R2018b) - pas de titre global
+    % sgtitle not available (MATLAB < R2018b)
 end
 
 
@@ -106,14 +104,14 @@ end % function plotNanomachineEnergy
 
 
 % ========================================================================
-%  Fonction locale de parsing
+%  Local parsing function
 % ========================================================================
 function actors = parseEnergyActors(filename)
-% Lit un fichier de sortie AcCoRD et extrait les sections EnergyActor.
+% Read an AcCoRD base output file and extract all EnergyActor sections.
 
 fid = fopen(filename, 'r');
 if fid < 0
-    error('Impossible d''ouvrir le fichier : %s', filename);
+    error('Cannot open file: %s', filename);
 end
 raw = textscan(fid, '%s', 'Delimiter', '\n', 'WhiteSpace', '');
 fclose(fid);
@@ -132,7 +130,7 @@ for i = 1:numel(lines)
     L = lines{i};
     if isempty(L), continue; end
 
-    % ---- Nouveau acteur energie ----------------------------------------
+    % ---- New energy actor ----------------------------------------------
     if ~isempty(regexp(L, '^\tEnergyActor \d+:', 'once'))
         curActor = curActor + 1;
         curNM    = 0;
@@ -145,9 +143,9 @@ for i = 1:numel(lines)
         expectTime = false; expectActorEnergy = false; expectNMEnergy = false;
 
     elseif curActor == 0
-        continue   % avant le premier acteur energie
+        continue   % skip lines before first energy actor
 
-    % ---- Metadonnees acteur (2 tabulations) ----------------------------
+    % ---- Actor-level metadata (2 tabs) ---------------------------------
     elseif ~isempty(regexp(L, '^\t\tEnergyMax:', 'once'))
         actors(curActor).energyMax = parseValue(L);
 
@@ -162,7 +160,7 @@ for i = 1:numel(lines)
         expectActorEnergy = true;
         expectTime = false; expectNMEnergy = false;
 
-    % ---- Nouvelle nanomachine (2 tabulations) --------------------------
+    % ---- New nanomachine (2 tabs) --------------------------------------
     elseif ~isempty(regexp(L, '^\t\tNanomachine \d+:', 'once'))
         curNM = curNM + 1;
         actors(curActor).nms(curNM).id       = parseFirstInt(L);
@@ -170,7 +168,7 @@ for i = 1:numel(lines)
         actors(curActor).nms(curNM).depleted = false;
         expectNMEnergy = false; expectActorEnergy = false;
 
-    % ---- Metadonnees NM (3 tabulations) --------------------------------
+    % ---- NM-level metadata (3 tabs) ------------------------------------
     elseif ~isempty(regexp(L, '^\t\t\tEnergyDepleted:', 'once')) && curNM > 0
         actors(curActor).nms(curNM).depleted = ~isempty(strfind(L, 'YES'));
 
@@ -178,7 +176,7 @@ for i = 1:numel(lines)
         expectNMEnergy = true;
         expectTime = false; expectActorEnergy = false;
 
-    % ---- Lignes de donnees (vecteurs) ----------------------------------
+    % ---- Data lines (vectors) ------------------------------------------
     elseif expectTime
         actors(curActor).time = sscanf(strtrim(L), '%f')';
         expectTime = false;
@@ -196,13 +194,13 @@ end % function parseEnergyActors
 
 
 function val = parseFirstInt(str)
-% Retourne le premier entier trouve dans str.
+% Return the first integer found in str.
     tok = regexp(str, '\d+', 'match', 'once');
     val = str2double(tok);
 end
 
 function val = parseValue(str)
-% Retourne la valeur numerique apres le ':' dans une ligne "Cle: valeur".
+% Return the numeric value after ':' in a "Key: value" line.
     idx = find(str == ':', 1, 'first');
     if isempty(idx)
         val = NaN;
