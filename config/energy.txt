@@ -161,7 +161,7 @@
            {
                "Is Molecule Type Affected?": [false, true, true, true],
                "Flow Type": "Uniform",
-               "Flow Vector": [0, 0, 0]
+               "Flow Vector": [0.5e-3, 0, 0]
            }
                      ]
 
@@ -187,7 +187,7 @@
            {
                "Is Molecule Type Affected?": [false, true, true, true],
                "Flow Type": "Uniform",
-               "Flow Vector": [0, 0, 0]
+               "Flow Vector": [0.5e-3, -0.3e-3, -0.3e-3]
            }
                      ]
 
@@ -213,7 +213,7 @@
            {
                "Is Molecule Type Affected?": [false, true, true, true],
                "Flow Type": "Uniform",
-               "Flow Vector": [0, 0, 0]
+               "Flow Vector": [0e-3, -0.4e-3, 0e-3]
            }
                      ]
 
@@ -240,7 +240,7 @@
            {
                "Is Molecule Type Affected?": [false, true, true, true],
                "Flow Type": "Uniform",
-               "Flow Vector": [0, 0, 0]
+               "Flow Vector": [0.5e-3, 0.3e-3, -0.3e-3]
            }
                      ]
 
@@ -266,7 +266,7 @@
            {
                "Is Molecule Type Affected?": [false, true, true, true],
                "Flow Type": "Uniform",
-               "Flow Vector": [0, 0, 0]
+               "Flow Vector": [0, 0.3e-3, 0]
            }
                      ]
 

@@ -103,8 +103,7 @@ customVideoProp = [];
 
 % regionToPlot - array of indices of regions to be plotted. No regions need
 %   to be plotted.
-regionToPlot = 1;
-%laminar flow regionToPlot = 1:968;
+regionToPlot = 1:5;
 
 % customRegionProp - structure of region properties to change from AcCoRD
 %   defaults. Can be passed as empty if no defaults are to be changed. See
