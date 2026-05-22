@@ -4,7 +4,7 @@
   "Warning Override": false,
   "Simulation Control": {
     "Number of Repeats":1,
-    "Final Simulation Time": 0.025,
+    "Final Simulation Time": 0.04,
     "Global Microscopic Time Step": 1e-5,
     "Random Number Seed": 1,
     "Max Number of Progress Updates": 100
@@ -1436,7 +1436,7 @@
         "Is Energy Enabled?": true,
         "Energy Initial": 3e-4,
         "Energy Max": 3e-4,
-        "Energy Drain Passive": 4e-8,
+        "Energy Drain Passive": 4e-9,
         "Energy Harvest Passive": 0
       },
       {
@@ -1461,7 +1461,7 @@
         "Is Energy Enabled?": true,
         "Energy Initial": 3e-4,
         "Energy Max": 3e-4,
-        "Energy Drain Passive": 4e-8,
+        "Energy Drain Passive": 4e-9,
         "Energy Harvest Passive": 0
       },
       {
@@ -1486,7 +1486,7 @@
         "Is Energy Enabled?": true,
         "Energy Initial": 3e-4,
         "Energy Max": 3e-4,
-        "Energy Drain Passive": 4e-8,
+        "Energy Drain Passive": 4e-9,
         "Energy Harvest Passive": 0
       },
       {
@@ -1511,7 +1511,7 @@
         "Is Energy Enabled?": true,
      	"Energy Initial": 3e-4,
         "Energy Max": 3e-4,
-        "Energy Drain Passive": 4e-8,
+        "Energy Drain Passive": 4e-9,
         "Energy Harvest Passive": 0
       },
       {
