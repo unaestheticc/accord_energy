@@ -3144,7 +3144,7 @@ void printOneTextRealization(FILE * out,
 		}
 		double eMean = eSum / actorCommonArray[curActor].energyLogCount;
 		bool bEnergyNearZero =
-			(actorCommonArray[curActor].energyCurrent <= ENERGY_ZERO_EPS);
+			(actorCommonArray[curActor].energyCurrent < actorCommonArray[curActor].energyDepletionThreshold);
 		bool bPrintDepleted =
 			(actorCommonArray[curActor].bEnergyDepleted || bEnergyNearZero);
 		double eFinalPrint = actorCommonArray[curActor].energyCurrent;
@@ -3153,6 +3153,8 @@ void printOneTextRealization(FILE * out,
 		fprintf(out, "\tEnergyActor %u:\n", curActor);
 		fprintf(out, "\t\tEnergyDepleted: %s\n",
 			bPrintDepleted ? "YES" : "NO");
+		fprintf(out, "\t\tEnergyDepletionThreshold: %.6e\n",
+			actorCommonArray[curActor].energyDepletionThreshold);
 		fprintf(out, "\t\tEnergyFinal: %.6f\n",
 			eFinalPrint);
 		fprintf(out, "\t\tEnergyMin: %.6f\n", eMin);
@@ -3188,7 +3190,7 @@ void printOneTextRealization(FILE * out,
 				}
 				uFinal = actorCommonArray[curActor].energyLogValuePerUnit[eUnit]
 					[actorCommonArray[curActor].energyLogCount - 1];
-				if(uFinal <= ENERGY_ZERO_EPS)
+				if(uFinal < actorCommonArray[curActor].energyDepletionThreshold)
 				{
 					uFinal = 0.0;
 					bUnitDepleted = true;
@@ -3453,7 +3455,7 @@ void printTextEnd(FILE * out,
 				}
 				uFinal = actorCommonArray[curActor].energyLogValuePerUnit[eUnit]
 					[actorCommonArray[curActor].energyLogCount - 1];
-				if(uFinal <= ENERGY_ZERO_EPS)
+				if(uFinal < actorCommonArray[curActor].energyDepletionThreshold)
 				{
 					uFinal = 0.0;
 					bUnitDepleted = true;

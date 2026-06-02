@@ -152,7 +152,7 @@ static void updateActorEnergyAggregate(struct actorStruct3D * actor)
 	if(actor->numEnergyUnits == 0 || actor->energyCurrentPerUnit == NULL
 		|| actor->bEnergyDepletedPerUnit == NULL)
 	{
-		if(actor->energyCurrent <= ENERGY_ZERO_EPS)
+		if(actor->energyCurrent < actor->energyDepletionThreshold)
 		{
 			actor->energyCurrent = 0.0;
 			actor->bEnergyDepleted = true;
@@ -168,7 +168,7 @@ static void updateActorEnergyAggregate(struct actorStruct3D * actor)
 		if(ev > actor->spec.energyMax)
 			ev = actor->spec.energyMax;
 		actor->energyCurrentPerUnit[u] = ev;
-		actor->bEnergyDepletedPerUnit[u] = (ev <= ENERGY_ZERO_EPS);
+		actor->bEnergyDepletedPerUnit[u] = (ev < actor->energyDepletionThreshold);
 		eSum += ev;
 		if(!actor->bEnergyDepletedPerUnit[u])
 			bAnyAlive = true;
@@ -250,7 +250,7 @@ static bool consumeActorEnergyCostOnUnit(struct actorStruct3D * actor,
 		if(actor->energyCurrent + ENERGY_ZERO_EPS < cost)
 			return false;
 		actor->energyCurrent -= cost;
-		if(actor->energyCurrent <= ENERGY_ZERO_EPS)
+		if(actor->energyCurrent < actor->energyDepletionThreshold)
 		{
 			actor->energyCurrent = 0.0;
 			actor->bEnergyDepleted = true;
@@ -612,6 +612,7 @@ int main(int argc, char *argv[])
 			actorCommonArray[eActor].energyCurrentPerUnit = NULL;
 			actorCommonArray[eActor].bEnergyDepletedPerUnit = NULL;
 			actorCommonArray[eActor].energyRoundRobinIdx = 0;
+			actorCommonArray[eActor].energyDepletionThreshold = ENERGY_ZERO_EPS;
 			if(actorCommonArray[eActor].spec.bEnergyEnabled)
 			{
 				actorCommonArray[eActor].numEnergyUnits = unitCount;
@@ -731,6 +732,30 @@ int main(int argc, char *argv[])
 		}
 	}
 	
+	/* Set depletion threshold = minimum cost of any energy-enabled reaction */
+	{
+		short rxnIdx;
+		double minCost = ENERGY_ZERO_EPS;
+		for(rxnIdx = 0; rxnIdx < spec.MAX_RXNS; rxnIdx++)
+		{
+			if(spec.chem_rxn[rxnIdx].bEnergyEnabled
+				&& spec.chem_rxn[rxnIdx].energyCostValue > ENERGY_ZERO_EPS)
+			{
+				if(minCost <= ENERGY_ZERO_EPS
+					|| spec.chem_rxn[rxnIdx].energyCostValue < minCost)
+					minCost = spec.chem_rxn[rxnIdx].energyCostValue;
+			}
+		}
+		{
+			short depActor;
+			for(depActor = 0; depActor < spec.NUM_ACTORS; depActor++)
+			{
+				if(actorCommonArray[depActor].spec.bEnergyEnabled)
+					actorCommonArray[depActor].energyDepletionThreshold = minCost;
+			}
+		}
+	}
+
 	// Create array of linked lists for recording actor observations
 	ListObs3D observationArray[numPassiveRecord];
 	for(curActor = 0; curActor < numPassiveRecord; curActor++)
@@ -1308,7 +1333,7 @@ int main(int argc, char *argv[])
 								actorCommonArray[energyActor].spec.energyHarvestPassive;
 							if(actorCommonArray[energyActor].energyCurrent < 0.0)
 								actorCommonArray[energyActor].energyCurrent = 0.0;
-							if(actorCommonArray[energyActor].energyCurrent <= ENERGY_ZERO_EPS)
+							if(actorCommonArray[energyActor].energyCurrent < actorCommonArray[energyActor].energyDepletionThreshold)
 							{
 								actorCommonArray[energyActor].energyCurrent = 0.0;
 								actorCommonArray[energyActor].bEnergyDepleted = true;

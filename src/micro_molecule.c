@@ -277,7 +277,7 @@ static void updateActorEnergyAggregate(struct actorStruct3D * actor)
 	if(actor->numEnergyUnits == 0 || actor->energyCurrentPerUnit == NULL
 		|| actor->bEnergyDepletedPerUnit == NULL)
 	{
-		if(actor->energyCurrent <= ENERGY_ZERO_EPS)
+		if(actor->energyCurrent < actor->energyDepletionThreshold)
 		{
 			actor->energyCurrent = 0.0;
 			actor->bEnergyDepleted = true;
@@ -293,7 +293,7 @@ static void updateActorEnergyAggregate(struct actorStruct3D * actor)
 		if(ev > actor->spec.energyMax)
 			ev = actor->spec.energyMax;
 		actor->energyCurrentPerUnit[u] = ev;
-		actor->bEnergyDepletedPerUnit[u] = (ev <= ENERGY_ZERO_EPS);
+		actor->bEnergyDepletedPerUnit[u] = (ev < actor->energyDepletionThreshold);
 		eSum += ev;
 		if(!actor->bEnergyDepletedPerUnit[u])
 			bAnyAlive = true;
@@ -375,7 +375,7 @@ static bool consumeActorEnergyCostOnUnit(struct actorStruct3D * actor,
 		if(actor->energyCurrent + ENERGY_ZERO_EPS < cost)
 			return false;
 		actor->energyCurrent -= cost;
-		if(actor->energyCurrent <= ENERGY_ZERO_EPS)
+		if(actor->energyCurrent < actor->energyDepletionThreshold)
 		{
 			actor->energyCurrent = 0.0;
 			actor->bEnergyDepleted = true;

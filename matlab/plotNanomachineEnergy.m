@@ -19,6 +19,10 @@ end
 
 fprintf('Reading: %s\n', filename);
 actors = parseEnergyActors(filename);
+if ~isempty(actors) && isnan(actors(1).depletionThreshold)
+    fprintf('  WARNING: EnergyDepletionThreshold not found in file.\n');
+    fprintf('  Rerun the simulation with the latest binary to see the threshold line.\n');
+end
 
 if isempty(actors)
     error('No EnergyActor section found in file: %s', filename);
@@ -80,6 +84,15 @@ for a = 1:nActors
         end
     end
 
+    % Depletion threshold reference line
+    thr = actors(a).depletionThreshold;
+    if ~isnan(thr) && thr > 0
+        xlims = xlim;
+        plot(xlims, [thr thr] * 1e3, '--', 'Color', [0.2 0.7 0.2], 'LineWidth', 1.0);
+        text(xlims(1), thr * 1e3, sprintf(' thr=%.1e', thr), ...
+             'Color', [0.2 0.7 0.2], 'FontSize', 7, 'VerticalAlignment', 'bottom');
+    end
+
     xlabel('Time (s)');
     ylabel('Energy (mJ)');
     ylim([0, yMax_mJ]);
@@ -118,7 +131,7 @@ fclose(fid);
 lines = raw{1};
 
 actors = struct('id',{}, 'time',{}, 'energy',{}, 'energyMax',{}, ...
-                'numNMs',{}, 'nms',{});
+                'depletionThreshold',{}, 'numNMs',{}, 'nms',{});
 
 curActor = 0;
 curNM    = 0;
@@ -134,12 +147,13 @@ for i = 1:numel(lines)
     if ~isempty(regexp(L, '^\tEnergyActor \d+:', 'once'))
         curActor = curActor + 1;
         curNM    = 0;
-        actors(curActor).id        = parseFirstInt(L);
-        actors(curActor).time      = [];
-        actors(curActor).energy    = [];
-        actors(curActor).energyMax = NaN;
-        actors(curActor).numNMs    = 0;
-        actors(curActor).nms       = struct('id',{}, 'energy',{}, 'depleted',{});
+        actors(curActor).id                 = parseFirstInt(L);
+        actors(curActor).time               = [];
+        actors(curActor).energy             = [];
+        actors(curActor).energyMax          = NaN;
+        actors(curActor).depletionThreshold = NaN;
+        actors(curActor).numNMs             = 0;
+        actors(curActor).nms                = struct('id',{}, 'energy',{}, 'depleted',{});
         expectTime = false; expectActorEnergy = false; expectNMEnergy = false;
 
     elseif curActor == 0
@@ -148,6 +162,9 @@ for i = 1:numel(lines)
     % ---- Actor-level metadata (2 tabs) ---------------------------------
     elseif ~isempty(regexp(L, '^\t\tEnergyMax:', 'once'))
         actors(curActor).energyMax = parseValue(L);
+
+    elseif ~isempty(regexp(L, '^\t\tEnergyDepletionThreshold:', 'once'))
+        actors(curActor).depletionThreshold = parseValue(L);
 
     elseif ~isempty(regexp(L, '^\t\tNumNanomachines:', 'once'))
         actors(curActor).numNMs = parseFirstInt(L);

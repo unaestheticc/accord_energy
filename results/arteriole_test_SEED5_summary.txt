@@ -1,0 +1,2664 @@
+{
+	"ConfigFile":	"config/energy.txt",
+	"SEED":	5,
+	"NumRepeat":	1,
+	"StartTime":	"2026-05-28 21:29:56"
+}
+{
+	"NumberActiveRecord":	60,
+	"ActiveInfo":	[{
+			"ID":	0,
+			"MaxBitLength":	1
+		}, {
+			"ID":	1,
+			"MaxBitLength":	1
+		}, {
+			"ID":	2,
+			"MaxBitLength":	1
+		}, {
+			"ID":	3,
+			"MaxBitLength":	1
+		}, {
+			"ID":	4,
+			"MaxBitLength":	1
+		}, {
+			"ID":	5,
+			"MaxBitLength":	1
+		}, {
+			"ID":	6,
+			"MaxBitLength":	1
+		}, {
+			"ID":	7,
+			"MaxBitLength":	1
+		}, {
+			"ID":	8,
+			"MaxBitLength":	1
+		}, {
+			"ID":	9,
+			"MaxBitLength":	1
+		}, {
+			"ID":	10,
+			"MaxBitLength":	1
+		}, {
+			"ID":	11,
+			"MaxBitLength":	1
+		}, {
+			"ID":	12,
+			"MaxBitLength":	1
+		}, {
+			"ID":	13,
+			"MaxBitLength":	1
+		}, {
+			"ID":	14,
+			"MaxBitLength":	1
+		}, {
+			"ID":	15,
+			"MaxBitLength":	1
+		}, {
+			"ID":	16,
+			"MaxBitLength":	1
+		}, {
+			"ID":	17,
+			"MaxBitLength":	1
+		}, {
+			"ID":	18,
+			"MaxBitLength":	1
+		}, {
+			"ID":	19,
+			"MaxBitLength":	1
+		}, {
+			"ID":	20,
+			"MaxBitLength":	1
+		}, {
+			"ID":	21,
+			"MaxBitLength":	1
+		}, {
+			"ID":	22,
+			"MaxBitLength":	1
+		}, {
+			"ID":	23,
+			"MaxBitLength":	1
+		}, {
+			"ID":	24,
+			"MaxBitLength":	1
+		}, {
+			"ID":	25,
+			"MaxBitLength":	1
+		}, {
+			"ID":	26,
+			"MaxBitLength":	1
+		}, {
+			"ID":	27,
+			"MaxBitLength":	1
+		}, {
+			"ID":	28,
+			"MaxBitLength":	1
+		}, {
+			"ID":	29,
+			"MaxBitLength":	1
+		}, {
+			"ID":	30,
+			"MaxBitLength":	1
+		}, {
+			"ID":	31,
+			"MaxBitLength":	1
+		}, {
+			"ID":	32,
+			"MaxBitLength":	1
+		}, {
+			"ID":	33,
+			"MaxBitLength":	1
+		}, {
+			"ID":	34,
+			"MaxBitLength":	1
+		}, {
+			"ID":	35,
+			"MaxBitLength":	1
+		}, {
+			"ID":	36,
+			"MaxBitLength":	1
+		}, {
+			"ID":	37,
+			"MaxBitLength":	1
+		}, {
+			"ID":	38,
+			"MaxBitLength":	1
+		}, {
+			"ID":	39,
+			"MaxBitLength":	1
+		}, {
+			"ID":	40,
+			"MaxBitLength":	1
+		}, {
+			"ID":	41,
+			"MaxBitLength":	1
+		}, {
+			"ID":	42,
+			"MaxBitLength":	1
+		}, {
+			"ID":	43,
+			"MaxBitLength":	1
+		}, {
+			"ID":	44,
+			"MaxBitLength":	1
+		}, {
+			"ID":	45,
+			"MaxBitLength":	1
+		}, {
+			"ID":	46,
+			"MaxBitLength":	1
+		}, {
+			"ID":	47,
+			"MaxBitLength":	1
+		}, {
+			"ID":	48,
+			"MaxBitLength":	1
+		}, {
+			"ID":	49,
+			"MaxBitLength":	1
+		}, {
+			"ID":	50,
+			"MaxBitLength":	1
+		}, {
+			"ID":	51,
+			"MaxBitLength":	1
+		}, {
+			"ID":	52,
+			"MaxBitLength":	1
+		}, {
+			"ID":	53,
+			"MaxBitLength":	1
+		}, {
+			"ID":	54,
+			"MaxBitLength":	1
+		}, {
+			"ID":	55,
+			"MaxBitLength":	1
+		}, {
+			"ID":	56,
+			"MaxBitLength":	1
+		}, {
+			"ID":	57,
+			"MaxBitLength":	1
+		}, {
+			"ID":	58,
+			"MaxBitLength":	1
+		}, {
+			"ID":	59,
+			"MaxBitLength":	1
+		}],
+	"NumberPassiveRecord":	1,
+	"RecordInfo":	[{
+			"ID":	60,
+			"bRecordTime":	1,
+			"MaxCountLength":	400,
+			"NumMolTypeObs":	4,
+			"MolObsID":	[0, 1, 2, 3],
+			"bRecordPos":	[1, 1, 1, 1]
+		}],
+	"NanomachineEnergySummary":	[{
+			"ActorID":	56,
+			"NumNanomachines":	25,
+			"Nanomachines":	[{
+					"NanomachineID":	0,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000150,
+					"EnergyMin":	0.000150,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000208,
+					"DetectionCount":	1,
+					"GossipCount":	2,
+					"DetectionTimes":	[{
+							"time":	0.014760,
+							"bmIDs":	[37, 30],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.014370,
+							"bmIDs":	[37],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	22
+						}, {
+							"time":	0.014770,
+							"bmIDs":	[37, 30],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	22
+						}]
+				}, {
+					"NanomachineID":	1,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000170,
+					"EnergyMin":	0.000170,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000221,
+					"DetectionCount":	1,
+					"GossipCount":	1,
+					"DetectionTimes":	[{
+							"time":	0.014020,
+							"bmIDs":	[42],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.018490,
+							"bmIDs":	[42, 16, 10, 2],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	16
+						}]
+				}, {
+					"NanomachineID":	2,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	3,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000277,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.014380,
+							"bmIDs":	[37],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	22
+						}]
+				}, {
+					"NanomachineID":	4,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000040,
+					"EnergyMin":	0.000040,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000134,
+					"DetectionCount":	2,
+					"GossipCount":	3,
+					"DetectionTimes":	[{
+							"time":	0.013990,
+							"bmIDs":	[32],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.014060,
+							"bmIDs":	[32, 20],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.014070,
+							"bmIDs":	[32, 20],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	23
+						}, {
+							"time":	0.014080,
+							"bmIDs":	[32, 20],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	8
+						}, {
+							"time":	0.014310,
+							"bmIDs":	[32, 20, 6],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	8
+						}]
+				}, {
+					"NanomachineID":	5,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000040,
+					"EnergyMin":	0.000040,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000134,
+					"DetectionCount":	2,
+					"GossipCount":	3,
+					"DetectionTimes":	[{
+							"time":	0.013580,
+							"bmIDs":	[51],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.014070,
+							"bmIDs":	[51, 13],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.014080,
+							"bmIDs":	[51, 13],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	9
+						}, {
+							"time":	0.014090,
+							"bmIDs":	[51, 13],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	13
+						}, {
+							"time":	0.014840,
+							"bmIDs":	[51, 13, 44],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	13
+						}]
+				}, {
+					"NanomachineID":	6,
+					"EnergyDepleted":	true,
+					"EnergyFinal":	0,
+					"EnergyMin":	5.000000e-09,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000110,
+					"DetectionCount":	2,
+					"GossipCount":	5,
+					"DetectionTimes":	[{
+							"time":	0.014160,
+							"bmIDs":	[26, 34, 22],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.014410,
+							"bmIDs":	[26, 34, 22, 33],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.013710,
+							"bmIDs":	[26],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	14
+						}, {
+							"time":	0.014170,
+							"bmIDs":	[26, 34, 22],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	18
+						}, {
+							"time":	0.014180,
+							"bmIDs":	[26, 34, 22],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	14
+						}, {
+							"time":	0.014420,
+							"bmIDs":	[26, 34, 22, 33],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	14
+						}, {
+							"time":	0.014430,
+							"bmIDs":	[26, 34, 22, 33],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	18
+						}]
+				}, {
+					"NanomachineID":	7,
+					"EnergyDepleted":	true,
+					"EnergyFinal":	0,
+					"EnergyMin":	0,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000109,
+					"DetectionCount":	3,
+					"GossipCount":	1,
+					"DetectionTimes":	[{
+							"time":	0.014290,
+							"bmIDs":	[2],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.014310,
+							"bmIDs":	[2, 10],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.014630,
+							"bmIDs":	[2, 10, 16],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.018480,
+							"bmIDs":	[2, 10, 16, 42],
+							"dir":	"send & receive",
+							"partner_actor":	56,
+							"partner_nm":	16
+						}]
+				}, {
+					"NanomachineID":	8,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000240,
+					"EnergyMin":	0.000240,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000270,
+					"DetectionCount":	0,
+					"GossipCount":	2,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.014050,
+							"bmIDs":	[32],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	4
+						}, {
+							"time":	0.025460,
+							"bmIDs":	[32, 19, 38, 23, 39, 6, 20],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	4
+						}]
+				}, {
+					"NanomachineID":	9,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000240,
+					"EnergyMin":	0.000240,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000264,
+					"DetectionCount":	0,
+					"GossipCount":	2,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.013600,
+							"bmIDs":	[51],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	5
+						}, {
+							"time":	0.014090,
+							"bmIDs":	[51, 13],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	10
+						}]
+				}, {
+					"NanomachineID":	10,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000130,
+					"EnergyMin":	0.000130,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000195,
+					"DetectionCount":	1,
+					"GossipCount":	3,
+					"DetectionTimes":	[{
+							"time":	0.014820,
+							"bmIDs":	[51, 44, 13],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.013590,
+							"bmIDs":	[51],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	5
+						}, {
+							"time":	0.014830,
+							"bmIDs":	[51, 44, 13],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	5
+						}, {
+							"time":	0.014840,
+							"bmIDs":	[51, 44, 13],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	9
+						}]
+				}, {
+					"NanomachineID":	11,
+					"EnergyDepleted":	true,
+					"EnergyFinal":	0,
+					"EnergyMin":	5.000000e-09,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000111,
+					"DetectionCount":	2,
+					"GossipCount":	5,
+					"DetectionTimes":	[{
+							"time":	0.014290,
+							"bmIDs":	[32, 6, 20],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.014590,
+							"bmIDs":	[32, 6, 20, 39],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.014000,
+							"bmIDs":	[32],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	4
+						}, {
+							"time":	0.014300,
+							"bmIDs":	[32, 6, 20],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	4
+						}, {
+							"time":	0.014310,
+							"bmIDs":	[32, 6, 20],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	23
+						}, {
+							"time":	0.014600,
+							"bmIDs":	[32, 6, 20, 39],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	23
+						}, {
+							"time":	0.014610,
+							"bmIDs":	[32, 6, 20, 39],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	4
+						}]
+				}, {
+					"NanomachineID":	12,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000278,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.016850,
+							"bmIDs":	[30, 37],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	22
+						}]
+				}, {
+					"NanomachineID":	13,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000277,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.013600,
+							"bmIDs":	[51],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	10
+						}]
+				}, {
+					"NanomachineID":	14,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000150,
+					"EnergyMin":	0.000150,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000205,
+					"DetectionCount":	1,
+					"GossipCount":	2,
+					"DetectionTimes":	[{
+							"time":	0.013700,
+							"bmIDs":	[26],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.014070,
+							"bmIDs":	[26, 22],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	6
+						}, {
+							"time":	0.014430,
+							"bmIDs":	[26, 22, 33, 34],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	17
+						}]
+				}, {
+					"NanomachineID":	15,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000220,
+					"EnergyMin":	0.000220,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000263,
+					"DetectionCount":	0,
+					"GossipCount":	3,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.014200,
+							"bmIDs":	[38, 23],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	19
+						}, {
+							"time":	0.025450,
+							"bmIDs":	[38, 23, 19, 39, 6, 20, 32],
+							"dir":	"send & receive",
+							"partner_actor":	56,
+							"partner_nm":	8
+						}, {
+							"time":	0.025460,
+							"bmIDs":	[38, 23, 19, 39, 6, 20, 32],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	23
+						}]
+				}, {
+					"NanomachineID":	16,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000277,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.014030,
+							"bmIDs":	[42],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	1
+						}]
+				}, {
+					"NanomachineID":	17,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000110,
+					"EnergyMin":	0.000110,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000184,
+					"DetectionCount":	1,
+					"GossipCount":	4,
+					"DetectionTimes":	[{
+							"time":	0.015310,
+							"bmIDs":	[26, 14, 33, 34, 22],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.013720,
+							"bmIDs":	[26],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	14
+						}, {
+							"time":	0.015320,
+							"bmIDs":	[26, 14, 33, 34, 22, 15],
+							"dir":	"send & receive",
+							"partner_actor":	56,
+							"partner_nm":	18
+						}, {
+							"time":	0.015330,
+							"bmIDs":	[26, 14, 33, 34, 22, 15],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	6
+						}, {
+							"time":	0.015340,
+							"bmIDs":	[26, 14, 33, 34, 22, 15],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	14
+						}]
+				}, {
+					"NanomachineID":	18,
+					"EnergyDepleted":	true,
+					"EnergyFinal":	0,
+					"EnergyMin":	5.000000e-09,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000110,
+					"DetectionCount":	2,
+					"GossipCount":	5,
+					"DetectionTimes":	[{
+							"time":	0.014050,
+							"bmIDs":	[26, 22],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.014740,
+							"bmIDs":	[26, 22, 34, 15, 33],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.013720,
+							"bmIDs":	[26],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	6
+						}, {
+							"time":	0.014060,
+							"bmIDs":	[26, 22],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	14
+						}, {
+							"time":	0.014070,
+							"bmIDs":	[26, 22],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	17
+						}, {
+							"time":	0.014180,
+							"bmIDs":	[26, 22, 34],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	17
+						}, {
+							"time":	0.014750,
+							"bmIDs":	[26, 22, 34, 15, 33],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	6
+						}]
+				}, {
+					"NanomachineID":	19,
+					"EnergyDepleted":	true,
+					"EnergyFinal":	0,
+					"EnergyMin":	0,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000107,
+					"DetectionCount":	3,
+					"GossipCount":	1,
+					"DetectionTimes":	[{
+							"time":	0.013980,
+							"bmIDs":	[23],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.013990,
+							"bmIDs":	[23, 38],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.014990,
+							"bmIDs":	[23, 38, 19],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.015000,
+							"bmIDs":	[23, 38, 19],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	15
+						}]
+				}, {
+					"NanomachineID":	20,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000080,
+					"EnergyMin":	0.000080,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000162,
+					"DetectionCount":	2,
+					"GossipCount":	1,
+					"DetectionTimes":	[{
+							"time":	0.014020,
+							"bmIDs":	[8],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.014880,
+							"bmIDs":	[8, 25],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.014890,
+							"bmIDs":	[8, 25],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	21
+						}]
+				}, {
+					"NanomachineID":	21,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000277,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.014030,
+							"bmIDs":	[8],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	20
+						}]
+				}, {
+					"NanomachineID":	22,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000170,
+					"EnergyMin":	0.000170,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000220,
+					"DetectionCount":	1,
+					"GossipCount":	1,
+					"DetectionTimes":	[{
+							"time":	0.014360,
+							"bmIDs":	[37],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.014780,
+							"bmIDs":	[37, 30],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	3
+						}]
+				}, {
+					"NanomachineID":	23,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000220,
+					"EnergyMin":	0.000220,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000251,
+					"DetectionCount":	0,
+					"GossipCount":	3,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.014050,
+							"bmIDs":	[32],
+							"dir":	"receive",
+							"partner_actor":	56,
+							"partner_nm":	11
+						}, {
+							"time":	0.014080,
+							"bmIDs":	[32, 20],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	11
+						}, {
+							"time":	0.014610,
+							"bmIDs":	[32, 20, 39, 6],
+							"dir":	"send",
+							"partner_actor":	56,
+							"partner_nm":	8
+						}]
+				}, {
+					"NanomachineID":	24,
+					"EnergyDepleted":	true,
+					"EnergyFinal":	0,
+					"EnergyMin":	0.000010,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000121,
+					"DetectionCount":	3,
+					"GossipCount":	0,
+					"DetectionTimes":	[{
+							"time":	0.014380,
+							"bmIDs":	[56],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.014650,
+							"bmIDs":	[56, 49],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.016030,
+							"bmIDs":	[56, 49, 27],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[]
+				}],
+			"DepletedUnits":	6,
+			"AllUnitsDepleted":	false
+		}, {
+			"ActorID":	57,
+			"NumNanomachines":	25,
+			"Nanomachines":	[{
+					"NanomachineID":	0,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000279,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.018120,
+							"bmIDs":	[54],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	12
+						}]
+				}, {
+					"NanomachineID":	1,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000279,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.017290,
+							"bmIDs":	[40],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	3
+						}]
+				}, {
+					"NanomachineID":	2,
+					"EnergyDepleted":	true,
+					"EnergyFinal":	0,
+					"EnergyMin":	0,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000132,
+					"DetectionCount":	3,
+					"GossipCount":	1,
+					"DetectionTimes":	[{
+							"time":	0.017540,
+							"bmIDs":	[31],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.017950,
+							"bmIDs":	[31, 17, 29, 35],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.017960,
+							"bmIDs":	[31, 17, 29, 35, 55],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.017560,
+							"bmIDs":	[31, 17],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	17
+						}]
+				}, {
+					"NanomachineID":	3,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000170,
+					"EnergyMin":	0.000170,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000228,
+					"DetectionCount":	1,
+					"GossipCount":	1,
+					"DetectionTimes":	[{
+							"time":	0.017270,
+							"bmIDs":	[40],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.018290,
+							"bmIDs":	[40, 53],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	1
+						}]
+				}, {
+					"NanomachineID":	4,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000080,
+					"EnergyMin":	0.000080,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000186,
+					"DetectionCount":	2,
+					"GossipCount":	1,
+					"DetectionTimes":	[{
+							"time":	0.019190,
+							"bmIDs":	[21],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.019300,
+							"bmIDs":	[21, 12],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.019310,
+							"bmIDs":	[21, 12],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	15
+						}]
+				}, {
+					"NanomachineID":	5,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000279,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.018140,
+							"bmIDs":	[54],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	7
+						}]
+				}, {
+					"NanomachineID":	6,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	7,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000240,
+					"EnergyMin":	0.000240,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000269,
+					"DetectionCount":	0,
+					"GossipCount":	2,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.018130,
+							"bmIDs":	[54],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	0
+						}, {
+							"time":	0.018930,
+							"bmIDs":	[54, 7],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	0
+						}]
+				}, {
+					"NanomachineID":	8,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000240,
+					"EnergyMin":	0.000240,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000269,
+					"DetectionCount":	0,
+					"GossipCount":	2,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.017300,
+							"bmIDs":	[40],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	3
+						}, {
+							"time":	0.019750,
+							"bmIDs":	[40, 41, 53],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	1
+						}]
+				}, {
+					"NanomachineID":	9,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000279,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.017290,
+							"bmIDs":	[40],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	13
+						}]
+				}, {
+					"NanomachineID":	10,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000279,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.018320,
+							"bmIDs":	[5],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	24
+						}]
+				}, {
+					"NanomachineID":	11,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000130,
+					"EnergyMin":	0.000130,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000210,
+					"DetectionCount":	1,
+					"GossipCount":	3,
+					"DetectionTimes":	[{
+							"time":	0.018900,
+							"bmIDs":	[54, 7],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.018130,
+							"bmIDs":	[54],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	12
+						}, {
+							"time":	0.018910,
+							"bmIDs":	[54, 7],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	12
+						}, {
+							"time":	0.018920,
+							"bmIDs":	[54, 7],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	7
+						}]
+				}, {
+					"NanomachineID":	12,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000170,
+					"EnergyMin":	0.000170,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000230,
+					"DetectionCount":	1,
+					"GossipCount":	1,
+					"DetectionTimes":	[{
+							"time":	0.018110,
+							"bmIDs":	[54],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.018920,
+							"bmIDs":	[54, 7],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	5
+						}]
+				}, {
+					"NanomachineID":	13,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000150,
+					"EnergyMin":	0.000150,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000221,
+					"DetectionCount":	1,
+					"GossipCount":	2,
+					"DetectionTimes":	[{
+							"time":	0.019010,
+							"bmIDs":	[40, 50],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.017280,
+							"bmIDs":	[40],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	3
+						}, {
+							"time":	0.019020,
+							"bmIDs":	[40, 50],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	21
+						}]
+				}, {
+					"NanomachineID":	14,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000190,
+					"EnergyMin":	0.000190,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000244,
+					"DetectionCount":	1,
+					"GossipCount":	0,
+					"DetectionTimes":	[{
+							"time":	0.019360,
+							"bmIDs":	[11],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	15,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000280,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.019200,
+							"bmIDs":	[21],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	4
+						}]
+				}, {
+					"NanomachineID":	16,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000280,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.019370,
+							"bmIDs":	[11],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	14
+						}]
+				}, {
+					"NanomachineID":	17,
+					"EnergyDepleted":	true,
+					"EnergyFinal":	0,
+					"EnergyMin":	5.000000e-09,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000137,
+					"DetectionCount":	2,
+					"GossipCount":	5,
+					"DetectionTimes":	[{
+							"time":	0.017960,
+							"bmIDs":	[17, 35, 31, 46],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.018500,
+							"bmIDs":	[17, 35, 31, 46, 55, 29, 18],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.017540,
+							"bmIDs":	[17],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	19
+						}, {
+							"time":	0.017760,
+							"bmIDs":	[17, 35, 31],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	2
+						}, {
+							"time":	0.017970,
+							"bmIDs":	[17, 35, 31, 46, 55, 29],
+							"dir":	"send & receive",
+							"partner_actor":	57,
+							"partner_nm":	2
+						}, {
+							"time":	0.017980,
+							"bmIDs":	[17, 35, 31, 46, 55, 29],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	19
+						}, {
+							"time":	0.018510,
+							"bmIDs":	[17, 35, 31, 46, 55, 29, 18],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	19
+						}]
+				}, {
+					"NanomachineID":	18,
+					"EnergyDepleted":	true,
+					"EnergyFinal":	0,
+					"EnergyMin":	5.000000e-09,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000142,
+					"DetectionCount":	2,
+					"GossipCount":	5,
+					"DetectionTimes":	[{
+							"time":	0.018270,
+							"bmIDs":	[40, 53],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.019730,
+							"bmIDs":	[40, 53, 41],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.017300,
+							"bmIDs":	[40],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	1
+						}, {
+							"time":	0.018280,
+							"bmIDs":	[40, 53],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	3
+						}, {
+							"time":	0.018290,
+							"bmIDs":	[40, 53],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	8
+						}, {
+							"time":	0.019740,
+							"bmIDs":	[40, 53, 41],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	8
+						}, {
+							"time":	0.019750,
+							"bmIDs":	[40, 53, 41],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	3
+						}]
+				}, {
+					"NanomachineID":	19,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000040,
+					"EnergyMin":	0.000040,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000156,
+					"DetectionCount":	2,
+					"GossipCount":	3,
+					"DetectionTimes":	[{
+							"time":	0.017530,
+							"bmIDs":	[17],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.017740,
+							"bmIDs":	[17, 31, 35],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.017550,
+							"bmIDs":	[17, 31],
+							"dir":	"send & receive",
+							"partner_actor":	57,
+							"partner_nm":	2
+						}, {
+							"time":	0.017750,
+							"bmIDs":	[17, 31, 35],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	17
+						}, {
+							"time":	0.018520,
+							"bmIDs":	[17, 31, 35, 18, 46, 55, 29],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	2
+						}]
+				}, {
+					"NanomachineID":	20,
+					"EnergyDepleted":	true,
+					"EnergyFinal":	0,
+					"EnergyMin":	0,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000137,
+					"DetectionCount":	3,
+					"GossipCount":	1,
+					"DetectionTimes":	[{
+							"time":	0.018300,
+							"bmIDs":	[36],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.018320,
+							"bmIDs":	[36, 9],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.018940,
+							"bmIDs":	[36, 9, 24],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.018330,
+							"bmIDs":	[36, 9],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	23
+						}]
+				}, {
+					"NanomachineID":	21,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000240,
+					"EnergyMin":	0.000240,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000268,
+					"DetectionCount":	0,
+					"GossipCount":	2,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.017300,
+							"bmIDs":	[40],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	9
+						}, {
+							"time":	0.019030,
+							"bmIDs":	[40, 50],
+							"dir":	"send",
+							"partner_actor":	57,
+							"partner_nm":	9
+						}]
+				}, {
+					"NanomachineID":	22,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000280,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.019380,
+							"bmIDs":	[11],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	14
+						}]
+				}, {
+					"NanomachineID":	23,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000279,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.018310,
+							"bmIDs":	[36],
+							"dir":	"receive",
+							"partner_actor":	57,
+							"partner_nm":	20
+						}]
+				}, {
+					"NanomachineID":	24,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000190,
+					"EnergyMin":	0.000190,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000241,
+					"DetectionCount":	1,
+					"GossipCount":	0,
+					"DetectionTimes":	[{
+							"time":	0.018310,
+							"bmIDs":	[5],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[]
+				}],
+			"DepletedUnits":	4,
+			"AllUnitsDepleted":	false
+		}, {
+			"ActorID":	58,
+			"NumNanomachines":	25,
+			"Nanomachines":	[{
+					"NanomachineID":	0,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000220,
+					"EnergyMin":	0.000220,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000280,
+					"DetectionCount":	0,
+					"GossipCount":	3,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032650,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	16
+						}, {
+							"time":	0.032980,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	17
+						}, {
+							"time":	0.033680,
+							"bmIDs":	[1, 45, 4],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	1
+						}]
+				}, {
+					"NanomachineID":	1,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000286,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032610,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	12
+						}]
+				}, {
+					"NanomachineID":	2,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000286,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032620,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	12
+						}]
+				}, {
+					"NanomachineID":	3,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	4,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000286,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032680,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	19
+						}]
+				}, {
+					"NanomachineID":	5,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000277,
+					"DetectionCount":	0,
+					"GossipCount":	4,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032620,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	1
+						}, {
+							"time":	0.033660,
+							"bmIDs":	[1, 4, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	7
+						}, {
+							"time":	0.033670,
+							"bmIDs":	[1, 4, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	11
+						}, {
+							"time":	0.033680,
+							"bmIDs":	[1, 4, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	14
+						}]
+				}, {
+					"NanomachineID":	6,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000276,
+					"DetectionCount":	0,
+					"GossipCount":	4,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032650,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	21
+						}, {
+							"time":	0.032970,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	16
+						}, {
+							"time":	0.032980,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	11
+						}, {
+							"time":	0.033680,
+							"bmIDs":	[1, 45, 4],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	2
+						}]
+				}, {
+					"NanomachineID":	7,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000220,
+					"EnergyMin":	0.000220,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000280,
+					"DetectionCount":	0,
+					"GossipCount":	3,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032630,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	12
+						}, {
+							"time":	0.033670,
+							"bmIDs":	[1, 4, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	0
+						}, {
+							"time":	0.033680,
+							"bmIDs":	[1, 4, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	24
+						}]
+				}, {
+					"NanomachineID":	8,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000240,
+					"EnergyMin":	0.000240,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000283,
+					"DetectionCount":	0,
+					"GossipCount":	2,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032630,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	5
+						}, {
+							"time":	0.032980,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	23
+						}]
+				}, {
+					"NanomachineID":	9,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	10,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000220,
+					"EnergyMin":	0.000220,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000279,
+					"DetectionCount":	0,
+					"GossipCount":	3,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032650,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	14
+						}, {
+							"time":	0.032950,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	13
+						}, {
+							"time":	0.032960,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	19
+						}]
+				}, {
+					"NanomachineID":	11,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000240,
+					"EnergyMin":	0.000240,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000283,
+					"DetectionCount":	0,
+					"GossipCount":	2,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032630,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	1
+						}, {
+							"time":	0.033680,
+							"bmIDs":	[1, 4, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	16
+						}]
+				}, {
+					"NanomachineID":	12,
+					"EnergyDepleted":	true,
+					"EnergyFinal":	0,
+					"EnergyMin":	5.000000e-09,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000240,
+					"DetectionCount":	2,
+					"GossipCount":	5,
+					"DetectionTimes":	[{
+							"time":	0.032600,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.032930,
+							"bmIDs":	[1, 45],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.032940,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	10
+						}, {
+							"time":	0.032950,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	14
+						}, {
+							"time":	0.032960,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	21
+						}, {
+							"time":	0.032970,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	8
+						}, {
+							"time":	0.032980,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	5
+						}]
+				}, {
+					"NanomachineID":	13,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000240,
+					"EnergyMin":	0.000240,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000283,
+					"DetectionCount":	0,
+					"GossipCount":	2,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032660,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	10
+						}, {
+							"time":	0.032960,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	4
+						}]
+				}, {
+					"NanomachineID":	14,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000200,
+					"EnergyMin":	0.000200,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000276,
+					"DetectionCount":	0,
+					"GossipCount":	4,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032630,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	2
+						}, {
+							"time":	0.032960,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	6
+						}, {
+							"time":	0.032970,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	24
+						}, {
+							"time":	0.032980,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	22
+						}]
+				}, {
+					"NanomachineID":	15,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	16,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000240,
+					"EnergyMin":	0.000240,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000283,
+					"DetectionCount":	0,
+					"GossipCount":	2,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032640,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	11
+						}, {
+							"time":	0.032980,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	2
+						}]
+				}, {
+					"NanomachineID":	17,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000240,
+					"EnergyMin":	0.000240,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000283,
+					"DetectionCount":	0,
+					"GossipCount":	2,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032640,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	12
+						}, {
+							"time":	0.033680,
+							"bmIDs":	[1, 4, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	23
+						}]
+				}, {
+					"NanomachineID":	18,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	19,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000286,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032670,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	13
+						}]
+				}, {
+					"NanomachineID":	20,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	21,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000180,
+					"EnergyMin":	0.000180,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000273,
+					"DetectionCount":	0,
+					"GossipCount":	5,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032640,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	14
+						}, {
+							"time":	0.032970,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	0
+						}, {
+							"time":	0.032980,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	7
+						}, {
+							"time":	0.033670,
+							"bmIDs":	[1, 45, 4],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	17
+						}, {
+							"time":	0.033680,
+							"bmIDs":	[1, 45, 4],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	8
+						}]
+				}, {
+					"NanomachineID":	22,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000090,
+					"EnergyMin":	0.000090,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000259,
+					"DetectionCount":	1,
+					"GossipCount":	5,
+					"DetectionTimes":	[{
+							"time":	0.033630,
+							"bmIDs":	[1, 4, 45],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.032640,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	2
+						}, {
+							"time":	0.033640,
+							"bmIDs":	[1, 4, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	12
+						}, {
+							"time":	0.033650,
+							"bmIDs":	[1, 4, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	5
+						}, {
+							"time":	0.033660,
+							"bmIDs":	[1, 4, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	21
+						}, {
+							"time":	0.033670,
+							"bmIDs":	[1, 4, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	6
+						}]
+				}, {
+					"NanomachineID":	23,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000286,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032640,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	1
+						}]
+				}, {
+					"NanomachineID":	24,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000240,
+					"EnergyMin":	0.000240,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000283,
+					"DetectionCount":	0,
+					"GossipCount":	2,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.032640,
+							"bmIDs":	[1],
+							"dir":	"receive",
+							"partner_actor":	58,
+							"partner_nm":	8
+						}, {
+							"time":	0.032980,
+							"bmIDs":	[1, 45],
+							"dir":	"send",
+							"partner_actor":	58,
+							"partner_nm":	1
+						}]
+				}],
+			"DepletedUnits":	1,
+			"AllUnitsDepleted":	false
+		}, {
+			"ActorID":	59,
+			"NumNanomachines":	25,
+			"Nanomachines":	[{
+					"NanomachineID":	0,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000284,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.028300,
+							"bmIDs":	[48],
+							"dir":	"receive",
+							"partner_actor":	59,
+							"partner_nm":	4
+						}]
+				}, {
+					"NanomachineID":	1,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	2,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	3,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	4,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000150,
+					"EnergyMin":	0.000150,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000252,
+					"DetectionCount":	1,
+					"GossipCount":	2,
+					"DetectionTimes":	[{
+							"time":	0.028290,
+							"bmIDs":	[48],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.028370,
+							"bmIDs":	[48, 3],
+							"dir":	"send",
+							"partner_actor":	59,
+							"partner_nm":	22
+						}, {
+							"time":	0.028380,
+							"bmIDs":	[48, 3],
+							"dir":	"send",
+							"partner_actor":	59,
+							"partner_nm":	9
+						}]
+				}, {
+					"NanomachineID":	5,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	6,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	7,
+					"EnergyDepleted":	true,
+					"EnergyFinal":	0,
+					"EnergyMin":	5.000000e-09,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000209,
+					"DetectionCount":	2,
+					"GossipCount":	5,
+					"DetectionTimes":	[{
+							"time":	0.028330,
+							"bmIDs":	[28, 47, 52],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.028540,
+							"bmIDs":	[28, 47, 52, 43],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.027920,
+							"bmIDs":	[28],
+							"dir":	"receive",
+							"partner_actor":	59,
+							"partner_nm":	12
+						}, {
+							"time":	0.028340,
+							"bmIDs":	[28, 47, 52],
+							"dir":	"send",
+							"partner_actor":	59,
+							"partner_nm":	12
+						}, {
+							"time":	0.028350,
+							"bmIDs":	[28, 47, 52],
+							"dir":	"send",
+							"partner_actor":	59,
+							"partner_nm":	24
+						}, {
+							"time":	0.028550,
+							"bmIDs":	[28, 47, 52, 43],
+							"dir":	"send",
+							"partner_actor":	59,
+							"partner_nm":	24
+						}, {
+							"time":	0.028560,
+							"bmIDs":	[28, 47, 52, 43],
+							"dir":	"send",
+							"partner_actor":	59,
+							"partner_nm":	12
+						}]
+				}, {
+					"NanomachineID":	8,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	9,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000284,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.028310,
+							"bmIDs":	[48],
+							"dir":	"receive",
+							"partner_actor":	59,
+							"partner_nm":	4
+						}]
+				}, {
+					"NanomachineID":	10,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000240,
+					"EnergyMin":	0.000240,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000278,
+					"DetectionCount":	0,
+					"GossipCount":	2,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.028310,
+							"bmIDs":	[48],
+							"dir":	"receive",
+							"partner_actor":	59,
+							"partner_nm":	0
+						}, {
+							"time":	0.028380,
+							"bmIDs":	[48, 3],
+							"dir":	"send",
+							"partner_actor":	59,
+							"partner_nm":	16
+						}]
+				}, {
+					"NanomachineID":	11,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	12,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000040,
+					"EnergyMin":	0.000040,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000219,
+					"DetectionCount":	2,
+					"GossipCount":	3,
+					"DetectionTimes":	[{
+							"time":	0.027910,
+							"bmIDs":	[28],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}, {
+							"time":	0.028210,
+							"bmIDs":	[28, 52],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.028220,
+							"bmIDs":	[28, 52],
+							"dir":	"send",
+							"partner_actor":	59,
+							"partner_nm":	24
+						}, {
+							"time":	0.028230,
+							"bmIDs":	[28, 52],
+							"dir":	"send",
+							"partner_actor":	59,
+							"partner_nm":	13
+						}, {
+							"time":	0.028350,
+							"bmIDs":	[28, 52, 47],
+							"dir":	"send",
+							"partner_actor":	59,
+							"partner_nm":	13
+						}]
+				}, {
+					"NanomachineID":	13,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000284,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.027930,
+							"bmIDs":	[28],
+							"dir":	"receive",
+							"partner_actor":	59,
+							"partner_nm":	12
+						}]
+				}, {
+					"NanomachineID":	14,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	15,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	16,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000260,
+					"EnergyMin":	0.000260,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000284,
+					"DetectionCount":	0,
+					"GossipCount":	1,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.028320,
+							"bmIDs":	[48],
+							"dir":	"receive",
+							"partner_actor":	59,
+							"partner_nm":	4
+						}]
+				}, {
+					"NanomachineID":	17,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	18,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	19,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	20,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000130,
+					"EnergyMin":	0.000130,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000246,
+					"DetectionCount":	1,
+					"GossipCount":	3,
+					"DetectionTimes":	[{
+							"time":	0.028350,
+							"bmIDs":	[48, 3],
+							"dir":	"receive",
+							"partner_actor":	-1,
+							"partner_nm":	0
+						}],
+					"GossipTimes":	[{
+							"time":	0.028320,
+							"bmIDs":	[48],
+							"dir":	"receive",
+							"partner_actor":	59,
+							"partner_nm":	10
+						}, {
+							"time":	0.028360,
+							"bmIDs":	[48, 3],
+							"dir":	"send",
+							"partner_actor":	59,
+							"partner_nm":	4
+						}, {
+							"time":	0.028370,
+							"bmIDs":	[48, 3],
+							"dir":	"send",
+							"partner_actor":	59,
+							"partner_nm":	10
+						}]
+				}, {
+					"NanomachineID":	21,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	22,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000240,
+					"EnergyMin":	0.000240,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000278,
+					"DetectionCount":	0,
+					"GossipCount":	2,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.028330,
+							"bmIDs":	[48],
+							"dir":	"receive",
+							"partner_actor":	59,
+							"partner_nm":	4
+						}, {
+							"time":	0.028380,
+							"bmIDs":	[48, 3],
+							"dir":	"send",
+							"partner_actor":	59,
+							"partner_nm":	0
+						}]
+				}, {
+					"NanomachineID":	23,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000280,
+					"EnergyMin":	0.000280,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000290,
+					"DetectionCount":	0,
+					"GossipCount":	0,
+					"DetectionTimes":	[],
+					"GossipTimes":	[]
+				}, {
+					"NanomachineID":	24,
+					"EnergyDepleted":	false,
+					"EnergyFinal":	0.000220,
+					"EnergyMin":	0.000220,
+					"EnergyMax":	0.000300,
+					"EnergyMean":	0.000272,
+					"DetectionCount":	0,
+					"GossipCount":	3,
+					"DetectionTimes":	[],
+					"GossipTimes":	[{
+							"time":	0.027930,
+							"bmIDs":	[28],
+							"dir":	"receive",
+							"partner_actor":	59,
+							"partner_nm":	7
+						}, {
+							"time":	0.028230,
+							"bmIDs":	[28, 52],
+							"dir":	"send",
+							"partner_actor":	59,
+							"partner_nm":	7
+						}, {
+							"time":	0.028560,
+							"bmIDs":	[28, 52, 43, 47],
+							"dir":	"send",
+							"partner_actor":	59,
+							"partner_nm":	13
+						}]
+				}],
+			"DepletedUnits":	1,
+			"AllUnitsDepleted":	false
+		}],
+	"EndTime":	"2026-05-28 21:29:56",
+	"RunTime":	0.293077
+}

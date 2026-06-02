@@ -335,6 +335,9 @@ struct actorStruct3D { // Common actor parameters
 	// Round-robin cursor to distribute event-based energy costs across units
 	uint32_t energyRoundRobinIdx;
 
+	// Energy below which a unit is considered depleted (= min reaction cost)
+	double energyDepletionThreshold;
+
 	/*
 	*  Energy Log — records energy level at each actor event for output report
 	*/

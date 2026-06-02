@@ -71,7 +71,7 @@
         "Binding Radius": 2e-6,
         "Is Energy Enabled?": true,
         "Energy Cost Type": "communication",
-        "Energy Cost Value": 1e-5,
+        "Energy Cost Value": 2e-5,
         "Energy Cost Unit": "per_reaction"
       },
       {
@@ -86,7 +86,7 @@
         "Binding Radius": 2e-6,
         "Is Energy Enabled?": true,
         "Energy Cost Type": "communication",
-        "Energy Cost Value": 1e-5,
+        "Energy Cost Value": 2e-5,
         "Energy Cost Unit": "per_reaction"
       },
       {
@@ -101,7 +101,7 @@
         "Binding Radius": 2e-6,
         "Is Energy Enabled?": true,
         "Energy Cost Type": "communication",
-        "Energy Cost Value": 1e-5,
+        "Energy Cost Value": 2e-5,
         "Energy Cost Unit": "per_reaction"
       },
       {
@@ -116,7 +116,7 @@
         "Binding Radius": 2e-6,
         "Is Energy Enabled?": true,
         "Energy Cost Type": "communication",
-        "Energy Cost Value": 1e-5,
+        "Energy Cost Value": 2e-5,
         "Energy Cost Unit": "per_reaction"
       },
       {
@@ -131,7 +131,7 @@
         "Binding Radius": 2e-6,
         "Is Energy Enabled?": true,
         "Energy Cost Type": "communication",
-        "Energy Cost Value": 1e-5,
+        "Energy Cost Value": 2e-5,
         "Energy Cost Unit": "per_reaction"
       }
 
@@ -1436,7 +1436,7 @@
         "Is Energy Enabled?": true,
         "Energy Initial": 3e-4,
         "Energy Max": 3e-4,
-        "Energy Drain Passive": 4e-9,
+        "Energy Drain Passive": 5e-9,
         "Energy Harvest Passive": 0
       },
       {
@@ -1461,7 +1461,7 @@
         "Is Energy Enabled?": true,
         "Energy Initial": 3e-4,
         "Energy Max": 3e-4,
-        "Energy Drain Passive": 4e-9,
+        "Energy Drain Passive": 5e-9,
         "Energy Harvest Passive": 0
       },
       {
@@ -1486,7 +1486,7 @@
         "Is Energy Enabled?": true,
         "Energy Initial": 3e-4,
         "Energy Max": 3e-4,
-        "Energy Drain Passive": 4e-9,
+        "Energy Drain Passive": 5e-9,
         "Energy Harvest Passive": 0
       },
       {
@@ -1511,7 +1511,7 @@
         "Is Energy Enabled?": true,
      	"Energy Initial": 3e-4,
         "Energy Max": 3e-4,
-        "Energy Drain Passive": 4e-9,
+        "Energy Drain Passive": 5e-9,
         "Energy Harvest Passive": 0
       },
       {
