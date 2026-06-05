@@ -91,12 +91,12 @@ for a = 1:nActors
     if ~isnan(thr) && thr > 0
         xlims = xlim;
         plot(xlims, [thr thr] * 1e3, '--', 'Color', [0.2 0.7 0.2], 'LineWidth', 1.5);
-        text(xlims(1), thr * 1e3, sprintf(' thr=%.1e', thr), ...
+        text(xlims(1), thr * 1e3, sprintf(' thr=%.1e', thr * 1e3), ...
              'Color', [0.2 0.7 0.2], 'FontSize', 10, 'VerticalAlignment', 'bottom');
     end
 
     xlabel('Time (s)', 'FontSize', 12);
-    ylabel('Energy (pJ)', 'FontSize', 12);
+    ylabel('Energy (fJ)', 'FontSize', 12);
     ylim([0, yMax_mJ]);
 
     if nDepl > 0
@@ -152,12 +152,12 @@ if ~isempty(actorIdx56)
     if ~isnan(thr) && thr > 0
         xlims = xlim;
         plot(xlims, [thr thr] * 1e3, '--', 'Color', [0.2 0.7 0.2], 'LineWidth', 1.5);
-        text(xlims(1), thr * 1e3, sprintf(' thr=%.1e', thr), ...
+        text(xlims(1), thr * 1e3, sprintf(' thr=%.1e', thr * 1e3), ...
              'Color', [0.2 0.7 0.2], 'FontSize', 36, 'VerticalAlignment', 'bottom');
     end
 
     xlabel('Time (s)', 'FontSize', 30);
-    ylabel('Energy (pJ)', 'FontSize', 30);
+    ylabel('Energy (fJ)', 'FontSize', 30);
     ylim([0, yMax_mJ]);
 
     if nDepl > 0
