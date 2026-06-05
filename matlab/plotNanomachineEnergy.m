@@ -52,7 +52,7 @@ shortname = [shortname, ext];
 yMax_mJ = 0;
 for a = 1:nActors
     for k = 1:actors(a).numNMs
-        yMax_mJ = max(yMax_mJ, max(actors(a).nms(k).energy) * 1e3);
+        yMax_mJ = max(yMax_mJ, max(actors(a).nms(k).energy) * 1e3);  %#ok keep variable name
     end
 end
 yMax_mJ = yMax_mJ * 1.08;
@@ -60,7 +60,8 @@ yMax_mJ = yMax_mJ * 1.08;
 % ========================================================================
 %  Figure 1 - individual NM curves per actor (subplots)
 % ========================================================================
-figure('Name', 'NM Energy - detail per actor', 'NumberTitle', 'off');
+figure('Name', 'NM Energy - detail per actor', 'NumberTitle', 'off', ...
+       'Color', 'white');
 
 nCols = ceil(sqrt(nActors));
 nRows = ceil(nActors / nCols);
@@ -68,6 +69,7 @@ nRows = ceil(nActors / nCols);
 for a = 1:nActors
     subplot(nRows, nCols, a);
     hold on; grid on; box on;
+    set(gca, 'FontSize', 12, 'Color', 'white', 'GridColor', [0.8 0.8 0.8]);
 
     t   = actors(a).time;
     nNM = actors(a).numNMs;
@@ -78,9 +80,9 @@ for a = 1:nActors
         e = actors(a).nms(k).energy * 1e3;
         if actors(a).nms(k).depleted
             nDepl = nDepl + 1;
-            plot(t, e, 'r-', 'LineWidth', 0.8);
+            plot(t, e, 'r-', 'LineWidth', 1.8);
         else
-            plot(t, e, '-', 'Color', [cmap(k,:), 0.55], 'LineWidth', 0.8);
+            plot(t, e, '-', 'Color', [cmap(k,:), 0.70], 'LineWidth', 1.8);
         end
     end
 
@@ -88,13 +90,13 @@ for a = 1:nActors
     thr = actors(a).depletionThreshold;
     if ~isnan(thr) && thr > 0
         xlims = xlim;
-        plot(xlims, [thr thr] * 1e3, '--', 'Color', [0.2 0.7 0.2], 'LineWidth', 1.0);
+        plot(xlims, [thr thr] * 1e3, '--', 'Color', [0.2 0.7 0.2], 'LineWidth', 1.5);
         text(xlims(1), thr * 1e3, sprintf(' thr=%.1e', thr), ...
-             'Color', [0.2 0.7 0.2], 'FontSize', 7, 'VerticalAlignment', 'bottom');
+             'Color', [0.2 0.7 0.2], 'FontSize', 10, 'VerticalAlignment', 'bottom');
     end
 
-    xlabel('Time (s)');
-    ylabel('Energy (mJ)');
+    xlabel('Time (s)', 'FontSize', 12);
+    ylabel('Energy (pJ)', 'FontSize', 12);
     ylim([0, yMax_mJ]);
 
     if nDepl > 0
@@ -103,13 +105,67 @@ for a = 1:nActors
     else
         titleStr = sprintf('Actor %d - %d NM', actors(a).id, nNM);
     end
-    title(titleStr);
+    title(titleStr, 'FontSize', 12);
 end
 
 try
-    sgtitle(sprintf('Nanomachine energy - %s', shortname), 'Interpreter', 'none');
+    sgtitle(sprintf('Nanomachine energy - %s', shortname), ...
+            'Interpreter', 'none', 'FontSize', 13, 'FontWeight', 'bold');
 catch
     % sgtitle not available (MATLAB < R2018b)
+end
+
+% ========================================================================
+%  Figure 2 - Actor 56 alone
+% ========================================================================
+actorIdx56 = [];
+for a = 1:nActors
+    if actors(a).id == 56
+        actorIdx56 = a;
+        break;
+    end
+end
+
+if ~isempty(actorIdx56)
+    a = actorIdx56;
+    figure('Name', 'Actor 56 - NM Energy', 'NumberTitle', 'off', ...
+           'Color', 'white');
+    hold on; grid on; box on;
+    set(gca, 'FontSize', 40, 'Color', 'white', 'GridColor', [0.8 0.8 0.8]);
+
+    t    = actors(a).time;
+    nNM  = actors(a).numNMs;
+    cmap = parula(max(nNM, 2));
+
+    nDepl = 0;
+    for k = 1:nNM
+        e = actors(a).nms(k).energy * 1e3;
+        if actors(a).nms(k).depleted
+            nDepl = nDepl + 1;
+            plot(t, e, 'r-', 'LineWidth', 1.8);
+        else
+            plot(t, e, '-', 'Color', [cmap(k,:), 0.70], 'LineWidth', 1.8);
+        end
+    end
+
+    thr = actors(a).depletionThreshold;
+    if ~isnan(thr) && thr > 0
+        xlims = xlim;
+        plot(xlims, [thr thr] * 1e3, '--', 'Color', [0.2 0.7 0.2], 'LineWidth', 1.5);
+        text(xlims(1), thr * 1e3, sprintf(' thr=%.1e', thr), ...
+             'Color', [0.2 0.7 0.2], 'FontSize', 36, 'VerticalAlignment', 'bottom');
+    end
+
+    xlabel('Time (s)', 'FontSize', 30);
+    ylabel('Energy (pJ)', 'FontSize', 30);
+    ylim([0, yMax_mJ]);
+
+    if nDepl > 0
+        title(sprintf('Actor 56 - %d NM - \\color{red}%d depleted', nNM, nDepl), ...
+              'FontSize', 40);
+    else
+        title(sprintf('Actor 56 - %d NM', nNM), 'FontSize', 40);
+    end
 end
 
 
