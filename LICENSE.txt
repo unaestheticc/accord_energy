@@ -4,7 +4,7 @@ molecule ownership tracking, energy-gated reactions, and BmIDSet information
 tracking) are copyright (c) 2026 Mathis Paccoud and are licensed under the
 BSD 3-Clause license (see below). All other AcCoRD source code is copyrighted
 by Adam Noel under the "New BSD" license, as described below.
-
+ 
 License for energy-aware extensions by Mathis Paccoud:
 -------------------------------------------------------
 Copyright (c) 2026 Mathis Paccoud. All Rights Reserved.
